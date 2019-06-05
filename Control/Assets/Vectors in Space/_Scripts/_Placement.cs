@@ -62,7 +62,7 @@ namespace MagicLeap
                 //Debug stuff
                 Debug.Log("Placement Object position: " + _placementObject.transform.position.ToString("N3"));
                 Vector3 placedObj = new Vector3(_placementObject.transform.position.x, _placementObject.transform.position.y, _placementObject.transform.position.z);
-                VectorStuff(placedObj);
+                VectorComponentVisualizer(placedObj);
             }
         }
 
@@ -84,14 +84,40 @@ namespace MagicLeap
             _placement.Confirm();
         }
 
-        private void VectorStuff(Vector3 newPlacement)
+        private void HandlePlacementComplete(Vector3 position, Quaternion rotation)
+        {
+            //Destroy(_placementObject.gameObject);
+            if (_placementPrefab != null)
+            {
+                GameObject content = Instantiate(_placementPrefab);
+                content.transform.position = position; //get the position of the placed prefab
+                content.transform.rotation = rotation; //get the rotation of the placed prefab
+
+
+                content.gameObject.SetActive(true);
+
+                //create vector storing the placed object's position (static)
+                Vector3 content_vec = new Vector3(content.transform.position.x, content.transform.position.y, content.transform.position.z);
+                VectorComponentVisualizer(content_vec);
+
+                placed = true;
+                count++;
+                if (count < 3)
+                    _placement.Continue(); 
+            }
+            Debug.Log("Error: Placement Prefab not set");
+        }
+        #endregion
+
+        #region Private Methods
+        private void VectorComponentVisualizer(Vector3 newPlacement)
         {
             float xpos = newPlacement.x;
             float ypos = newPlacement.y;
             float zpos = newPlacement.z;
 
             //Debug Stuff
-            Debug.Log("x- " + xpos + " y- " + ypos + " z- "+ zpos); 
+            Debug.Log("x- " + xpos + " y- " + ypos + " z- " + zpos);
 
             Destroy(xArrow);
             Destroy(yArrow);
@@ -133,29 +159,6 @@ namespace MagicLeap
             count++;
         }
 
-        private void HandlePlacementComplete(Vector3 position, Quaternion rotation)
-        {
-            //Destroy(_placementObject.gameObject);
-            if (_placementPrefab != null)
-            {
-                GameObject content = Instantiate(_placementPrefab);
-                content.transform.position = position; //get the position of the placed prefab
-                content.transform.rotation = rotation; //get the rotation of the placed prefab
-
-
-                content.gameObject.SetActive(true);
-
-                //create vector storing the placed object's position (static)
-                Vector3 content_vec = new Vector3(content.transform.position.x, content.transform.position.y, content.transform.position.z);
-                VectorStuff(content_vec);
-
-                placed = true;
-            }
-            Debug.Log("Error: Placement Prefab not set");
-        }
-        #endregion
-
-        #region Private Methods
         private PlacementObject CreatePlacementObject()
         {   // Destroy previous preview instance
             if (_placementObject != null)
