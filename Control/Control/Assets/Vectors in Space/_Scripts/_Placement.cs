@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement; 
 using UnityEngine.XR.MagicLeap;
 
 namespace MagicLeap
@@ -19,6 +20,12 @@ namespace MagicLeap
 
         [SerializeField, Tooltip("The Text element that will display the vector's magnitude.")]
         private Text _magLabel = null;
+
+        [SerializeField, Tooltip("The Text element that will dynamically display instructions to the user.")]
+        private Text _instructionLabel = null;
+
+        [SerializeField, Tooltip("The Text element that will display component angles.")]
+        private Text _angleLabel = null;
 
         private bool placed = false; //move this eventually
 
@@ -47,6 +54,7 @@ namespace MagicLeap
             _placement = GetComponent<Placement>();
 
             MLInput.OnTriggerDown += HandleOnTriggerDown;
+            MLInput.OnControllerButtonDown += HandleOnButtonDown;
 
             StartPlacement();
         }
@@ -68,6 +76,7 @@ namespace MagicLeap
         void OnDestroy()
         {
             MLInput.OnTriggerDown -= HandleOnTriggerDown;
+            MLInput.OnControllerButtonDown -= HandleOnButtonDown;
         }
         #endregion
 
@@ -83,6 +92,15 @@ namespace MagicLeap
             _placement.Confirm();
         }
 
+        private void HandleOnButtonDown(byte controllerId, MLInputControllerButton button)
+        {
+            if (_controllerConnectionHandler.IsControllerValid() && _controllerConnectionHandler.ConnectedController.Id 
+                == controllerId && button == MLInputControllerButton.HomeTap)
+            {
+                SceneManager.LoadScene(0, LoadSceneMode.Single);
+            }
+        }
+
         private void VectorStuff(Vector3 newPlacement)
         {
             float xpos = newPlacement.x;
@@ -95,6 +113,8 @@ namespace MagicLeap
             Destroy(xArrow);
             Destroy(yArrow);
             Destroy(zArrow);
+
+            float mag = newPlacement.magnitude; 
 
             //Debug.Log("Vector position: " + newPlacement.ToString());
             _distanceLabel.text = "Distance from origin: " + newPlacement.ToString("N3");
@@ -123,8 +143,13 @@ namespace MagicLeap
             yArrow.transform.localScale = new Vector3(0.01F, y_abs, 0.01F);
             zArrow.transform.localScale = new Vector3(0.01F, 0.01F, z_abs);
 
-            Debug.Log("Object placed");
-            //count++;
+            //Angle is position div by mag
+            float xAngle = Mathf.Rad2Deg * Mathf.Acos(xpos / mag);
+            float yAngle = Mathf.Rad2Deg * Mathf.Acos(ypos / mag);
+            float zAngle = Mathf.Rad2Deg * Mathf.Acos(zpos / mag);
+
+            _angleLabel.text = "Angle (x, y, z): " +  xAngle + " , " + yAngle + " , " + zAngle;
+
         }
 
         private void HandlePlacementComplete(Vector3 position, Quaternion rotation)

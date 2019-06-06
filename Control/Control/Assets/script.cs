@@ -13,6 +13,9 @@ public class script : MonoBehaviour
     [SerializeField, Tooltip("The Text element that will display the vector's magnitude.")]
     private Text _magLabel = null;
 
+    [SerializeField, Tooltip("The Transform element of the target")]
+    public Transform target;
+
    /* [SerializeField, Tooltip("The Text element that will display the vector's angle to the origin")]
     private Text _angleLabel = null; big sad this does not work */
 
@@ -22,6 +25,8 @@ public class script : MonoBehaviour
 
     private int count;
 
+    public float angle;
+
 
     // Start is called before the first frame update
     void Start()
@@ -30,8 +35,8 @@ public class script : MonoBehaviour
         //placedObject = new Vector3(content.transform.position.x, content.transform.position.y, content.transform.position.z);
         count = 0;
 
-        GameObject thing = Instantiate(content);
-        Debug.Log("Instance stuff: " + thing.transform.position.x + " " + thing.transform.position.y); 
+       // GameObject thing = Instantiate(content);
+       // Debug.Log("Instance stuff: " + thing.transform.position.x + " " + thing.transform.position.y); 
     }
 
     // Update is called once per frame
@@ -54,14 +59,11 @@ public class script : MonoBehaviour
             Destroy(yArrow);
             Destroy(zArrow);
 
+            float mag = newPlacement.magnitude;
+
             Debug.Log("Vector position: " + placedObject.ToString());
             _distanceLabel.text = "Coordinates: " + newPlacement.ToString("N3");
             _magLabel.text = "Magnitude: " + newPlacement.magnitude.ToString("N3");
-
-            /*Angle stuff that doesnt work 
-             * float angle = Vector3.Angle(newPlacement, origin) * 100;
-            Debug.Log("Angle: " + angle);
-            _angleLabel.text = "Angle: " + angle; */
 
             //Get the absolute value of the position to start creating the arrows
             float x_abs = Mathf.Abs(xpos);
@@ -86,6 +88,19 @@ public class script : MonoBehaviour
             xArrow.transform.localScale = new Vector3(x_abs, 0.01F, 0.01F);
             yArrow.transform.localScale = new Vector3(0.01F, y_abs, 0.01F);
             zArrow.transform.localScale = new Vector3(0.01F, 0.01F, z_abs);
+
+            angle = Vector3.Angle(content.transform.position, target.position);
+            Debug.Log("Angle: " + angle);
+
+            //Angle is position div by mag
+            float xAngle = Mathf.Rad2Deg * Mathf.Acos(xpos / mag);
+            Debug.Log("x angle:" + xAngle);
+
+            float yAngle = Mathf.Rad2Deg * Mathf.Acos(ypos / mag);
+            Debug.Log("Y angle: " + yAngle);
+
+            float zAngle = Mathf.Rad2Deg * Mathf.Acos(zpos / mag);
+            Debug.Log("Z angle: " + zAngle);
 
             Debug.Log("Goodbye, objects");
             count++; 
