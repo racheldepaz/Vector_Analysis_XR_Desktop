@@ -13,7 +13,7 @@ public class DrawLine : MonoBehaviour
     {
         lr = GetComponent<LineRenderer>();
         lr.SetPosition(0, origin.position);
-        lr.SetWidth(.00f, .016f);
+        lr.SetWidth(.016f, 0);
     }
 
     void Update()
