@@ -120,9 +120,9 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &3270347 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2244636498625316855, guid: 2f6f53b823af7dc43a98588fc2a8de27,
+--- !u!4 &3270352 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2244636498625316854, guid: 2f6f53b823af7dc43a98588fc2a8de27,
     type: 3}
   m_PrefabInstance: {fileID: 94291924}
   m_PrefabAsset: {fileID: 0}
@@ -145,6 +145,11 @@ PrefabInstance:
       value: Origin 1
       objectReference: {fileID: 0}
     - target: {fileID: 2244636499579855897, guid: 2f6f53b823af7dc43a98588fc2a8de27,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2244636498625316855, guid: 2f6f53b823af7dc43a98588fc2a8de27,
         type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -219,17 +224,18 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.1
       objectReference: {fileID: 0}
-    - target: {fileID: 2244636498625316855, guid: 2f6f53b823af7dc43a98588fc2a8de27,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -3022732283252396112, guid: 2f6f53b823af7dc43a98588fc2a8de27, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 2f6f53b823af7dc43a98588fc2a8de27, type: 3}
 --- !u!1 &492914266 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2244636498625316855, guid: 1a0bb70728d4eaa4c854f126d02336bd,
+    type: 3}
+  m_PrefabInstance: {fileID: 1027907047}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &492914271 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2244636498625316854, guid: 1a0bb70728d4eaa4c854f126d02336bd,
     type: 3}
   m_PrefabInstance: {fileID: 1027907047}
   m_PrefabAsset: {fileID: 0}
@@ -597,7 +603,12 @@ PrefabInstance:
     - target: {fileID: 2244636498625316854, guid: 1a0bb70728d4eaa4c854f126d02336bd,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.0408
+      value: -0.078
+      objectReference: {fileID: 0}
+    - target: {fileID: 2244636498625316854, guid: 1a0bb70728d4eaa4c854f126d02336bd,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.523
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -3022732283252396112, guid: 1a0bb70728d4eaa4c854f126d02336bd, type: 3}
@@ -926,7 +937,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
+        value: 0.015789032
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -971,7 +982,7 @@ LineRenderer:
     textureMode: 0
     shadowBias: 0.5
     generateLightingData: 0
-  m_UseWorldSpace: 1
+  m_UseWorldSpace: 0
   m_Loop: 0
 --- !u!4 &1606558830
 Transform:
@@ -999,8 +1010,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 316845e4fc98d0f41a4d0b6731e14279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  origin: {fileID: 3270347}
-  to: {fileID: 492914266}
+  origin: {fileID: 3270352}
+  to: {fileID: 492914271}
 --- !u!1 &1655963261
 GameObject:
   m_ObjectHideFlags: 0
