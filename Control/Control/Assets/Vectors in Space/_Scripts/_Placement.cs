@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.XR.MagicLeap;
 
@@ -19,6 +20,9 @@ namespace MagicLeap
 
         [SerializeField, Tooltip("The Text element that will display the vector's magnitude.")]
         private Text _magLabel = null;
+
+        [SerializeField, Tooltip("The Text element that will display component angles.")]
+        private Text _angleLabel = null;
 
         private bool placed = false; //move this eventually
 
@@ -54,6 +58,7 @@ namespace MagicLeap
             lr.SetPosition(1, placedObject);
 
             MLInput.OnTriggerDown += HandleOnTriggerDown;
+            MLInput.OnControllerButtonDown += HandleOnButtonDown;
 
             StartPlacement();
         }
@@ -76,6 +81,7 @@ namespace MagicLeap
         void OnDestroy()
         {
             MLInput.OnTriggerDown -= HandleOnTriggerDown;
+            MLInput.OnControllerButtonDown -= HandleOnButtonDown;
         }
         #endregion
 
@@ -115,6 +121,15 @@ namespace MagicLeap
         #endregion
 
         #region Private Methods
+        private void HandleOnButtonDown(byte controllerId, MLInputControllerButton button)
+        {
+            if (_controllerConnectionHandler.IsControllerValid() && _controllerConnectionHandler.ConnectedController.Id
+                == controllerId && button == MLInputControllerButton.HomeTap)
+            {
+                SceneManager.LoadScene(0, LoadSceneMode.Single);
+            }
+        }
+
         private void VectorComponentVisualizer(Vector3 newPlacement)
         {
             float xpos = newPlacement.x;
@@ -127,6 +142,8 @@ namespace MagicLeap
             Destroy(xArrow);
             Destroy(yArrow);
             Destroy(zArrow);
+
+            float mag = newPlacement.magnitude;
 
             //Debug.Log("Vector position: " + newPlacement.ToString());
             _distanceLabel.text = "Distance from origin: " + newPlacement.ToString("N3");
@@ -159,6 +176,13 @@ namespace MagicLeap
             xArrow.transform.localScale = new Vector3(x_abs, 0.01F, 0.01F);
             yArrow.transform.localScale = new Vector3(0.01F, y_abs, 0.01F);
             zArrow.transform.localScale = new Vector3(0.01F, 0.01F, z_abs);
+
+            //angle stuff
+            float xAngle = Mathf.Rad2Deg * Mathf.Acos(xpos / mag);
+            float yAngle = Mathf.Rad2Deg * Mathf.Acos(ypos / mag);
+            float zAngle = Mathf.Rad2Deg * Mathf.Acos(zpos / mag);
+
+            _angleLabel.text = "Angle (x, y, z): " + xAngle + " , " + yAngle + " , " + zAngle;
 
 
             lr.SetPosition(1, newPlacement);
