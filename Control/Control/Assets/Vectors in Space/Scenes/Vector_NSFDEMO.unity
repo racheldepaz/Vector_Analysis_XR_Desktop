@@ -856,6 +856,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cursor_Eyes
       objectReference: {fileID: 0}
+    - target: {fileID: 3000772852541932964, guid: 18786ffcbabf7e543860cc01bac2b986,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1908952211248621721, guid: 18786ffcbabf7e543860cc01bac2b986,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -931,6 +936,21 @@ PrefabInstance:
       propertyPath: fixPtconf
       value: 
       objectReference: {fileID: 1208679087}
+    - target: {fileID: 7912706772186862275, guid: 18786ffcbabf7e543860cc01bac2b986,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7993643044745354715, guid: 18786ffcbabf7e543860cc01bac2b986,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8264732871805927512, guid: 18786ffcbabf7e543860cc01bac2b986,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 18786ffcbabf7e543860cc01bac2b986, type: 3}
 --- !u!4 &1345802137 stripped
