@@ -27,14 +27,13 @@ namespace MagicLeap
         private bool placed = false; //move this eventually
 
         [SerializeField, Tooltip("The placement object used in the scene.")]
-        private GameObject _placementPrefab = null;
+        private GameObject[] _placementPrefab = null;
+        private int index; 
 
-        public LineRenderer lr; 
+        public LineRenderer lr;
 
         private Placement _placement = null;
         private PlacementObject _placementObject = null;
-
-        private int count;
         private Vector3 placedObject = new Vector3(0, 0, 0);
         //private Quaternion origin_q = new Quaternion(0, 0, 0, 0);
         private GameObject xArrow, yArrow, zArrow;
@@ -49,7 +48,7 @@ namespace MagicLeap
                 enabled = false;
                 return;
             }
-            count = 0;
+            index = 0; 
             _placement = GetComponent<Placement>();
             lr = GetComponent<LineRenderer>();
 
@@ -97,26 +96,28 @@ namespace MagicLeap
             _placement.Confirm();
         }
 
+
+        /// <summary>
+        /// Place the origin, snappable point one, free point two in 3d space. 
+        /// </summary>
+        /// <param name= "position">The adjusted position of the controller in world space.</param>
+        /// <param name="rotation">The adjusted rotation value of the controller in world space.</param>
         private void HandlePlacementComplete(Vector3 position, Quaternion rotation)
         {
-            //Destroy(_placementObject.gameObject);
             if (_placementPrefab != null)
             {
-                GameObject content = Instantiate(_placementPrefab);
+                GameObject content = Instantiate(_placementPrefab[index]);
                 content.transform.position = position; //get the position of the placed prefab
                 content.transform.rotation = rotation; //get the rotation of the placed prefab
 
 
                 content.gameObject.SetActive(true);
 
-                //create vector storing the placed object's position (static)
+                //create vector storing the placed object's position
                 Vector3 content_vec = new Vector3(content.transform.position.x, content.transform.position.y, content.transform.position.z);
                 VectorComponentVisualizer(content_vec);
-
-                placed = true;
-                count++;
+                NextPlacementObject();
             }
-            Debug.Log("Error: Placement Prefab not set");
         }
         #endregion
 
@@ -182,14 +183,13 @@ namespace MagicLeap
             float yAngle = Mathf.Rad2Deg * Mathf.Acos(ypos / mag);
             float zAngle = Mathf.Rad2Deg * Mathf.Acos(zpos / mag);
 
-            _angleLabel.text = "Angle (x, y, z): " + xAngle + " , " + yAngle + " , " + zAngle;
+            _angleLabel.text = "Angles: " + xAngle + "(x) " + yAngle + "(y) " + zAngle + "(z)";
 
 
             lr.SetPosition(1, newPlacement);
-            count++;
         }
 
-        private PlacementObject CreatePlacementObject()
+        private PlacementObject CreatePlacementObject(int index)
         {   // Destroy previous preview instance
             if (_placementObject != null)
             {
@@ -197,9 +197,9 @@ namespace MagicLeap
             }
 
             // Create the next preview instance.
-            if (_placementPrefab != null)
+            if (_placementPrefab[index] != null)
             {
-                GameObject previewObject = Instantiate(_placementPrefab);
+                GameObject previewObject = Instantiate(_placementPrefab[index]);
 
                 // Detect all children in the preview and set children to ignore raycast.
                 Collider[] colliders = previewObject.GetComponents<Collider>();
@@ -229,13 +229,20 @@ namespace MagicLeap
 
         private void StartPlacement()
         {
-            _placementObject = CreatePlacementObject();
+            _placementObject = CreatePlacementObject(index);
 
             if (_placementObject != null)
             {
                 _placement.Cancel();
                 _placement.Place(_controllerConnectionHandler.transform, _placementObject.Volume, _placementObject.AllowHorizontal, _placementObject.AllowVertical, HandlePlacementComplete);
             }
+        }
+
+        private void NextPlacementObject()
+        {
+            if (_placementPrefab != null)
+                index++;
+            StartPlacement();
         }
         #endregion
     }

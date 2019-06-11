@@ -16,10 +16,10 @@ public class EyeTracking : MonoBehaviour
     private MeshRenderer _meshRenderer;
 
     [SerializeField, Tooltip("The text object to show the fixation pt vector")]
-    private Text fixPt;
+    private Text fixPt = null;
 
     [SerializeField, Tooltip("The text object to show the fixaton pt vector confidence")]
-    private Text fixPtconf;
+    private Text fixPtconf = null;
     #endregion
 
     #region Unity Methods
