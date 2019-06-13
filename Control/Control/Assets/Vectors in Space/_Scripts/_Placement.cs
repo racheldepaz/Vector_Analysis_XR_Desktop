@@ -28,7 +28,7 @@ namespace MagicLeap
 
         [SerializeField, Tooltip("The placement object used in the scene.")]
         private GameObject[] _placementPrefab = null;
-        private int index; 
+        private int index;
 
         public LineRenderer lr;
 
@@ -48,7 +48,7 @@ namespace MagicLeap
                 enabled = false;
                 return;
             }
-            index = 0; 
+            index = 0;
             _placement = GetComponent<Placement>();
             lr = GetComponent<LineRenderer>();
 
@@ -70,8 +70,6 @@ namespace MagicLeap
                 _placementObject.transform.position = _placement.AdjustedPosition - _placementObject.LocalBounds.center;
                 _placementObject.transform.rotation = _placement.Rotation;
 
-                //Debug stuff
-                Debug.Log("Placement Object position: " + _placementObject.transform.position.ToString("N3"));
                 Vector3 placedObj = new Vector3(_placementObject.transform.position.x, _placementObject.transform.position.y, _placementObject.transform.position.z);
                 VectorComponentVisualizer(placedObj);
             }
@@ -106,11 +104,16 @@ namespace MagicLeap
         {
             if (_placementPrefab != null)
             {
+                Debug.Log("In handle placement comp");
                 GameObject content = Instantiate(_placementPrefab[index]);
                 content.transform.position = position; //get the position of the placed prefab
                 content.transform.rotation = rotation; //get the rotation of the placed prefab
 
-
+                if (index == 1)
+                {
+                    Vector3 temp = new Vector3(position.x, position.y, 0);
+                    content.transform.position = temp;
+                }
                 content.gameObject.SetActive(true);
 
                 //create vector storing the placed object's position
@@ -137,9 +140,7 @@ namespace MagicLeap
             float ypos = newPlacement.y;
             float zpos = newPlacement.z;
 
-            //Debug Stuff
-            Debug.Log("x- " + xpos + " y- " + ypos + " z- " + zpos);
-
+            //Delete previous instance
             Destroy(xArrow);
             Destroy(yArrow);
             Destroy(zArrow);
@@ -199,6 +200,7 @@ namespace MagicLeap
             // Create the next preview instance.
             if (_placementPrefab[index] != null)
             {
+                //Debug.Log("Index is at: " + index);
                 GameObject previewObject = Instantiate(_placementPrefab[index]);
 
                 // Detect all children in the preview and set children to ignore raycast.
@@ -219,7 +221,7 @@ namespace MagicLeap
                     enabled = false;
                 }
 
-                placed = false;
+                Debug.Log("in placement object");
 
                 return placementObject;
             }
