@@ -24,19 +24,37 @@ namespace MagicLeap
         [SerializeField, Tooltip("The Text element that will display component angles.")]
         private Text _angleLabel = null;
 
+        [SerializeField, Tooltip("The Text element that will display the instructions for the student to complete the tasks.")]
+        private Text _instructionLabel = null; 
+
         private bool placed = false; //move this eventually
 
         [SerializeField, Tooltip("The placement object used in the scene.")]
         private GameObject[] _placementPrefab = null;
         private int index;
 
-        public LineRenderer lr;
+        [SerializeField, Tooltip("The Line Renderer that will draw the resultant vector from origin to point.")]
+        private LineRenderer lr;
 
+        [SerializeField, Tooltip("The Line Renderer for the x vector component")]
+        private LineRenderer xLine;
+
+        [SerializeField, Tooltip("The Line Renderer for the y vector component")]
+        private LineRenderer yLine;
+
+        [SerializeField, Tooltip("The Line Renderer for the z vector component")]
+        private LineRenderer zLine; 
+
+        //References to Placement and PlacementObject scripts
         private Placement _placement = null;
         private PlacementObject _placementObject = null;
-        private Vector3 placedObject = new Vector3(0, 0, 0);
-        //private Quaternion origin_q = new Quaternion(0, 0, 0, 0);
+
+
+        //Stuff I need globally
+        private bool _placementModule = true; 
+        private Vector3 zero = new Vector3(0, 0, 0);
         private GameObject xArrow, yArrow, zArrow;
+        private GameObject content0, content1, content2, x, y, z; //origin, point 1, point 2
         #endregion
 
         #region Unity Methods
@@ -50,14 +68,25 @@ namespace MagicLeap
             }
             index = 0;
             _placement = GetComponent<Placement>();
-            lr = GetComponent<LineRenderer>();
 
-            lr.SetWidth(0, 0.016f);
-            lr.SetPosition(0, placedObject);
-            lr.SetPosition(1, placedObject);
+            x = GetComponent<GameObject>();
+            y = GetComponent<GameObject>();
+            z = GetComponent<GameObject>();
+
+            //line renderer is invisible
+            lr = GetComponent<LineRenderer>();
+            xLine = GetComponent<LineRenderer>();
+            yLine = GetComponent<LineRenderer>();
+            zLine = GetComponent<LineRenderer>();
+
+            zeroLR(lr);
+            zeroLR(xLine);
+            zeroLR(yLine);
+            zeroLR(zLine);
 
             MLInput.OnTriggerDown += HandleOnTriggerDown;
             MLInput.OnControllerButtonDown += HandleOnButtonDown;
+           // MLInput.OnControllerTouchpadGestureStart += HandleGesture;
 
             StartPlacement();
         }
@@ -70,8 +99,27 @@ namespace MagicLeap
                 _placementObject.transform.position = _placement.AdjustedPosition - _placementObject.LocalBounds.center;
                 _placementObject.transform.rotation = _placement.Rotation;
 
-                Vector3 placedObj = new Vector3(_placementObject.transform.position.x, _placementObject.transform.position.y, _placementObject.transform.position.z);
-                VectorComponentVisualizer(placedObj);
+                switch (index)
+                {
+                    case 0:
+                        _instructionLabel.text = "Welcome! Time to place your origin. Point your controller towards a level surface and use the trigger to place your point.";
+                        //_controllerConnectionHandler.ConnectedController.StartFeedbackPatternVibe(MLInputControllerFeedbackPatternVibe.Bump, MLInputControllerFeedbackIntensity.Medium); everything is gross. time to meme. 
+                       // _controllerConnectionHandler.ConnectedController.StartFeedbackPatternEffectLED(MLInputControllerFeedbackEffectLED.RotateCW, MLInputControllerFeedbackEffectSpeedLED.Slow, MLInputControllerFeedbackPatternLED.None, MLInputControllerFeedbackColorLED.PastelNebulaPink, 4.0f);
+                        break;
+                    case 1:
+                        _instructionLabel.text = "Great! Now, point towards another area and press the trigger again to place your point. Press the home button to reset.";
+                        Vector3 placedObj = new Vector3(_placementObject.transform.position.x, _placementObject.transform.position.y, _placementObject.transform.position.z);
+                        VectorComponentVisualizer(placedObj);
+                        break;
+                    case 2:
+                        _instructionLabel.text = "Point towards another area and press the trigger to place your new point. Press the home button to reset.";
+                        placedObj = new Vector3(_placementObject.transform.position.x, _placementObject.transform.position.y, _placementObject.transform.position.z);
+                        VectorComponentVisualizer(placedObj);
+                        break;
+                    default: 
+                        Debug.Log("Hm. Looks like something's up with the index values.");
+                        break;
+                }
             }
         }
 
@@ -79,52 +127,17 @@ namespace MagicLeap
         {
             MLInput.OnTriggerDown -= HandleOnTriggerDown;
             MLInput.OnControllerButtonDown -= HandleOnButtonDown;
+           // MLInput.OnControllerTouchpadGesture -= HandleGesture;
         }
         #endregion
 
         #region Event Handlers
-        /// <summary>
-        /// Handles the event for trigger down.
-        /// </summary>
-        /// <param name="controller_id">The id of the controller.</param>
-        /// <param name="button">The button that is being pressed.</param>
-
         private void HandleOnTriggerDown(byte controllerId, float pressure)
         {
+            _controllerConnectionHandler.ConnectedController.StartFeedbackPatternEffectLED(MLInputControllerFeedbackEffectLED.PaintCW, MLInputControllerFeedbackEffectSpeedLED.Fast, MLInputControllerFeedbackPatternLED.Clock12, MLInputControllerFeedbackColorLED.BrightShaggleGreen, 0);
             _placement.Confirm();
         }
 
-
-        /// <summary>
-        /// Place the origin, snappable point one, free point two in 3d space. 
-        /// </summary>
-        /// <param name= "position">The adjusted position of the controller in world space.</param>
-        /// <param name="rotation">The adjusted rotation value of the controller in world space.</param>
-        private void HandlePlacementComplete(Vector3 position, Quaternion rotation)
-        {
-            if (_placementPrefab != null)
-            {
-                Debug.Log("In handle placement comp");
-                GameObject content = Instantiate(_placementPrefab[index]);
-                content.transform.position = position; //get the position of the placed prefab
-                content.transform.rotation = rotation; //get the rotation of the placed prefab
-
-                if (index == 1)
-                {
-                    Vector3 temp = new Vector3(position.x, position.y, 0);
-                    content.transform.position = temp;
-                }
-                content.gameObject.SetActive(true);
-
-                //create vector storing the placed object's position
-                Vector3 content_vec = new Vector3(content.transform.position.x, content.transform.position.y, content.transform.position.z);
-                VectorComponentVisualizer(content_vec);
-                NextPlacementObject();
-            }
-        }
-        #endregion
-
-        #region Private Methods
         private void HandleOnButtonDown(byte controllerId, MLInputControllerButton button)
         {
             if (_controllerConnectionHandler.IsControllerValid() && _controllerConnectionHandler.ConnectedController.Id
@@ -134,61 +147,107 @@ namespace MagicLeap
             }
         }
 
+        private void HandleGesture(byte controllerId, MLInputControllerTouchpadGestureType gestureType)
+        {
+            if (_controllerConnectionHandler.IsControllerValid() && _controllerConnectionHandler.ConnectedController.Id == controllerId && gestureType == MLInputControllerTouchpadGestureType.ForceTapDown)
+            {
+                if (_placementModule)
+                    _placementModule = false;
+                else
+                    _placementModule = true; 
+            }
+        }
+
+        private void HandlePlacementComplete(Vector3 position, Quaternion rotation)
+        {
+            if (_placementPrefab != null)
+            {
+                _controllerConnectionHandler.ConnectedController.StartFeedbackPatternVibe(MLInputControllerFeedbackPatternVibe.ForceUp, MLInputControllerFeedbackIntensity.High);
+                _controllerConnectionHandler.ConnectedController.StopFeedbackPatternLED();
+                Debug.Log("In handle placement comp");
+                GameObject content = Instantiate(_placementPrefab[index]);
+                content.transform.position = position; //get the position of the placed prefab
+                content.transform.rotation = rotation; //get the rotation of the placed prefab
+
+                if (index == 0)
+                {
+                    content0 = content;
+                    Debug.Log("content0: " + content0.transform.position.ToString());
+                }
+                else if (index == 1)
+                {
+                    content1 = content;
+                    Vector3 temp = new Vector3(position.x, position.y, 0);
+                    content.transform.position = temp;
+                    VectorComponentVisualizer(content.transform.position);
+                }
+                else if (index == 2)
+                {
+                    content2 = content;
+                    Vector3 content_vec = new Vector3(content.transform.position.x, content.transform.position.y, content.transform.position.z);
+                    VectorComponentVisualizer(content_vec);
+                }
+                content.gameObject.SetActive(true);
+                NextPlacementObject();
+            }
+        }
+        #endregion
+
+        #region Private Methods
+        /// <summary>
+        /// From the position (x,y or z) of the vector, create the game object for the component, calculate the angle
+        /// </summary>
+        /// <param name="position">The x,y, or z position of the vector. </param>
+        /// <param name="magnitude">The magnitude of the vector</param>
+        /// <param name="obj">0 denotes x, 1 denotes y, 2 denotes z</param>
+        private void VectorMaths(float position, float magnitude, int obj, Vector3 oVec)
+        {
+            switch (obj)
+            {
+                case 0:
+                    Vector3 xdir = new Vector3(position, oVec.y, oVec.z);
+                    xLine.SetPosition(0, oVec);
+                    xLine.SetPosition(1, xdir);
+                    float xAngle = Mathf.Rad2Deg * Mathf.Acos(position / magnitude);
+                    break;
+                case 1:
+                    Vector3 ydir = new Vector3(oVec.x, position, oVec.z);
+                    yLine.SetPosition(0, oVec);
+                    yLine.SetPosition(1, ydir);
+                    float yAngle = Mathf.Rad2Deg * Mathf.Acos(position / magnitude);
+                    break;
+                case 2:
+                    Vector3 zdir = new Vector3(oVec.x, oVec.y, position);
+                    zLine.SetPosition(0, oVec);
+                    zLine.SetPosition(1, zdir);
+                    float zAngle = Mathf.Rad2Deg * Mathf.Acos(position / magnitude);
+                    break;
+                default:
+                    Debug.Log("Something ins't right");
+                    break;
+            }
+         
+        }
+
         private void VectorComponentVisualizer(Vector3 newPlacement)
         {
-            float xpos = newPlacement.x;
-            float ypos = newPlacement.y;
-            float zpos = newPlacement.z;
+            float deltaPos= Vector3.Distance(content0.transform.position, newPlacement);
+            Vector3 _originVector = new Vector3(content0.transform.position.x, content0.transform.position.y, content0.transform.position.z);
 
-            //Delete previous instance
-            Destroy(xArrow);
-            Destroy(yArrow);
-            Destroy(zArrow);
+            VectorMaths(newPlacement.x, newPlacement.magnitude, 0, _originVector);
+            VectorMaths(newPlacement.y, newPlacement.magnitude, 1, _originVector);
+            VectorMaths(newPlacement.z, newPlacement.magnitude, 2,_originVector);
 
-            float mag = newPlacement.magnitude;
-
-            //Debug.Log("Vector position: " + newPlacement.ToString());
-            _distanceLabel.text = "Distance from origin: " + newPlacement.ToString("N3");
-            _magLabel.text = "Magnitude: " + newPlacement.magnitude.ToString("N3");
-
-            //Get the absolute value of the position to start creating the arrows
-            float x_abs = Mathf.Abs(xpos);
-            float y_abs = Mathf.Abs(ypos);
-            float z_abs = Mathf.Abs(zpos);
-
-            //create the three lines
-            xArrow = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            xArrow.GetComponent<Renderer>().material.color = new Color(1F, 0, 0, 1F); //x is red
-
-            yArrow = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            yArrow.GetComponent<Renderer>().material.color = new Color(0, 1F, 0.1F, 1F);
-
-            zArrow = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            zArrow.GetComponent<Renderer>().material.color = new Color(0, 0.1F, 1F, 1F);
-
-            Vector3 newXPos = new Vector3(xpos / 2.0F, 0, 0);
-            Vector3 newYPos = new Vector3(0, ypos / 2.0F, 0);
-            Vector3 newZPos = new Vector3(0, 0, zpos / 2.0F);
-
-            xArrow.transform.position = newXPos;
-            yArrow.transform.position = newYPos;
-            zArrow.transform.position = newZPos;
-
-            //scale down the primitives
-            xArrow.transform.localScale = new Vector3(x_abs, 0.01F, 0.01F);
-            yArrow.transform.localScale = new Vector3(0.01F, y_abs, 0.01F);
-            zArrow.transform.localScale = new Vector3(0.01F, 0.01F, z_abs);
-
-            //angle stuff
-            float xAngle = Mathf.Rad2Deg * Mathf.Acos(xpos / mag);
-            float yAngle = Mathf.Rad2Deg * Mathf.Acos(ypos / mag);
-            float zAngle = Mathf.Rad2Deg * Mathf.Acos(zpos / mag);
-
-            _angleLabel.text = "Angles: " + xAngle + "(x) " + yAngle + "(y) " + zAngle + "(z)";
-
-
+            lr.SetPosition(0, content0.transform.position);
             lr.SetPosition(1, newPlacement);
         }
+
+        private void zeroLR(LineRenderer linerenderer)
+        {
+            linerenderer.SetWidth(0, 0.016f);
+            linerenderer.SetPosition(0, zero);
+            linerenderer.SetPosition(1, zero); 
+          }
 
         private PlacementObject CreatePlacementObject(int index)
         {   // Destroy previous preview instance
@@ -233,7 +292,7 @@ namespace MagicLeap
         {
             _placementObject = CreatePlacementObject(index);
 
-            if (_placementObject != null)
+            if (_placementObject != null && _placementModule == true)
             {
                 _placement.Cancel();
                 _placement.Place(_controllerConnectionHandler.transform, _placementObject.Volume, _placementObject.AllowHorizontal, _placementObject.AllowVertical, HandlePlacementComplete);

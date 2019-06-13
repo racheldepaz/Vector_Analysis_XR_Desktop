@@ -47,7 +47,10 @@ Unity will automatically fill in areas marked as Placeholder from the Player Set
     <uses-privilege ml:name="WorldReconstruction" />
     <!--Examples using ControllerPose: Contacts, Controller, Persistence, ImageTracking, ImageCapture, InputModule, VideoCapture, AudioCapture, LightTracking, MediaPlayer, Meshing, Planes, Raycast, Placement, Vignette, WorldScale_Centimeters, WorldScale_Meters-->
     <uses-privilege ml:name="ControllerPose" />
+    <uses-privilege ml:name="CopresenceAccess"/>
+    <uses-privilege ml:name="PwCastingMap"/>
     <component ml:binary_name="bin/Player.elf" ml:name=".fullscreen" ml:type="Fullscreen" ml:visible_name="Placeholder">
+      <mode ml:shareable="true" />
       <icon ml:model_folder="Icon/Model" ml:portal_folder="Icon/Portal" />
     </component>
   </application>
