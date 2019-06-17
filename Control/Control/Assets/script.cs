@@ -34,57 +34,23 @@ public class script : MonoBehaviour
 
     public float angle;
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
+    /*This is where I test stuff so it is SUPER messy sorry future me/person who has taken over my project. 
+     * this scene isnt really meant to be published <3 */
 
     // Update is called once per frame
     void Update()
     {
-       // Vector3 newPlacement = new Vector3(content.transform.position.x, content.transform.position.y, content.transform.position.z);
-
-        //Declare new vector from relative origin, originObj in the local space
-
-        /*Vector3 newPlacementx = new Vector3(newPlacement.x, originObj.position.y, originObj.position.z);
-        Vector3 newPlacementy = new Vector3(originObj.position.x, newPlacement.y, originObj.position.z);
-        Vector3 newPlacementz = new Vector3(originObj.position.x, originObj.position.y, newPlacement.z);
-
-
-        Vector3 relativePos = getRelativePosition(originObj, newPlacement);*/
         xLR.SetPosition(0, ori.transform.position);
 
         xLR.SetPosition(1, new Vector3(pt.transform.position.x, ori.position.y, ori.position.z));
-
-
-
-
 
         yLR.SetPosition(0, ori.position);
 
         yLR.SetPosition(1, new Vector3(ori.position.x, pt.transform.position.y, ori.position.z));
 
-
-
-
-
         zLR.SetPosition(0, ori.position);
 
         zLR.SetPosition(1, new Vector3(ori.position.x, ori.position.y, pt.transform.position.z));
-
-
-      /* Debug.Log("Origin position: " + originObj.transform.position.ToString());
-        Debug.Log("Vector NOT ADJUSTED: " + content.transform.position.ToString());
-
-        _distanceLabel.text = "Coordinates: " + getRelativePosition(originObj, newPlacement).ToString("N3");
-        _magLabel.text = "Magnitude: " + relativePos.magnitude.ToString("N3");
-
-       
-        //Get the relative positions
-        float relativeXPos = relativePos.x;
-        float relativeYPos = relativePos.y;
-        float relativeZPos = relativePos.z;   */
     }
 
     #region Private Methods
