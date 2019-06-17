@@ -5,19 +5,29 @@ using UnityEngine;
 public class DrawLine : MonoBehaviour
 {
 
-    public Transform origin;
-    public Transform to;
-    private LineRenderer lr; 
+    #region Public Variables
+    //public Transform from;
+   // public Vector3 to;
+    #endregion
 
+    #region Private Variables
+    private LineRenderer lr;
+    #endregion
+
+    #region Unity Methods
     void Start()
     {
         lr = GetComponent<LineRenderer>();
-        lr.SetPosition(0, origin.position);
-        lr.SetWidth(.016f, 0);
+        lr.SetWidth(0, .016f);
     }
+    #endregion
 
-    void Update()
+    #region Public Methods
+    public void drawConnection(Transform origin, Vector3 dest)
     {
-        lr.SetPosition(1, to.position);
+        lr.SetPosition(0, origin.position);
+        lr.SetPosition(1, dest); 
     }
+    #endregion
+
 }
