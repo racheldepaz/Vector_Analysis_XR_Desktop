@@ -466,7 +466,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_MeshPrefab
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 419836279}
     - target: {fileID: 23288401035578246, guid: b6af97b52b3429641aa904690975fa80,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -477,6 +477,12 @@ PrefabInstance:
 --- !u!4 &419836278 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4486541323493368, guid: b6af97b52b3429641aa904690975fa80,
+    type: 3}
+  m_PrefabInstance: {fileID: 419836277}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &419836279 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1434253475793312, guid: b6af97b52b3429641aa904690975fa80,
     type: 3}
   m_PrefabInstance: {fileID: 419836277}
   m_PrefabAsset: {fileID: 0}

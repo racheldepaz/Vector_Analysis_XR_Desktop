@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.XR.MagicLeap;
@@ -30,15 +29,12 @@ namespace MagicLeap
         [SerializeField, Tooltip("The Text element that will display the instructions for the student to complete the tasks.")]
         private Text _instructionLabel = null; 
 
-        private bool placed = false; //move this eventually
-
         [SerializeField, Tooltip("The placement object used in the scene.")]
         private GameObject[] _placementPrefab = null;
         private int index;
 
         [SerializeField, Tooltip("The Line Renderer that will draw the resultant vector from origin to point.")]
         private LineRenderer lr;
-
 
         [SerializeField, Tooltip("The Line Renderer that will draw the resultant vector from origin to x component.")]
         private LineRenderer xLR;
@@ -86,6 +82,7 @@ namespace MagicLeap
             zeroLR(lr, xLR, yLR, zLR, xUnitLR, yUnitLR, zUnitLR); 
 
             MLInput.OnTriggerDown += HandleOnTriggerDown;
+            MLInput.OnTriggerUp += HandleOnTriggerUp;
             MLInput.OnControllerButtonDown += HandleOnButtonDown; 
 
             StartPlacement();
@@ -99,20 +96,28 @@ namespace MagicLeap
                 _placementObject.transform.position = _placement.AdjustedPosition - _placementObject.LocalBounds.center;
                 _placementObject.transform.rotation = _placement.Rotation;
 
+                if (_controllerConnectionHandler.ConnectedController.Touch1Active && _controllerConnectionHandler.ConnectedController.TouchpadGesture.Type == MLInputControllerTouchpadGestureType.ForceTapDown)
+                    if (placementModule)
+                        placementModule = false;
+                    else
+                        placementModule = true;
+
                 switch (index)
                 {
                     case 0:
                         _instructionLabel.text = "Welcome! Time to place your origin. Point your controller towards a level surface and use the trigger to place your point.";
+                        placementModule = true;
                         break;
                     case 1:
-                        _instructionLabel.text = "Great! Now, point towards another area and press the trigger again to place your point. Press the home button to reset.";
-                        Vector3 placedObj = new Vector3(_placementObject.transform.position.x, _placementObject.transform.position.y, _placementObject.transform.position.z);
-                        VectorComponentVisualizer(placedObj);
+                        _instructionLabel.text = "Great! Press down on the touchpad if you're ready to place your point. Now, point towards another area and press the trigger again. Press the home button to reset.";
+                        _color = MLInputControllerFeedbackColorLED.BrightCosmicPurple;
+                        Debug.Log("You have met the update case 1 condition");
+                        Vector3 placedObj1 = new Vector3(_placementObject.transform.position.x, _placementObject.transform.position.y, _placementObject.transform.position.z);
+                        VectorComponentVisualizer(placedObj1);
                         break;
                     case 2:
-                        placementModule = false;
                         _instructionLabel.text = "Point towards another area and press the trigger to place your new point. Press the home button to reset.";
-                        placedObj = new Vector3(_placementObject.transform.position.x, _placementObject.transform.position.y, _placementObject.transform.position.z);
+                        Vector3 placedObj = new Vector3(_placementObject.transform.position.x, _placementObject.transform.position.y, _placementObject.transform.position.z);
                         VectorComponentVisualizer(placedObj);
                         break;
                     default: 
@@ -126,6 +131,7 @@ namespace MagicLeap
         {
             MLInput.OnTriggerDown -= HandleOnTriggerDown;
             MLInput.OnControllerButtonDown -= HandleOnButtonDown;
+            MLInput.OnTriggerUp -= HandleOnTriggerUp; 
            // MLInput.OnControllerTouchpadGesture -= HandleGesture;
         }
         #endregion
@@ -133,7 +139,7 @@ namespace MagicLeap
         #region Event Handlers
         private void HandleOnTriggerDown(byte controllerId, float pressure)
         {
-            _controllerConnectionHandler.ConnectedController.StartFeedbackPatternEffectLED(MLInputControllerFeedbackEffectLED.PaintCW, MLInputControllerFeedbackEffectSpeedLED.Fast, MLInputControllerFeedbackPatternLED.Clock12, MLInputControllerFeedbackColorLED.BrightShaggleGreen, 0);
+            _controllerConnectionHandler.ConnectedController.StartFeedbackPatternEffectLED(MLInputControllerFeedbackEffectLED.Pulse, MLInputControllerFeedbackEffectSpeedLED.Fast, MLInputControllerFeedbackPatternLED.Clock12, MLInputControllerFeedbackColorLED.BrightShaggleGreen, 0);
             _placement.Confirm();
         }
 
@@ -146,16 +152,8 @@ namespace MagicLeap
             }
         }
 
-        private void HandleGesture(byte controllerId, MLInputControllerTouchpadGestureType gestureType)
-        {
-            if (_controllerConnectionHandler.IsControllerValid() && _controllerConnectionHandler.ConnectedController.Id == controllerId && gestureType == MLInputControllerTouchpadGestureType.ForceTapDown)
-            {
-                if (placementModule)
-                    placementModule = false;
-                else
-                    placementModule = true; 
-            }
-        }
+        private void HandleOnTriggerUp(byte controllerId, float pressure)
+        { _controllerConnectionHandler.ConnectedController.StopFeedbackPatternLED();  }
 
         private void HandlePlacementComplete(Vector3 position, Quaternion rotation)
         {
@@ -175,15 +173,9 @@ namespace MagicLeap
                 }
                 else if (index == 1)
                 {
-                    if (_controllerConnectionHandler.ConnectedController.Touch1Active && _controllerConnectionHandler.ConnectedController.TouchpadGesture.Type == MLInputControllerTouchpadGestureType.ForceTapDown)
-                    {
-
-                        _color = MLInputControllerFeedbackColorLED.BrightCosmicPurple;
-
-                    }
-
                     content1 = content;
-                    Vector3 temp = new Vector3(position.x, position.y, content0.transform.position.z);
+                    //content0.transform.position.z in the z for snap
+                    Vector3 temp = new Vector3(position.x, position.y, position.z);
                     content.transform.position = temp;
                     VectorComponentVisualizer(temp);
                 }
@@ -192,7 +184,7 @@ namespace MagicLeap
                     placementModule = false;
 
                     content2 = content;
-                    Vector3 content_vec = new Vector3(content.transform.position.x, content.transform.position.y, content.transform.position.z);
+                    Vector3 content_vec = new Vector3(position.x, position.y, position.z);
                     VectorComponentVisualizer(content_vec);
                 }
                 content.gameObject.SetActive(true);
@@ -257,15 +249,20 @@ namespace MagicLeap
                 case 0:
                     xLR.SetPosition(0, oVec);
                     xLR.SetPosition(1, new Vector3(position, oVec.y, oVec.z));
-                    
+                    xUnitLR.SetPosition(0, oVec);
+                    xUnitLR.SetPosition(1, new Vector3(position / magnitude, oVec.y, oVec.z));
                     break;
                 case 1:
                     yLR.SetPosition(0, oVec);
                     yLR.SetPosition(1, new Vector3(oVec.x, position, oVec.z));
+                    yUnitLR.SetPosition(0, oVec);
+                    yUnitLR.SetPosition(1, new Vector3(oVec.x, position/magnitude, oVec.z));
                     break;
                 case 2:
                     zLR.SetPosition(0, oVec);
                     zLR.SetPosition(1, new Vector3(oVec.x, oVec.y, position));
+                    zUnitLR.SetPosition(0, oVec);
+                    zUnitLR.SetPosition(1, new Vector3(oVec.x, oVec.y, position / magnitude)); 
                     break;
                 default:
                     Debug.Log("Something isn't right"); //i wanna aaaaaah
