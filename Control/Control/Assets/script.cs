@@ -40,17 +40,19 @@ public class script : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        
         xLR.SetPosition(0, ori.transform.position);
 
-        xLR.SetPosition(1, new Vector3(pt.transform.position.x, ori.position.y, ori.position.z));
+        xLR.SetPosition(1, new Vector3(pt.transform.position.x/pt.transform.position.magnitude, ori.position.y, ori.position.z));
 
         yLR.SetPosition(0, ori.position);
 
-        yLR.SetPosition(1, new Vector3(ori.position.x, pt.transform.position.y, ori.position.z));
+        yLR.SetPosition(1, new Vector3(pt.transform.position.x / getRelativePosition(ori, pt.transform.position).magnitude, ori.position.y, ori.position.z));
 
         zLR.SetPosition(0, ori.position);
 
-        zLR.SetPosition(1, new Vector3(ori.position.x, ori.position.y, pt.transform.position.z));
+        zLR.SetPosition(1, new Vector3(pt.transform.position.x, ori.position.y, ori.position.z));
     }
 
     #region Private Methods
