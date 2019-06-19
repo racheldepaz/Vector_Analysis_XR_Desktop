@@ -9,6 +9,7 @@ namespace MagicLeap
     /// This class allows the user to place their desired object at a valid location.
     /// </summary>
     [RequireComponent(typeof(Placement))]
+    [RequireComponent(typeof(VectorMath))]
     public class _Placement : MonoBehaviour
     {
         #region Private Variables
@@ -34,34 +35,14 @@ namespace MagicLeap
         private int index;
         private int bumpcount; 
 
-        [SerializeField, Tooltip("The Line Renderer that will draw the resultant vector from origin to point.")]
-        private LineRenderer lr;
-
-        [SerializeField, Tooltip("The Line Renderer that will draw the resultant vector from origin to x component.")]
-        private LineRenderer xLR;
-
-        [SerializeField, Tooltip("The Line Renderer that will draw the resultant vector from origin to y component.")]
-        private LineRenderer yLR;
-
-        [SerializeField, Tooltip("The Line Renderer that will draw the resultant vector from origin to z component.")]
-        private LineRenderer zLR;
-
-        [SerializeField, Tooltip("The Line Renderer that will draw the unit vector from origin to x component.")]
-        private LineRenderer xUnitLR;
-
-        [SerializeField, Tooltip("The Line Renderer that will draw the unit vector from origin to y component.")]
-        private LineRenderer yUnitLR;
-
-        [SerializeField, Tooltip("The Line Renderer that will draw the unit vector from origin to z component.")]
-        private LineRenderer zUnitLR;
-
         //References to Placement and PlacementObject scripts
         private Placement _placement = null;
         private PlacementObject _placementObject = null;
+        private VectorMath _vectorMath = null; 
 
 
         //Stuff I need globally
-        private bool placementModule = true; 
+        private bool placementModule = true, unitactive = false; 
         private Vector3 zero = new Vector3(0, 0, 0);
         private GameObject content0, content1, content2; //origin, point 1, point 2
         #endregion
@@ -80,8 +61,9 @@ namespace MagicLeap
             index = 0;
 
             _placement = GetComponent<Placement>();
+            _vectorMath = GetComponent<VectorMath>();
 
-            zeroLR(lr, xLR, yLR, zLR, xUnitLR, yUnitLR, zUnitLR); 
+            //zeroLR(lr, xLR, yLR, zLR, xUnitLR, yUnitLR, zUnitLR); 
 
             MLInput.OnTriggerDown += HandleOnTriggerDown;
             MLInput.OnTriggerUp += HandleOnTriggerUp;
@@ -97,12 +79,6 @@ namespace MagicLeap
             {
                 _placementObject.transform.position = _placement.AdjustedPosition - _placementObject.LocalBounds.center;
                 _placementObject.transform.rotation = _placement.Rotation;
-
-                if (_controllerConnectionHandler.ConnectedController.Touch1Active && _controllerConnectionHandler.ConnectedController.TouchpadGesture.Type == MLInputControllerTouchpadGestureType.ForceTapDown)
-                    if (placementModule)
-                        placementModule = false;
-                    else
-                        placementModule = true;
 
                 switch (index)
                 {
@@ -134,7 +110,6 @@ namespace MagicLeap
             MLInput.OnTriggerDown -= HandleOnTriggerDown;
             MLInput.OnControllerButtonDown -= HandleOnButtonDown;
             MLInput.OnTriggerUp -= HandleOnTriggerUp; 
-           // MLInput.OnControllerTouchpadGesture -= HandleGesture;
         }
         #endregion
 
@@ -158,21 +133,11 @@ namespace MagicLeap
                 bumpcount++;
                 if (bumpcount % 2 == 1)
                 {
-                    xLR.gameObject.SetActive(true);
-                    yLR.gameObject.SetActive(true);
-                    zLR.gameObject.SetActive(true);
-                    xUnitLR.gameObject.SetActive(false);
-                    yUnitLR.gameObject.SetActive(false);
-                    zUnitLR.gameObject.SetActive(false);
+                    unitactive = true;
                 }
                 else if (bumpcount % 2 == 0)
                 {
-                    xLR.gameObject.SetActive(false);
-                    yLR.gameObject.SetActive(false);
-                    zLR.gameObject.SetActive(false);
-                    xUnitLR.gameObject.SetActive(true);
-                    yUnitLR.gameObject.SetActive(true);
-                    zUnitLR.gameObject.SetActive(true);
+                    unitactive = false;
                 }
             }
         }
@@ -220,117 +185,12 @@ namespace MagicLeap
 
         #region Private Methods
 
-        /// <summary>
-        /// Sets the width to .016 units and sets each line renderer's position to zero
-        /// </summary>
-        /// <param name="linerenderer">The resultant vector</param>
-        /// <param name="lrx">The x component</param>
-        /// <param name="lry">The y component</param>
-        /// <param name="lrz">The z component</param>
-        /// <param name="uvx">The unit vector in the x direction</param>
-        /// <param name="uvy">The unit vector in the y direction</param>
-        /// <param name="uvz">The unit vector in the z direction</param>
-        private void zeroLR(LineRenderer linerenderer, LineRenderer lrx, LineRenderer lry, LineRenderer lrz, LineRenderer uvx, LineRenderer uvy, LineRenderer uvz)
-        {
-            linerenderer.SetWidth(0.016f, 0.016f);
-            linerenderer.SetPosition(0, zero);
-            linerenderer.SetPosition(1, zero);
-
-            lrx.SetWidth(0.016f, 0.016f);
-            lrx.SetPosition(0, zero);
-            lrx.SetPosition(1, zero);
-
-            lry.SetWidth(0.016f, 0.016f);
-            lry.SetPosition(0, zero);
-            lry.SetPosition(1, zero);
-
-            lrz.SetWidth(0.016f, 0.016f);
-            lrz.SetPosition(0, zero);
-            lrz.SetPosition(1, zero);
-
-            uvx.SetWidth(0.016f, 0.016f);
-            uvx.SetPosition(0, zero);
-            uvx.SetPosition(1, zero);
-
-            uvy.SetWidth(0.016f, 0.016f);
-            uvy.SetPosition(0, zero);
-            uvy.SetPosition(1, zero);
-
-            uvz.SetWidth(0.016f, 0.016f);
-            uvz.SetPosition(0, zero);
-            uvz.SetPosition(1, zero);
-        }
-
-        /// <summary>
-        /// From the position (x,y or z) of the vector, create the game object for the component, calculate the angle
-        /// </summary>
-        /// <param name="position">The x,y, or z position of the vector. </param>
-        /// <param name="magnitude">The magnitude of the vector</param>
-        /// <param name="obj">0 denotes x, 1 denotes y, 2 denotes z</param>
-        private void VectorMaths(float position, float magnitude, int obj, Vector3 oVec, Vector3 relPos)
-        {
-            switch (obj)
-            {
-                case 0:
-                    xLR.SetPosition(0, oVec);
-                    xLR.SetPosition(1, new Vector3(position, oVec.y, oVec.z));
-                    xUnitLR.SetPosition(0, oVec);
-                    Debug.Log("pos: " + position + " case: " + obj);
-                    xUnitLR.SetPosition(1, new Vector3(position / magnitude, oVec.y, oVec.z));
-                    break;
-                case 1:
-                    yLR.SetPosition(0, oVec);
-                    yLR.SetPosition(1, new Vector3(oVec.x, position, oVec.z));
-                    yUnitLR.SetPosition(0, oVec);
-                    Debug.Log("pos: " + position + " case: " + obj);
-                    yUnitLR.SetPosition(1, new Vector3(oVec.x, position/magnitude, oVec.z));
-                    break;
-                case 2:
-                    zLR.SetPosition(0, oVec);
-                    zLR.SetPosition(1, new Vector3(oVec.x, oVec.y, position));
-                    zUnitLR.SetPosition(0, oVec);
-                    Debug.Log("pos: " + position + " case: " + obj);
-                    zUnitLR.SetPosition(1, new Vector3(oVec.x, oVec.y, position / magnitude)); 
-                    break;
-                default:
-                    Debug.Log("Something isn't right"); //i wanna aaaaaah
-                    break;
-            }
-         
-        }
-
         private void VectorComponentVisualizer(Vector3 newPlacement)
         {
-            float deltaPos= Vector3.Distance(content0.transform.position, newPlacement);
-            Vector3 _originVector = new Vector3(content0.transform.position.x, content0.transform.position.y, content0.transform.position.z);
-            Vector3 relPos = getRelativePosition(content0.transform, newPlacement);
-            float relMag = relPos.magnitude;
-
-            VectorMaths(newPlacement.x, newPlacement.magnitude, 0, _originVector, relPos);
-            VectorMaths(newPlacement.y, newPlacement.magnitude, 1, _originVector, relPos);
-            VectorMaths(newPlacement.z, newPlacement.magnitude, 2, _originVector, relPos);
-
-            Vector3 xdir = new Vector3(newPlacement.x, _originVector.y, _originVector.z);
-            Vector3 ydir = new Vector3(_originVector.x, newPlacement.y, _originVector.z);
-            Vector3 zdir = new Vector3(_originVector.x, _originVector.y, newPlacement.z);
-
-            _distanceLabel.text = "Distance from origin: " + relPos.ToString("N3");
-            _magLabel.text = "Magnitude: " + relMag.ToString("N3");
-
-            _angleLabel.text = "Angle: " + System.Math.Round(relPos.x/relMag, 3) + "(x) " + System.Math.Round(relPos.y/relMag, 2) + "(y) " + System.Math.Round(relPos.z/relMag, 2) + "(z)";
-
-            lr.SetPosition(0, content0.transform.position);
-            lr.SetPosition(1, newPlacement);
-        }
-
-        public static Vector3 getRelativePosition(Transform origin, Vector3 position)
-        {
-            Vector3 distance = position - origin.position;
-            Vector3 relativePosition = Vector3.zero;
-            relativePosition.x = Vector3.Dot(distance, origin.right.normalized);
-            relativePosition.y = Vector3.Dot(distance, origin.up.normalized);
-            relativePosition.z = Vector3.Dot(distance, origin.forward.normalized);
-            return relativePosition;
+            if (!unitactive)
+                _vectorMath.vectorComponents(newPlacement, content0.transform);
+            else
+                _vectorMath.vectorUnitComponents(newPlacement, content0.transform);
         }
 
         private PlacementObject CreatePlacementObject(int index)
