@@ -32,6 +32,7 @@ namespace MagicLeap
         [SerializeField, Tooltip("The placement object used in the scene.")]
         private GameObject[] _placementPrefab = null;
         private int index;
+        private int bumpcount; 
 
         [SerializeField, Tooltip("The Line Renderer that will draw the resultant vector from origin to point.")]
         private LineRenderer lr;
@@ -75,6 +76,7 @@ namespace MagicLeap
                 return;
             }
 
+            bumpcount = 0; 
             index = 0;
 
             _placement = GetComponent<Placement>();
@@ -149,6 +151,29 @@ namespace MagicLeap
                 == controllerId && button == MLInputControllerButton.HomeTap)
             {
                 SceneManager.LoadScene(0, LoadSceneMode.Single);
+            }
+
+            if(_controllerConnectionHandler.IsControllerValid() && _controllerConnectionHandler.ConnectedController.Id == controllerId && button == MLInputControllerButton.Bumper)
+            {
+                bumpcount++;
+                if (bumpcount % 2 == 1)
+                {
+                    xLR.gameObject.SetActive(true);
+                    yLR.gameObject.SetActive(true);
+                    zLR.gameObject.SetActive(true);
+                    xUnitLR.gameObject.SetActive(false);
+                    yUnitLR.gameObject.SetActive(false);
+                    zUnitLR.gameObject.SetActive(false);
+                }
+                else if (bumpcount % 2 == 0)
+                {
+                    xLR.gameObject.SetActive(false);
+                    yLR.gameObject.SetActive(false);
+                    zLR.gameObject.SetActive(false);
+                    xUnitLR.gameObject.SetActive(true);
+                    yUnitLR.gameObject.SetActive(true);
+                    zUnitLR.gameObject.SetActive(true);
+                }
             }
         }
 
@@ -242,7 +267,7 @@ namespace MagicLeap
         /// <param name="position">The x,y, or z position of the vector. </param>
         /// <param name="magnitude">The magnitude of the vector</param>
         /// <param name="obj">0 denotes x, 1 denotes y, 2 denotes z</param>
-        private void VectorMaths(float position, float magnitude, int obj, Vector3 oVec)
+        private void VectorMaths(float position, float magnitude, int obj, Vector3 oVec, Vector3 relPos)
         {
             switch (obj)
             {
@@ -250,18 +275,21 @@ namespace MagicLeap
                     xLR.SetPosition(0, oVec);
                     xLR.SetPosition(1, new Vector3(position, oVec.y, oVec.z));
                     xUnitLR.SetPosition(0, oVec);
+                    Debug.Log("pos: " + position + " case: " + obj);
                     xUnitLR.SetPosition(1, new Vector3(position / magnitude, oVec.y, oVec.z));
                     break;
                 case 1:
                     yLR.SetPosition(0, oVec);
                     yLR.SetPosition(1, new Vector3(oVec.x, position, oVec.z));
                     yUnitLR.SetPosition(0, oVec);
+                    Debug.Log("pos: " + position + " case: " + obj);
                     yUnitLR.SetPosition(1, new Vector3(oVec.x, position/magnitude, oVec.z));
                     break;
                 case 2:
                     zLR.SetPosition(0, oVec);
                     zLR.SetPosition(1, new Vector3(oVec.x, oVec.y, position));
                     zUnitLR.SetPosition(0, oVec);
+                    Debug.Log("pos: " + position + " case: " + obj);
                     zUnitLR.SetPosition(1, new Vector3(oVec.x, oVec.y, position / magnitude)); 
                     break;
                 default:
@@ -275,21 +303,21 @@ namespace MagicLeap
         {
             float deltaPos= Vector3.Distance(content0.transform.position, newPlacement);
             Vector3 _originVector = new Vector3(content0.transform.position.x, content0.transform.position.y, content0.transform.position.z);
-
-            VectorMaths(newPlacement.x, newPlacement.magnitude, 0, _originVector);
-            VectorMaths(newPlacement.y, newPlacement.magnitude, 1, _originVector);
-            VectorMaths(newPlacement.z, newPlacement.magnitude, 2, _originVector);
-
-            Vector3 xdir = new Vector3(newPlacement.x, _originVector.y, _originVector.z);
-            Vector3 ydir = new Vector3(_originVector.x, newPlacement.y, _originVector.z);
-   
-            Vector3 zdir = new Vector3(_originVector.x, _originVector.y, newPlacement.z);
-
             Vector3 relPos = getRelativePosition(content0.transform, newPlacement);
             float relMag = relPos.magnitude;
 
-            _distanceLabel.text = "Distance from origin: " + relPos.ToString("N1");
-            _magLabel.text = "Magnitude: " + relMag.ToString("N1");
+            VectorMaths(newPlacement.x, newPlacement.magnitude, 0, _originVector, relPos);
+            VectorMaths(newPlacement.y, newPlacement.magnitude, 1, _originVector, relPos);
+            VectorMaths(newPlacement.z, newPlacement.magnitude, 2, _originVector, relPos);
+
+            Vector3 xdir = new Vector3(newPlacement.x, _originVector.y, _originVector.z);
+            Vector3 ydir = new Vector3(_originVector.x, newPlacement.y, _originVector.z);
+            Vector3 zdir = new Vector3(_originVector.x, _originVector.y, newPlacement.z);
+
+            _distanceLabel.text = "Distance from origin: " + relPos.ToString("N3");
+            _magLabel.text = "Magnitude: " + relMag.ToString("N3");
+
+            _angleLabel.text = "Angle: " + System.Math.Round(relPos.x/relMag, 3) + "(x) " + System.Math.Round(relPos.y/relMag, 2) + "(y) " + System.Math.Round(relPos.z/relMag, 2) + "(z)";
 
             lr.SetPosition(0, content0.transform.position);
             lr.SetPosition(1, newPlacement);

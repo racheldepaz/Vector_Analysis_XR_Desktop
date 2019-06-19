@@ -17,16 +17,22 @@ public class script : MonoBehaviour
     private Text _magLabel = null;
 
     [SerializeField, Tooltip("The Transform element of the target")]
-    public Transform target;
+    public Transform target; 
 
-    [SerializeField, Tooltip("Line renderer x")]
-    private LineRenderer xLR;
+    [SerializeField]
+    private LineRenderer LR0;
 
-    [SerializeField, Tooltip("Line renderer x")]
-    private LineRenderer yLR;
+    [SerializeField]
+    private LineRenderer LR1;
 
-    [SerializeField, Tooltip("Line renderer x")]
-    private LineRenderer zLR;
+    [SerializeField]
+    private LineRenderer LR2;
+
+    [SerializeField]
+    private LineRenderer LR3;
+
+    [SerializeField]
+    private LineRenderer LR4;
 
     private DebugScript _help; 
 
@@ -34,25 +40,43 @@ public class script : MonoBehaviour
 
     public float angle;
 
+    private Vector3 normalised;
+
+    Vector3 xComp, xComp1;
+
     /*This is where I test stuff so it is SUPER messy sorry future me/person who has taken over my project. 
      * this scene isnt really meant to be published <3 */
 
     // Update is called once per frame
     void Update()
     {
+        Vector3 ptA = pt.transform.position;
+        Vector3 relptA = getRelativePosition(ori, ptA);
+        Vector3 ptB = ori.position;
 
-        
-        xLR.SetPosition(0, ori.transform.position);
+        //float mag_test = ptA.magnitude; 
+        float mag_test = relptA.magnitude;
 
-        xLR.SetPosition(1, new Vector3(pt.transform.position.x/pt.transform.position.magnitude, ori.position.y, ori.position.z));
+        xComp1 = new Vector3(ptA.x, ptB.y, ptB.z); //regular x comp
 
-        yLR.SetPosition(0, ori.position);
+        Debug.Log("Mag: " + ptA.magnitude);
 
-        yLR.SetPosition(1, new Vector3(pt.transform.position.x / getRelativePosition(ori, pt.transform.position).magnitude, ori.position.y, ori.position.z));
+        float adj = ((ptA.x-ori.position.x) / mag_test) + (ori.position.x); //adjusted value for x omponent of unit vector
+        Debug.Log("pta.x: " + ptA.x);
+        Debug.Log("Adjusted value for ptA.x/mag: " + adj);
 
-        zLR.SetPosition(0, ori.position);
+        xComp = new Vector3(adj, ptB.y, ptB.z); //x comp of unit vector 
+        Debug.Log("x unit vector: " + xComp.ToString());
+        Debug.Log("Regular X-Component Position: " + xComp1.ToString());
 
-        zLR.SetPosition(1, new Vector3(pt.transform.position.x, ori.position.y, ori.position.z));
+        LR0.SetPosition(0, ori.position);
+        LR0.SetPosition(1, xComp1);
+
+        LR1.SetPosition(0, ori.position);
+        LR1.SetPosition(1, xComp);
+
+
+
     }
 
     #region Private Methods
