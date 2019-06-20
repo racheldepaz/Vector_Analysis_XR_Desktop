@@ -77,6 +77,8 @@ public class VectorMath : MonoBehaviour
 
     public void vectorUnitComponents(Vector3 point, Transform origin)
     {
+        relPos = getRelativePosition(origin, point);
+        relMag = relPos.magnitude;
         for(int i = 0; i < 3; i++)
         {
             visualizeUnitVectorComponent(point, i, origin, xUnit, yUnit, zUnit, rUnit);
