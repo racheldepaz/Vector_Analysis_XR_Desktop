@@ -68,7 +68,7 @@ public class VectorMath : MonoBehaviour
     {
         relPos = getRelativePosition(origin, point); //position of the point with the non-zero origin as new reference pt
         relMag = relPos.magnitude; //magnitude of the point with the "
-       
+
         for (int i = 0; i < 3; i++)
         {
             visualizeComponent(point, i, origin, x, y, z, r);
@@ -87,8 +87,41 @@ public class VectorMath : MonoBehaviour
     #endregion
 
     #region Private Methods
+    private void zeroLR(bool unit)
+    {
+        if (unit)
+        {
+            r.SetPosition(0, zero);
+            r.SetPosition(1, zero);
+
+            x.SetPosition(0, zero);
+            x.SetPosition(1, zero);
+
+            y.SetPosition(0, zero);
+            y.SetPosition(1, zero);
+
+            z.SetPosition(0, zero);
+            z.SetPosition(1, zero);
+
+        }
+        else
+        {
+            rUnit.SetPosition(0, zero);
+            rUnit.SetPosition(1, zero);
+
+            xUnit.SetPosition(0, zero);
+            xUnit.SetPosition(1, zero);
+
+            yUnit.SetPosition(0, zero);
+            yUnit.SetPosition(1, zero);
+
+            zUnit.SetPosition(0, zero);
+            zUnit.SetPosition(1, zero);
+        }
+    }
     private void visualizeComponent(Vector3 point, int index, Transform origin, LineRenderer x, LineRenderer y, LineRenderer z, LineRenderer r)
     {
+        zeroLR(false);
         switch (index)
         {
             case 0:
@@ -115,6 +148,7 @@ public class VectorMath : MonoBehaviour
 
     private void visualizeUnitVectorComponent(Vector3 point, int index, Transform origin, LineRenderer uX, LineRenderer uY, LineRenderer uZ, LineRenderer uR)
     {
+        zeroLR(true);
         switch (index)
         {
             case 0:
@@ -157,3 +191,4 @@ public class VectorMath : MonoBehaviour
     }
     #endregion
 }
+ 

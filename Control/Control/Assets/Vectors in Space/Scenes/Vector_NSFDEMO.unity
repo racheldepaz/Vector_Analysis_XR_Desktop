@@ -449,6 +449,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 234904009}
     m_Modifications:
+    - target: {fileID: 1923388488726986, guid: b6af97b52b3429641aa904690975fa80, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4486541323493368, guid: b6af97b52b3429641aa904690975fa80, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1508,6 +1512,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 234904009}
     m_Modifications:
+    - target: {fileID: 1463616170062846, guid: 6884f69ad0adbb441905ff499f5d1ece, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4724017855786006, guid: 6884f69ad0adbb441905ff499f5d1ece, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2190,6 +2198,8 @@ MonoBehaviour:
   _placementPrefab:
   - {fileID: 2244636499579855897, guid: 0c19b81e8e4d53648a1b38bd15143f45, type: 3}
   - {fileID: 2244636499579855897, guid: 2f6f53b823af7dc43a98588fc2a8de27, type: 3}
+  gridPrefab: {fileID: 4028353101444505411, guid: e91fe45260e41374a8d324884fb934dc,
+    type: 3}
 --- !u!114 &1813943457
 MonoBehaviour:
   m_ObjectHideFlags: 0

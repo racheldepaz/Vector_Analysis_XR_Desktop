@@ -32,8 +32,14 @@ namespace MagicLeap
 
         [SerializeField, Tooltip("The placement object used in the scene.")]
         private GameObject[] _placementPrefab = null;
+
+        [SerializeField, Tooltip("The object used to represent the unit grid.")]
+        private GameObject gridPrefab = null; 
+
         private int index;
-        private int bumpcount; 
+        private int bumpcount;
+        bool grid; 
+
 
         //References to Placement and PlacementObject scripts
         private Placement _placement = null;
@@ -44,7 +50,7 @@ namespace MagicLeap
         //Stuff I need globally
         private bool placementModule = true, unitactive = false; 
         private Vector3 zero = new Vector3(0, 0, 0);
-        private GameObject content0, content1, content2; //origin, point 1, point 2
+        private GameObject content0, content1, content2, savedGrid; //origin, point 1, point 2
         #endregion
 
         #region Unity Methods
@@ -79,6 +85,24 @@ namespace MagicLeap
             {
                 _placementObject.transform.position = _placement.AdjustedPosition - _placementObject.LocalBounds.center;
                 _placementObject.transform.rotation = _placement.Rotation;
+
+                if (content0 != null)
+                {
+                    switch (_controllerConnectionHandler.ConnectedController.TouchpadGesture.Type)
+                    {
+                        case MLInputControllerTouchpadGestureType.SecondForceDown:
+                            GameObject grid = Instantiate(gridPrefab);
+                            grid.transform.position = content0.transform.position;
+                            savedGrid = grid;
+                          //  Destroy(grid);
+                            break;
+                        case MLInputControllerTouchpadGestureType.None:
+                           // Destroy(grid);
+                            break;
+                        default:
+                            break;
+                    }
+                }
 
                 switch (index)
                 {
