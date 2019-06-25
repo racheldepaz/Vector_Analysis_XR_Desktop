@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.XR.MagicLeap;
 
 /// <summary>
 /// PointerSystem.cs
@@ -43,6 +45,9 @@ namespace LesBird
 
 		[Tooltip("transform node where all the content resides - the pointer can interact with child objects of this node")]
 		public Transform contentRoot;
+
+        public ControllerConnectionHandler handler; 
+        public Text debug;
 
 		// updated array of grabbable objects
 		private GrabObject[] grabObjectArray;
@@ -94,6 +99,7 @@ namespace LesBird
 
 		void Start()
 		{
+            MLInput.Start(); 
 			if (UnityEngine.XR.MagicLeap.MagicLeapDevice.IsReady())
 			{
 				UnityEngine.XR.MagicLeap.MLInput.OnControllerButtonDown += HandleOnControllerButtonDown;
@@ -127,34 +133,34 @@ namespace LesBird
 
 		void OnDestroy()
 		{
-			if (UnityEngine.XR.MagicLeap.MagicLeapDevice.IsReady())
+			if (MagicLeapDevice.IsReady())
 			{
-				UnityEngine.XR.MagicLeap.MLInput.OnControllerButtonDown -= HandleOnControllerButtonDown;
-				UnityEngine.XR.MagicLeap.MLInput.OnControllerButtonUp -= HandleOnControllerButtonUp;
-				UnityEngine.XR.MagicLeap.MLInput.OnTriggerDown -= HandleOnTriggerDown;
-				UnityEngine.XR.MagicLeap.MLInput.OnTriggerUp -= HandleOnTriggerUp;
+				MLInput.OnControllerButtonDown -= HandleOnControllerButtonDown;
+				MLInput.OnControllerButtonUp -= HandleOnControllerButtonUp;
+				MLInput.OnTriggerDown -= HandleOnTriggerDown;
+				MLInput.OnTriggerUp -= HandleOnTriggerUp;
 			}
 		}
 
-		void HandleOnControllerButtonDown(byte idx, UnityEngine.XR.MagicLeap.MLInputControllerButton button)
+		void HandleOnControllerButtonDown(byte idx, MLInputControllerButton button)
 		{
-			if (button == UnityEngine.XR.MagicLeap.MLInputControllerButton.HomeTap)
+			if (button == MLInputControllerButton.HomeTap)
 			{
 				Application.Quit();
 			}
-			if (button == UnityEngine.XR.MagicLeap.MLInputControllerButton.Bumper)
+			if (button == MLInputControllerButton.Bumper)
 			{
 				bumperIsDown = true;
 			}
 		}
 
-		void HandleOnControllerButtonUp(byte idx, UnityEngine.XR.MagicLeap.MLInputControllerButton button)
+		void HandleOnControllerButtonUp(byte idx, MLInputControllerButton button)
 		{
-			if (button == UnityEngine.XR.MagicLeap.MLInputControllerButton.HomeTap)
+			if (button ==MLInputControllerButton.HomeTap)
 			{
 				Application.Quit();
 			}
-			if (button == UnityEngine.XR.MagicLeap.MLInputControllerButton.Bumper)
+			if (button == MLInputControllerButton.Bumper)
 			{
 				bumperIsDown = false;
 			}
@@ -180,14 +186,8 @@ namespace LesBird
 
 		void Update()
 		{
-			if (UnityEngine.XR.MagicLeap.MagicLeapDevice.IsReady())
-			{
-				HandleMLControllers();
-			}
-			else
-			{
-				HandleXRControllers();
-			}
+
+			HandleMLControllers();
 
 			Vector3 sourcePos = transform.position;
 			Vector3 targetPos = sourcePos + transform.forward;
@@ -214,8 +214,9 @@ namespace LesBird
 			{
 				if (trackPadVer != 0)
 				{
-					// push grabbed object in/out
-					grabbedDist += trackPadVer * Time.deltaTime;
+                    // push grabbed object in/out
+                    grabbedDist += trackPadVer * Time.deltaTime;
+                    Debug.Log("grabbed dist " + grabbedDist);
 				}
 				if (trackPadHor != 0)
 				{
@@ -229,7 +230,7 @@ namespace LesBird
 						}
 					}
 					else
-					{
+					{ 
 						// rotate object around Y axis
 						grabbedObject.rotationOffset += trackPadHor * rotateRate * Time.deltaTime;
 					}
@@ -276,7 +277,7 @@ namespace LesBird
 						if (obj.inLibrary)
 						{
 							// create a copy of the object
-							GameObject g = Instantiate<GameObject>(obj.gameObject, contentRoot);
+							GameObject g = Instantiate(obj.gameObject, contentRoot);
 							grabbedObject = g.GetComponent<GrabObject>();
 							grabbedObject.transform.position = obj.transform.position;
 							grabbedObject.transform.rotation = obj.transform.rotation;
@@ -308,11 +309,13 @@ namespace LesBird
 			// flags to track one-time clicks
 			lastTriggerWasUp = (triggerIsDown ? false : true);
 			lastBumperWasUp = (bumperIsDown ? false : true);
+
+            ///debug.text = "Current target pos: " + targetPos.ToString() + "Vertical touchpad pos: " + trackPadVer.ToString(); 
 		}
 
 		GrabObject FindNearestGrabObject()
 		{
-			GrabObject nearestObj = null;
+			GrabObject nearestObj = null; 
 			float nearestDist = float.MaxValue;
 			float nearestDot = pointerAccuracy;
 
@@ -352,60 +355,19 @@ namespace LesBird
 			grabObjectArray = contentRoot.GetComponentsInChildren<GrabObject>();
 		}
 
-		// handle any SteamVR controllers if we are testing on a PC using a VIVE.
-		void HandleXRControllers()
-		{
-			if (UnityEngine.XR.XRDevice.isPresent)
-			{
-				Vector3 pos = UnityEngine.XR.InputTracking.GetLocalPosition(UnityEngine.XR.XRNode.RightHand);
-				Quaternion rot = UnityEngine.XR.InputTracking.GetLocalRotation(UnityEngine.XR.XRNode.RightHand);
-
-				transform.position = pos;
-				transform.rotation = rot;
-
-				if (Input.GetAxis("SteamVRTrigger") > 0.2f)
-				{
-					HandleOnTriggerDown(0, 1);
-				}
-				else if (triggerIsDown && Input.GetAxis("SteamVRTrigger") < 0.2f)
-				{
-					HandleOnTriggerUp(0, 0);
-				}
-
-				trackPadHor = 0;
-				trackPadVer = 0;
-
-				if (Input.GetButton("SteamVRTrackPadDown"))
-				{
-					trackPadHor = Input.GetAxis("SteamVRTrackPadHor");
-					trackPadVer = Input.GetAxis("SteamVRTrackPadVer");
-				}
-
-				// on VIVE this is mapped to the MENU button - we will use this to simulate the bumper on the Magic Leap device
-				if (Input.GetButton("Fire1"))
-				{
-					bumperIsDown = true;
-				}
-				else
-				{
-					bumperIsDown = false;
-				}
-			}
-		}
-
 		void HandleMLControllers()
 		{
 			trackPadHor = 0;
 			trackPadVer = 0;
 
-			UnityEngine.XR.MagicLeap.ControllerConnectionHandler handler = GetComponent<UnityEngine.XR.MagicLeap.ControllerConnectionHandler>();
 			if (handler != null)
 			{
 				if (handler.IsControllerValid())
 				{
-					UnityEngine.XR.MagicLeap.MLInputController controller = handler.ConnectedController;
+					MLInputController controller = handler.ConnectedController;
 					if (controller != null)
 					{
+                        debug.text = "Connected controller stats: " + controller.Touch1PosAndForce.ToString(); 
 						if (controller.Touch1Active && controller.Touch1PosAndForce.z > 0.2f)
 						{
 							if (controller.Touch1PosAndForce.x > 0.2f || controller.Touch1PosAndForce.x < -0.2f)
