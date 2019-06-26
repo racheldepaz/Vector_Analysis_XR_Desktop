@@ -30,6 +30,8 @@ public class VectorMath : MonoBehaviour
             lineRenderers[i].SetPosition(0, zero);
             lineRenderers[i].SetPosition(1, zero);
         }
+
+        canvasScript = GetComponent<CanvasScript>(); 
     }
     #endregion
 

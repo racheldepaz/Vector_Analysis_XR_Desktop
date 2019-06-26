@@ -10,44 +10,66 @@ namespace MagicLeap
     /// </summary>
     [RequireComponent(typeof(Placement))]
     [RequireComponent(typeof(VectorMath))]
-    //[RequireComponent(typeof(CanvasScript))]
     public class _Placement : MonoBehaviour
     {
-        #region Private Variables
+
+        #region Serialized Variables
         [SerializeField, Tooltip("The controller that is used in the scene to cycle and place objects.")]
         private ControllerConnectionHandler _controllerConnectionHandler = null;
 
-        private MLInputControllerFeedbackColorLED _color;
-
         [SerializeField, Tooltip("The Text element that will display the instructions for the student to complete the tasks.")]
-        private Text _instructionLabel = null; 
+        private Text _instructionLabel = null;
 
         [SerializeField, Tooltip("The placement object used in the scene.")]
         private GameObject[] _placementPrefab = null;
 
-        [SerializeField, Tooltip("The object used to represent the unit grid.")]
-        private GameObject gridPrefab = null; 
+        [Tooltip("speed to push/pull objects using trackpad - meters per second")]
+        public float pushRate;
+
+        [Tooltip("rotate object around Y axis if grabbed - angles per second")]
+        public float rotateRate;
+        #endregion
+
+        #region Private Variables
+        private MLInputControllerFeedbackColorLED _color;
+
+        private LineRenderer beam;
 
         private int index;
         private int bumpcount;
-        bool grid; 
-
 
         //References to Placement and PlacementObject scripts
         private Placement _placement = null;
         private PlacementObject _placementObject = null;
-        private VectorMath _vectorMath = null; 
-
+        private VectorMath _vectorMath = null;
 
         //Stuff I need globally
-        private bool placementModule = true, unitactive = false; 
+        private bool placementModule = true, unitactive = false;
         private Vector3 zero = new Vector3(0, 0, 0);
         private GameObject content0, content1, content2, savedGrid; //origin, point 1, point 2
+        private GameObject previewFree;
+
+        // flags and controller variables
+        private bool triggerIsDown;
+        private bool lastTriggerWasUp;
+        #endregion
+
+        #region Delegates
+        // trigger is held down
+        public delegate void TriggerDownCallback();
+        public TriggerDownCallback OnTriggerDown;
+        // trigger is released
+        public delegate void TriggerUpCallback();
+        public TriggerUpCallback OnTriggerUp;
+        // trigger was clicked (not pressed to pressed)
+        public delegate void TriggerClicked();
+        public TriggerClicked OnTriggerClicked;
         #endregion
 
         #region Unity Methods
         void Start()
         {
+            MLInput.Start();
             if (_controllerConnectionHandler == null)
             {
                 Debug.LogError("Error: PlacementExample._controllerConnectionHandler is not set, disabling script.");
@@ -55,17 +77,26 @@ namespace MagicLeap
                 return;
             }
 
-            bumpcount = 0; 
+            bumpcount = 0;
             index = 0;
 
             _placement = GetComponent<Placement>();
             _vectorMath = GetComponent<VectorMath>();
 
-            //zeroLR(lr, xLR, yLR, zLR, xUnitLR, yUnitLR, zUnitLR); 
+            if (pushRate == 0)
+            {
+                pushRate = 1;
+            }
+            if (rotateRate == 0)
+            {
+                rotateRate = 180;
+            }
+
+            beam = GetComponent<LineRenderer>();
 
             MLInput.OnTriggerDown += HandleOnTriggerDown;
             MLInput.OnTriggerUp += HandleOnTriggerUp;
-            MLInput.OnControllerButtonDown += HandleOnButtonDown; 
+            MLInput.OnControllerButtonDown += HandleOnButtonDown;
 
             StartPlacement();
         }
@@ -75,61 +106,66 @@ namespace MagicLeap
             // Update the preview location, inside of the validation area.
             if (_placementObject != null)
             {
-                _placementObject.transform.position = _placement.AdjustedPosition - _placementObject.LocalBounds.center;
-                _placementObject.transform.rotation = _placement.Rotation;
-
-                if (content0 != null)
+                if (index == 0)
                 {
-                    switch (_controllerConnectionHandler.ConnectedController.TouchpadGesture.Type)
-                    {
-                        case MLInputControllerTouchpadGestureType.SecondForceDown:
-                            GameObject grid = Instantiate(gridPrefab);
-                            grid.transform.position = content0.transform.position;
-                            savedGrid = grid;
-                          //  Destroy(grid);
-                            break;
-                        case MLInputControllerTouchpadGestureType.None:
-                           // Destroy(grid);
-                            break;
-                        default:
-                            break;
-                    }
+                    _instructionLabel.text = "Welcome! Time to place your origin. Point your controller towards a level surface and use the trigger to place your point.";
+                    placementModule = true;
+                    _placementObject.transform.position = _placement.AdjustedPosition - _placementObject.LocalBounds.center;
+                    _placementObject.transform.rotation = _placement.Rotation;
                 }
-
-                switch (index)
+                if (index == 1)
                 {
-                    case 0:
-                        _instructionLabel.text = "Welcome! Time to place your origin. Point your controller towards a level surface and use the trigger to place your point.";
-                        placementModule = true;
-                        break;
-                    case 1:
-                        _instructionLabel.text = "Great! Press down on the touchpad if you're ready to place your point. Now, point towards another area and press the trigger again. Press the home button to reset.";
-                        _color = MLInputControllerFeedbackColorLED.BrightCosmicPurple;
-                        Debug.Log("You have met the update case 1 condition");
-                        Vector3 placedObj1 = new Vector3(_placementObject.transform.position.x, _placementObject.transform.position.y, _placementObject.transform.position.z);
-                        VectorVisualizer(placedObj1);
-                        break;
-
-                    default: 
-                        Debug.Log("Hm. Looks like our current index value indicates we shouldn't be displaying any further information.");
-                        break;
+                    _instructionLabel.text = "Great! Press down on the touchpad if you're ready to place your point. Now, point towards another area and press the trigger again. Press the home button to reset.";
+                    HandlePlacementFree();
                 }
             }
+
+
         }
 
         void OnDestroy()
         {
             MLInput.OnTriggerDown -= HandleOnTriggerDown;
             MLInput.OnControllerButtonDown -= HandleOnButtonDown;
-            MLInput.OnTriggerUp -= HandleOnTriggerUp; 
+            MLInput.OnTriggerUp -= HandleOnTriggerUp;
         }
         #endregion
 
         #region Event Handlers
+        private void HandlePlacementFree()
+        {
+            // HandleMLController(); add this method if you want to include touchpad input
+
+            if (_placementPrefab[index] != null)
+            {
+                previewFree = Instantiate(_placementPrefab[index]);
+
+
+                Vector3 sourcePos = _controllerConnectionHandler.ConnectedController.Position;
+                Vector3 targetPos = sourcePos + transform.forward;
+
+                if (_placementPrefab != null)
+                {
+                    GameObject g = Instantiate(_placementPrefab[index]);
+
+                    g.transform.position = targetPos;
+                    g.transform.rotation = transform.rotation * Quaternion.Euler(Vector3.up);
+                }
+                VectorVisualizer(targetPos);
+                beam.SetPosition(0, sourcePos);
+                beam.SetPosition(1, targetPos);
+            }
+
+        }
+
         private void HandleOnTriggerDown(byte controllerId, float pressure)
         {
-            _controllerConnectionHandler.ConnectedController.StartFeedbackPatternEffectLED(MLInputControllerFeedbackEffectLED.Pulse, MLInputControllerFeedbackEffectSpeedLED.Fast, MLInputControllerFeedbackPatternLED.Clock12, MLInputControllerFeedbackColorLED.BrightShaggleGreen, 0);
-            _placement.Confirm();
+            if (index == 0)
+            {
+                _controllerConnectionHandler.ConnectedController.StartFeedbackPatternEffectLED(MLInputControllerFeedbackEffectLED.Pulse, MLInputControllerFeedbackEffectSpeedLED.Fast, MLInputControllerFeedbackPatternLED.Clock12, MLInputControllerFeedbackColorLED.BrightShaggleGreen, 0);
+                _placement.Confirm();
+            }
+
         }
 
         private void HandleOnButtonDown(byte controllerId, MLInputControllerButton button)
@@ -140,12 +176,12 @@ namespace MagicLeap
                 SceneManager.LoadScene(0, LoadSceneMode.Single);
             }
 
-            if(_controllerConnectionHandler.IsControllerValid() && _controllerConnectionHandler.ConnectedController.Id == controllerId && button == MLInputControllerButton.Bumper)
+            if (_controllerConnectionHandler.IsControllerValid() && _controllerConnectionHandler.ConnectedController.Id == controllerId && button == MLInputControllerButton.Bumper)
             {
                 if (unitactive)
                     unitactive = false;
                 if (!unitactive)
-                    unitactive = true; 
+                    unitactive = true;
             }
         }
 
@@ -169,14 +205,6 @@ namespace MagicLeap
                 {
                     content0 = content;
                     Debug.Log("content0: " + content0.transform.position.ToString());
-                }
-                else if (index == 1)
-                {
-                    content1 = content;
-                    //content0.transform.position.z in the z for snap
-                    Vector3 temp = new Vector3(position.x, position.y, position.z);
-                    content.transform.position = temp;
-                    VectorVisualizer(temp);
                 }
                 content.gameObject.SetActive(true);
                 NextPlacementObject();
@@ -248,7 +276,7 @@ namespace MagicLeap
         {
             if (_placementPrefab != null)
                 index++;
-            StartPlacement();
+            HandlePlacementFree();
         }
         #endregion
     }
