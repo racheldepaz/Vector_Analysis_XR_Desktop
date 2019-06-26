@@ -214,7 +214,7 @@ namespace LesBird
 				if (trackPadVer != 0)
 				{
                     // push grabbed object in/out
-                    grabbedDist += trackPadVer * Time.deltaTime;
+                    grabbedDist += trackPadVer * pushRate;
                     Debug.Log("grabbed dist " + grabbedDist);
 				}
 				if (trackPadHor != 0)
@@ -301,8 +301,8 @@ namespace LesBird
 				}
 			}
 
-            Vector3 temp = transform.position;
-            temp.z = trackPadVer * pushRate;
+            Vector3 temp = targetPos;
+            temp.z += trackPadVer * pushRate;
             
 
 			// draw the line pointer

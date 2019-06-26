@@ -10,6 +10,7 @@ namespace MagicLeap
     /// </summary>
     [RequireComponent(typeof(Placement))]
     [RequireComponent(typeof(VectorMath))]
+    //[RequireComponent(typeof(CanvasScript))]
     public class _Placement : MonoBehaviour
     {
         #region Private Variables
@@ -17,15 +18,6 @@ namespace MagicLeap
         private ControllerConnectionHandler _controllerConnectionHandler = null;
 
         private MLInputControllerFeedbackColorLED _color;
-
-        [SerializeField, Tooltip("The Text element that will display the vector's distance from origin.")]
-        private Text _distanceLabel = null;
-
-        [SerializeField, Tooltip("The Text element that will display the vector's magnitude.")]
-        private Text _magLabel = null;
-
-        [SerializeField, Tooltip("The Text element that will display component angles.")]
-        private Text _angleLabel = null;
 
         [SerializeField, Tooltip("The Text element that will display the instructions for the student to complete the tasks.")]
         private Text _instructionLabel = null; 
@@ -115,13 +107,9 @@ namespace MagicLeap
                         _color = MLInputControllerFeedbackColorLED.BrightCosmicPurple;
                         Debug.Log("You have met the update case 1 condition");
                         Vector3 placedObj1 = new Vector3(_placementObject.transform.position.x, _placementObject.transform.position.y, _placementObject.transform.position.z);
-                        VectorComponentVisualizer(placedObj1);
+                        VectorVisualizer(placedObj1);
                         break;
-                    case 2:
-                        _instructionLabel.text = "Point towards another area and press the trigger to place your new point. Press the home button to reset.";
-                        Vector3 placedObj = new Vector3(_placementObject.transform.position.x, _placementObject.transform.position.y, _placementObject.transform.position.z);
-                        VectorComponentVisualizer(placedObj);
-                        break;
+
                     default: 
                         Debug.Log("Hm. Looks like our current index value indicates we shouldn't be displaying any further information.");
                         break;
@@ -154,20 +142,17 @@ namespace MagicLeap
 
             if(_controllerConnectionHandler.IsControllerValid() && _controllerConnectionHandler.ConnectedController.Id == controllerId && button == MLInputControllerButton.Bumper)
             {
-                bumpcount++;
-                if (bumpcount % 2 == 1)
-                {
-                    unitactive = true;
-                }
-                else if (bumpcount % 2 == 0)
-                {
+                if (unitactive)
                     unitactive = false;
-                }
+                if (!unitactive)
+                    unitactive = true; 
             }
         }
 
         private void HandleOnTriggerUp(byte controllerId, float pressure)
-        { _controllerConnectionHandler.ConnectedController.StopFeedbackPatternLED();  }
+        {
+            _controllerConnectionHandler.ConnectedController.StopFeedbackPatternLED();
+        }
 
         private void HandlePlacementComplete(Vector3 position, Quaternion rotation)
         {
@@ -191,15 +176,7 @@ namespace MagicLeap
                     //content0.transform.position.z in the z for snap
                     Vector3 temp = new Vector3(position.x, position.y, position.z);
                     content.transform.position = temp;
-                    VectorComponentVisualizer(temp);
-                }
-                else if (index == 2)
-                {
-                    placementModule = false;
-
-                    content2 = content;
-                    Vector3 content_vec = new Vector3(position.x, position.y, position.z);
-                    VectorComponentVisualizer(content_vec);
+                    VectorVisualizer(temp);
                 }
                 content.gameObject.SetActive(true);
                 NextPlacementObject();
@@ -209,7 +186,7 @@ namespace MagicLeap
 
         #region Private Methods
 
-        private void VectorComponentVisualizer(Vector3 newPlacement)
+        private void VectorVisualizer(Vector3 newPlacement)
         {
             if (!unitactive)
                 _vectorMath.vectorComponents(newPlacement, content0.transform);
