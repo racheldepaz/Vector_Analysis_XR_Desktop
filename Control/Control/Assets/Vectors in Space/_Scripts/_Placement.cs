@@ -47,6 +47,7 @@ namespace MagicLeap
         private bool placementModule = true, unitactive = false;
         private Vector3 zero = new Vector3(0, 0, 0);
         private GameObject content0, content1, content2, savedGrid; //origin, point 1, point 2
+
         private GameObject previewFree;
 
         // flags and controller variables
@@ -105,7 +106,7 @@ namespace MagicLeap
         {
             // Update the preview location, inside of the validation area.
             if (_placementObject != null)
-            {
+            { 
                 if (index == 0)
                 {
                     _instructionLabel.text = "Welcome! Time to place your origin. Point your controller towards a level surface and use the trigger to place your point.";
@@ -120,7 +121,8 @@ namespace MagicLeap
                 }
             }
 
-
+            beam.SetPosition(0, _controllerConnectionHandler.ConnectedController.Position);
+            beam.SetPosition(1, _controllerConnectionHandler.ConnectedController.Position + transform.forward);
         }
 
         void OnDestroy()
@@ -138,6 +140,8 @@ namespace MagicLeap
 
             if (_placementPrefab[index] != null)
             {
+                Destroy(previewFree);
+
                 previewFree = Instantiate(_placementPrefab[index]);
 
 
@@ -152,8 +156,6 @@ namespace MagicLeap
                     g.transform.rotation = transform.rotation * Quaternion.Euler(Vector3.up);
                 }
                 VectorVisualizer(targetPos);
-                beam.SetPosition(0, sourcePos);
-                beam.SetPosition(1, targetPos);
             }
 
         }
