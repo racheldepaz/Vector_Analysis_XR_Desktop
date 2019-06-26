@@ -99,17 +99,16 @@ namespace LesBird
 
 		void Start()
 		{
-            MLInput.Start(); 
-			if (UnityEngine.XR.MagicLeap.MagicLeapDevice.IsReady())
-			{
-				UnityEngine.XR.MagicLeap.MLInput.OnControllerButtonDown += HandleOnControllerButtonDown;
-				UnityEngine.XR.MagicLeap.MLInput.OnControllerButtonUp += HandleOnControllerButtonUp;
-				UnityEngine.XR.MagicLeap.MLInput.OnTriggerDown += HandleOnTriggerDown;
-				UnityEngine.XR.MagicLeap.MLInput.OnTriggerUp += HandleOnTriggerUp;
-			}
+            MLInput.Start();
 
-			// assign some defaults if needed
-			if (pointerAccuracy == 0)
+            //ml input controller input handlers
+            MLInput.OnControllerButtonDown += HandleOnControllerButtonDown;
+            MLInput.OnControllerButtonUp += HandleOnControllerButtonUp;
+            MLInput.OnTriggerDown += HandleOnTriggerDown;
+            MLInput.OnTriggerUp += HandleOnTriggerUp;
+
+            // assign some defaults if needed
+            if (pointerAccuracy == 0)
 			{
 				pointerAccuracy = 0.995f;
 			}
@@ -302,15 +301,17 @@ namespace LesBird
 				}
 			}
 
+            Vector3 temp = transform.position;
+            temp.z = trackPadVer * pushRate;
+            
+
 			// draw the line pointer
 			pointerLineRenderer.SetPosition(0, transform.position);
-			pointerLineRenderer.SetPosition(1, targetPos);
+			pointerLineRenderer.SetPosition(1, temp);
 
 			// flags to track one-time clicks
 			lastTriggerWasUp = (triggerIsDown ? false : true);
 			lastBumperWasUp = (bumperIsDown ? false : true);
-
-            ///debug.text = "Current target pos: " + targetPos.ToString() + "Vertical touchpad pos: " + trackPadVer.ToString(); 
 		}
 
 		GrabObject FindNearestGrabObject()
