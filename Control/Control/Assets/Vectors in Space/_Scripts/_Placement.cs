@@ -21,7 +21,13 @@ namespace MagicLeap
         private Text _instructionLabel = null;
 
         [SerializeField, Tooltip("The placement object used in the scene.")]
-        private GameObject[] _placementPrefab = null;
+        private GameObject _placementPrefab = null;
+
+        [SerializeField, Tooltip("The placement object not bound to surfaces in the scene.")]
+        private GameObject freePoint;
+
+        [SerializeField, Tooltip("Where you want to drop all the instantiated elements of the visualization")]
+        private Transform root;
 
         [Tooltip("speed to push/pull objects using trackpad - meters per second")]
         public float pushRate;
@@ -36,7 +42,8 @@ namespace MagicLeap
         private LineRenderer beam;
 
         private int index;
-        private int bumpcount;
+
+        private float lastY, lastX, magTouchY, magTouchX; //values to compare touchpad swipe x,y pos
 
         //References to Placement and PlacementObject scripts
         private Placement _placement = null;
@@ -73,12 +80,11 @@ namespace MagicLeap
             MLInput.Start();
             if (_controllerConnectionHandler == null)
             {
-                Debug.LogError("Error: PlacementExample._controllerConnectionHandler is not set, disabling script.");
+                Debug.LogError("Error: _Placement._controllerConnectionHandler is not set, disabling script.");
                 enabled = false;
                 return;
             }
 
-            bumpcount = 0;
             index = 0;
 
             _placement = GetComponent<Placement>();
@@ -93,6 +99,8 @@ namespace MagicLeap
                 rotateRate = 180;
             }
 
+            magTouchX = 1; magTouchY = 1; 
+
             beam = GetComponent<LineRenderer>();
 
             MLInput.OnTriggerDown += HandleOnTriggerDown;
@@ -104,72 +112,107 @@ namespace MagicLeap
 
         void Update()
         {
-            // Update the preview location, inside of the validation area.
-            if (_placementObject != null)
-            { 
-                if (index == 0)
-                {
-                    _instructionLabel.text = "Welcome! Time to place your origin. Point your controller towards a level surface and use the trigger to place your point.";
-                    placementModule = true;
-                    _placementObject.transform.position = _placement.AdjustedPosition - _placementObject.LocalBounds.center;
-                    _placementObject.transform.rotation = _placement.Rotation;
-                }
-                if (index == 1)
-                {
-                    _instructionLabel.text = "Great! Press down on the touchpad if you're ready to place your point. Now, point towards another area and press the trigger again. Press the home button to reset.";
-                    HandlePlacementFree();
-                }
+            beam.SetPosition(0, _controllerConnectionHandler.ConnectedController.Position);
+            if (index == 0)
+            {
+                _instructionLabel.text = "Welcome! Time to place your origin. Point your controller towards a level surface and use the trigger to place your point.";
+                placementModule = true;
+                _placementObject.transform.position = _placement.AdjustedPosition - _placementObject.LocalBounds.center;
+                _placementObject.transform.rotation = _placement.Rotation;
+                beam.SetPosition(1, _placementObject.transform.position);
+            }
+            if (index == 1)
+            {
+                _instructionLabel.text = "Great! Press down on the touchpad if you're ready to place your point. Now, point towards another area and press the trigger again. Press the home button to reset.";
+                beam.SetPosition(1, _controllerConnectionHandler.ConnectedController.Position + (transform.forward * magTouchY));
+                HandlePlacementFree(beam.GetPosition(1));
             }
 
-            beam.SetPosition(0, _controllerConnectionHandler.ConnectedController.Position);
-            beam.SetPosition(1, _controllerConnectionHandler.ConnectedController.Position + transform.forward);
         }
 
         void OnDestroy()
         {
             MLInput.OnTriggerDown -= HandleOnTriggerDown;
-            MLInput.OnControllerButtonDown -= HandleOnButtonDown;
             MLInput.OnTriggerUp -= HandleOnTriggerUp;
+            MLInput.OnControllerButtonDown -= HandleOnButtonDown;
         }
         #endregion
 
         #region Event Handlers
-        private void HandlePlacementFree()
-        {
-            // HandleMLController(); add this method if you want to include touchpad input
 
-            if (_placementPrefab[index] != null)
+        private void HandlePlacementFree(Vector3 beamPos)
+        {
+            HandleTouchpadInput();  //add this method if you want to include touchpad input
+            if (freePoint != null)
             {
                 Destroy(previewFree);
 
-                previewFree = Instantiate(_placementPrefab[index]);
-
+                previewFree = Instantiate(freePoint, root);
 
                 Vector3 sourcePos = _controllerConnectionHandler.ConnectedController.Position;
-                Vector3 targetPos = sourcePos + transform.forward;
+                Vector3 targetPos = beamPos;
 
-                if (_placementPrefab != null)
-                {
-                    GameObject g = Instantiate(_placementPrefab[index]);
-
-                    g.transform.position = targetPos;
-                    g.transform.rotation = transform.rotation * Quaternion.Euler(Vector3.up);
-                }
+                previewFree.transform.position = targetPos;
+                previewFree.transform.rotation = transform.rotation * Quaternion.Euler(Vector3.up);
                 VectorVisualizer(targetPos);
             }
-
         }
 
+        //thx Ryan!!!
+        private void HandleTouchpadInput()
+        {
+            if (!_controllerConnectionHandler.IsControllerValid())
+            {
+                Debug.LogError("Error: Invalid controller detected. MLA is not currently supported as an input source.");
+                return;
+            }
+
+            MLInputController controller = _controllerConnectionHandler.ConnectedController;
+            if (controller.Touch1Active)
+            {
+                if (controller.Touch1PosAndForce.y - lastY < -0.001)
+                    magTouchY -= pushRate;
+                else if (controller.Touch1PosAndForce.y - lastY > 0.001)
+                    magTouchY += pushRate;
+                lastY = controller.Touch1PosAndForce.y;
+
+                if (controller.Touch1PosAndForce.x - lastX < -0.001)
+                    magTouchX -= rotateRate;
+                if (controller.Touch1PosAndForce.x - lastX > 0.001)
+                    magTouchX += rotateRate;
+                lastX = controller.Touch1PosAndForce.x; 
+            }
+        }
+
+        /// <summary>
+        /// If the trigger is pressed:
+        ///     -If you're placing the origin, make sure the placement you're targetting with the raycast is a plane. 
+        ///     -If you're placing the first free point, move to the next condition. 
+        /// </summary>
+        /// <param name="controllerId"></param>
+        /// <param name="pressure"></param>
         private void HandleOnTriggerDown(byte controllerId, float pressure)
         {
             if (index == 0)
             {
-                _controllerConnectionHandler.ConnectedController.StartFeedbackPatternEffectLED(MLInputControllerFeedbackEffectLED.Pulse, MLInputControllerFeedbackEffectSpeedLED.Fast, MLInputControllerFeedbackPatternLED.Clock12, MLInputControllerFeedbackColorLED.BrightShaggleGreen, 0);
                 _placement.Confirm();
             }
-
+            if (index == 1)
+            {
+                _instructionLabel.text = "Initalization of your scene is complete. Press on the bumper to toggle between different view modes.";
+                _controllerConnectionHandler.ConnectedController.StartFeedbackPatternVibe(MLInputControllerFeedbackPatternVibe.ForceUp, MLInputControllerFeedbackIntensity.High); //give haptic feedback
+                index++; 
+            }
+            triggerIsDown = true;
+            lastTriggerWasUp = false;
         }
 
+
+        /// <summary>
+        /// If the home button is pressed, reload this scene. If the bumper is pressed, EMPTY. 
+        /// </summary>
+        /// <param name="controllerId"></param>
+        /// <param name="button"></param>
         private void HandleOnButtonDown(byte controllerId, MLInputControllerButton button)
         {
             if (_controllerConnectionHandler.IsControllerValid() && _controllerConnectionHandler.ConnectedController.Id
@@ -180,10 +223,9 @@ namespace MagicLeap
 
             if (_controllerConnectionHandler.IsControllerValid() && _controllerConnectionHandler.ConnectedController.Id == controllerId && button == MLInputControllerButton.Bumper)
             {
-                if (unitactive)
-                    unitactive = false;
-                if (!unitactive)
-                    unitactive = true;
+                 //trigger view mode changes here
+                 //just a note for future me, you should probs add an enum for allll the view types you want to include (axis, component, unit vec, axis + angle (with resultant vector)). 
+                 //you can do this! just go back on your statics project and reuse the logic for the enum+view mode. but transport the functions to another visualizer script, because this one is getting full
             }
         }
 
@@ -192,30 +234,38 @@ namespace MagicLeap
             _controllerConnectionHandler.ConnectedController.StopFeedbackPatternLED();
         }
 
+        /// <summary>
+        /// Destroy all previous instances and lock down current position on origin
+        /// </summary>
+        /// <param name="position">from controller</param>
+        /// <param name="rotation">from controller</param>
         private void HandlePlacementComplete(Vector3 position, Quaternion rotation)
         {
             if (_placementPrefab != null)
             {
+                Destroy(_placementObject.gameObject);
+
                 _controllerConnectionHandler.ConnectedController.StartFeedbackPatternVibe(MLInputControllerFeedbackPatternVibe.ForceUp, MLInputControllerFeedbackIntensity.High);
                 _controllerConnectionHandler.ConnectedController.StopFeedbackPatternLED();
-                Debug.Log("In handle placement comp");
-                GameObject content = Instantiate(_placementPrefab[index]);
+
+                GameObject content = Instantiate(_placementPrefab, root);
                 content.transform.position = position; //get the position of the placed prefab
                 content.transform.rotation = rotation; //get the rotation of the placed prefab
 
-                if (index == 0)
-                {
-                    content0 = content;
-                    Debug.Log("content0: " + content0.transform.position.ToString());
-                }
-                content.gameObject.SetActive(true);
-                NextPlacementObject();
+                content0 = content; //save in global variable
+
+                index++;
+
             }
         }
         #endregion
 
         #region Private Methods
 
+        /// <summary>
+        /// Given the vector3 position, show the vector components.
+        /// </summary>
+        /// <param name="newPlacement"></param>
         private void VectorVisualizer(Vector3 newPlacement)
         {
             if (!unitactive)
@@ -232,10 +282,10 @@ namespace MagicLeap
             }
 
             // Create the next preview instance.
-            if (_placementPrefab[index] != null)
+            if (_placementPrefab != null)
             {
                 //Debug.Log("Index is at: " + index);
-                GameObject previewObject = Instantiate(_placementPrefab[index]);
+                GameObject previewObject = Instantiate(_placementPrefab);
 
                 // Detect all children in the preview and set children to ignore raycast.
                 Collider[] colliders = previewObject.GetComponents<Collider>();
@@ -250,7 +300,7 @@ namespace MagicLeap
                 if (placementObject == null)
                 {
                     Destroy(previewObject);
-                    Debug.LogError("Error: PlacementExample.placementObject is not set, disabling script.");
+                    Debug.LogError("Error: _Placement.placementObject is not set, disabling script.");
 
                     enabled = false;
                 }
@@ -272,13 +322,6 @@ namespace MagicLeap
                 _placement.Cancel();
                 _placement.Place(_controllerConnectionHandler.transform, _placementObject.Volume, _placementObject.AllowHorizontal, _placementObject.AllowVertical, HandlePlacementComplete);
             }
-        }
-
-        private void NextPlacementObject()
-        {
-            if (_placementPrefab != null)
-                index++;
-            HandlePlacementFree();
         }
         #endregion
     }
