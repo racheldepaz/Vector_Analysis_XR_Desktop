@@ -108,7 +108,7 @@ namespace MagicLeap
                 rotateRate = 180;
             }
 
-            magTouchX = 1; magTouchY = 1; 
+            magTouchX = 1; magTouchY = 1;
 
             beam = GetComponent<LineRenderer>();
 
@@ -122,6 +122,7 @@ namespace MagicLeap
         void Update()
         {
             beam.SetPosition(0, _controllerConnectionHandler.ConnectedController.Position);
+            beam.SetPosition(1, _controllerConnectionHandler.ConnectedController.Position + transform.forward);
             if (index == 0)
             {
                 //_instructionLabel.text = "Welcome! Time to place your origin. Point your controller towards a level surface and use the trigger to place your point.";
@@ -135,8 +136,7 @@ namespace MagicLeap
                 beam.SetPosition(1, _controllerConnectionHandler.ConnectedController.Position + (transform.forward * magTouchY));
                 HandlePlacementFree(beam.GetPosition(1));
             }
-            _instructionLabel.text = index.ToString(); 
-            beam.SetPosition(1, _controllerConnectionHandler.ConnectedController.Position + transform.forward);
+            _instructionLabel.text = index.ToString();
         }
 
         void OnDestroy()
@@ -161,8 +161,6 @@ namespace MagicLeap
             previewFree.transform.position = targetPos;
             previewFree.transform.rotation = transform.rotation * Quaternion.Euler(Vector3.up);
             VectorVisualizer(targetPos);
-
-            index++; 
         }
 
         //thx Ryan!!!
@@ -187,7 +185,7 @@ namespace MagicLeap
                     magTouchX -= rotateRate;
                 if (controller.Touch1PosAndForce.x - lastX > 0.001)
                     magTouchX += rotateRate;
-                lastX = controller.Touch1PosAndForce.x; 
+                lastX = controller.Touch1PosAndForce.x;
             }
         }
 
@@ -202,8 +200,7 @@ namespace MagicLeap
         {
             if (index == 0)
                 _placement.Confirm();
-            if (index == 1)
-                index++; 
+            index++; 
         }
 
         private void HandleOnTriggerUp(byte controllerId, float pressure)
@@ -226,9 +223,9 @@ namespace MagicLeap
 
             if (_controllerConnectionHandler.IsControllerValid() && _controllerConnectionHandler.ConnectedController.Id == controllerId && button == MLInputControllerButton.Bumper)
             {
-                 //trigger view mode changes here
-                 //just a note for future me, you should probs add an enum for allll the view types you want to include (axis, component, unit vec, axis + angle (with resultant vector)). 
-                 //you can do this! just go back on your statics project and reuse the logic for the enum+view mode. but transport the functions to another visualizer script, because this one is getting full
+                //trigger view mode changes here
+                //just a note for future me, you should probs add an enum for allll the view types you want to include (axis, component, unit vec, axis + angle (with resultant vector)). 
+                //you can do this! just go back on your statics project and reuse the logic for the enum+view mode. but transport the functions to another visualizer script, because this one is getting full
 
             }
         }
@@ -252,7 +249,7 @@ namespace MagicLeap
                 content.transform.rotation = rotation; //get the rotation of the placed prefab
 
                 content0 = content; //save in global variable
-                index++; 
+                index++;
             }
         }
         #endregion

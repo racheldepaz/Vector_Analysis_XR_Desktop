@@ -2219,6 +2219,9 @@ MonoBehaviour:
   _angleLabel: {fileID: 1307412633}
   pos: {x: 0, y: 0, z: 0}
   mag: 0
+  angleX: 0
+  angleY: 0
+  angleZ: 0
 --- !u!114 &1813943456
 MonoBehaviour:
   m_ObjectHideFlags: 0
