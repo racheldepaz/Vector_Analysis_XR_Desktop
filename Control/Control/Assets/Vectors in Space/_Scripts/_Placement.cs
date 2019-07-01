@@ -44,7 +44,7 @@ namespace MagicLeap
         [Tooltip("speed to push/pull objects using trackpad - meters per second")]
         public float pushRate;
 
-        [Tooltip("rotate object around Y axis if grabbed - angles per second")]
+        [Tooltip("rotate transform around Y axis if grabbed - angles per second")]
         public float rotateRate;
         #endregion
 
@@ -83,6 +83,16 @@ namespace MagicLeap
         // trigger was clicked (not pressed to pressed)
         public delegate void TriggerClicked();
         public TriggerClicked OnTriggerClicked;
+        #endregion
+
+        #region Enum
+        public enum ViewMode : int
+        {
+            Axis =  0,
+            Components,
+            Units,
+            AxisAngle,
+        }
         #endregion
 
         #region Unity Methods
@@ -152,7 +162,6 @@ namespace MagicLeap
         #endregion
 
         #region Event Handlers
-
         private void HandlePlacementFree(Vector3 beamPos)
         {
             HandleTouchpadInput();  //add this method if you want to include touchpad input
@@ -270,11 +279,10 @@ namespace MagicLeap
         #endregion
 
         #region Private Methods
-
         /// <summary>
         /// Given the vector3 position, show the vector components.
         /// </summary>
-        /// <param name="newPlacement"></param>
+        /// <param name="newPlacement">The vector position</param>
         private void VectorVisualizer(Vector3 newPlacement)
         {
             _vectorMath.vectorComponents(newPlacement, content0.transform);
