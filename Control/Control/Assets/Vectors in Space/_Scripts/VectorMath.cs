@@ -143,13 +143,14 @@ public class VectorMath : MonoBehaviour
         }
     }
 
-    private static Vector3 getRelativePosition(Transform origin, Vector3 position)
+
+    private Vector3 getRelativePosition(Transform origin, Vector3 position)
     {
-        Vector3 distance = position - origin.position;
-        Vector3 relativePosition = Vector3.zero;
-        relativePosition.x = Vector3.Dot(distance, origin.right.normalized);
-        relativePosition.y = Vector3.Dot(distance, origin.up.normalized);
-        relativePosition.z = Vector3.Dot(distance, origin.forward.normalized);
+        float distanceX = origin.position.x - position.x;
+        float distanceY = origin.position.y - position.y;
+        float distanceZ = origin.position.z - position.z;
+
+        Vector3 relativePosition = new Vector3(distanceX, distanceY, distanceZ);
         return relativePosition;
     }
     #endregion

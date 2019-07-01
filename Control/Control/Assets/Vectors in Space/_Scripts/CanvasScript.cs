@@ -16,6 +16,7 @@ public class CanvasScript : MonoBehaviour
     #region Essential Variables
     public Vector3 pos;
     public float mag;
+    public float angleX, angleY, angleZ; 
     #endregion
 
     #region Public Methods
@@ -24,6 +25,23 @@ public class CanvasScript : MonoBehaviour
     {
         pos = position;
         mag = magnitude;
+        setAngleVals();
+    }
+    #endregion
+
+    #region
+    private void setAngleVals()
+    {
+        angleX = Mathf.Rad2Deg * Mathf.Acos(pos.x / mag);
+        angleY = Mathf.Rad2Deg * Mathf.Acos(pos.y / mag);
+        angleZ = Mathf.Rad2Deg * Mathf.Acos(pos.z / mag);
+
+        if (angleX > 90)
+         angleX -= 90;
+        if (angleY > 90)
+            angleY -= 90;
+        if (angleZ > 90)
+            angleZ -= 90;
     }
     #endregion
 
@@ -38,6 +56,7 @@ public class CanvasScript : MonoBehaviour
     {
         _distanceLabel.text = "Distance from origin: " + pos.ToString("N2");
         _magnitudeLabel.text = "Magnitude: " + mag.ToString("N2");
+        _angleLabel.text = "X Angle: " + angleX.ToString("N2") + " Y Angle: " + angleY.ToString("N2") + " Z Angle: " + angleZ.ToString("N2");
     } 
     #endregion
 }

@@ -16,13 +16,11 @@ namespace MagicLeap
         public enum ViewMode : int
         {
             Axis = 0,
-            Component,
-            Unit,
-            Angle,
+            Components,
+            Units,
+            AxisAngle,
         }
-
         private ViewMode _viewMode = ViewMode.Axis;
-
 
         #endregion
         #region Serialized Variables
@@ -85,16 +83,6 @@ namespace MagicLeap
         public TriggerClicked OnTriggerClicked;
         #endregion
 
-        #region Enum
-        public enum ViewMode : int
-        {
-            Axis =  0,
-            Components,
-            Units,
-            AxisAngle,
-        }
-        #endregion
-
         #region Unity Methods
         void Start()
         {
@@ -136,21 +124,19 @@ namespace MagicLeap
             beam.SetPosition(0, _controllerConnectionHandler.ConnectedController.Position);
             if (index == 0)
             {
-                _instructionLabel.text = "Welcome! Time to place your origin. Point your controller towards a level surface and use the trigger to place your point.";
+                //_instructionLabel.text = "Welcome! Time to place your origin. Point your controller towards a level surface and use the trigger to place your point.";
                 _placementObject.transform.position = _placement.AdjustedPosition - _placementObject.LocalBounds.center;
                 _placementObject.transform.rotation = _placement.Rotation;
                 beam.SetPosition(1, _placementObject.transform.position);
             }
             if (index == 1)
             {
-                _instructionLabel.text = "Great! Press down on the touchpad if you're ready to place your point. Now, point towards another area and press the trigger again. Press the home button to reset.";
+                //_instructionLabel.text = "Great! Press down on the touchpad if you're ready to place your point. Now, point towards another area and press the trigger again. Press the home button to reset.";
                 beam.SetPosition(1, _controllerConnectionHandler.ConnectedController.Position + (transform.forward * magTouchY));
                 HandlePlacementFree(beam.GetPosition(1));
             }
-            if (index == 2)
-            {
-
-            }
+            _instructionLabel.text = index.ToString(); 
+            beam.SetPosition(1, _controllerConnectionHandler.ConnectedController.Position + transform.forward);
         }
 
         void OnDestroy()
@@ -165,19 +151,18 @@ namespace MagicLeap
         private void HandlePlacementFree(Vector3 beamPos)
         {
             HandleTouchpadInput();  //add this method if you want to include touchpad input
-            if (freePoint != null)
-            {
-                Destroy(previewFree);
+            Destroy(previewFree);
 
-                previewFree = Instantiate(freePoint, root);
+            previewFree = Instantiate(freePoint, root);
 
-                Vector3 sourcePos = _controllerConnectionHandler.ConnectedController.Position;
-                Vector3 targetPos = beamPos;
+            Vector3 sourcePos = _controllerConnectionHandler.ConnectedController.Position;
+            Vector3 targetPos = beamPos;
 
-                previewFree.transform.position = targetPos;
-                previewFree.transform.rotation = transform.rotation * Quaternion.Euler(Vector3.up);
-                VectorVisualizer(targetPos);
-            }
+            previewFree.transform.position = targetPos;
+            previewFree.transform.rotation = transform.rotation * Quaternion.Euler(Vector3.up);
+            VectorVisualizer(targetPos);
+
+            index++; 
         }
 
         //thx Ryan!!!
@@ -216,16 +201,15 @@ namespace MagicLeap
         private void HandleOnTriggerDown(byte controllerId, float pressure)
         {
             if (index == 0)
-            {
                 _placement.Confirm();
-            }
             if (index == 1)
-            {
-                _instructionLabel.text = "Initalization of your scene is complete. Press on the bumper to toggle between different view modes.";
-                _controllerConnectionHandler.ConnectedController.StartFeedbackPatternVibe(MLInputControllerFeedbackPatternVibe.ForceUp, MLInputControllerFeedbackIntensity.High); //give haptic feedback 
-            }
+                index++; 
         }
 
+        private void HandleOnTriggerUp(byte controllerId, float pressure)
+        {
+            _controllerConnectionHandler.ConnectedController.StartFeedbackPatternEffectLED(MLInputControllerFeedbackEffectLED.PaintCW, MLInputControllerFeedbackEffectSpeedLED.Fast, MLInputControllerFeedbackPatternLED.Clock6And12, MLInputControllerFeedbackColorLED.BrightCosmicPurple, 1.5f);
+        }
 
         /// <summary>
         /// If the home button is pressed, reload this scene. If the bumper is pressed, EMPTY. 
@@ -245,12 +229,8 @@ namespace MagicLeap
                  //trigger view mode changes here
                  //just a note for future me, you should probs add an enum for allll the view types you want to include (axis, component, unit vec, axis + angle (with resultant vector)). 
                  //you can do this! just go back on your statics project and reuse the logic for the enum+view mode. but transport the functions to another visualizer script, because this one is getting full
-            }
-        }
 
-        private void HandleOnTriggerUp(byte controllerId, float pressure)
-        {
-            _controllerConnectionHandler.ConnectedController.StopFeedbackPatternLED();
+            }
         }
 
         /// <summary>
@@ -272,8 +252,7 @@ namespace MagicLeap
                 content.transform.rotation = rotation; //get the rotation of the placed prefab
 
                 content0 = content; //save in global variable
-
-                index++;
+                index++; 
             }
         }
         #endregion

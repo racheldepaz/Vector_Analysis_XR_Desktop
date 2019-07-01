@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: RDP
-  productName: VIS-placement
+  productName: index-test
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -119,7 +119,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 1.27
+  bundleVersion: 0.02
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -160,7 +160,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Lumin: com.rdp.vis27
+    Lumin: com.rdp.indextest1
   buildNumber: {}
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 16
@@ -590,19 +590,19 @@ PlayerSettings:
       daydreamIconForeground: {fileID: 0}
       daydreamIconBackground: {fileID: 0}
   cloudServicesEnabled:
-    Collab: 1
+    Collab: 0
     UNet: 1
   luminIcon:
     m_Name: 
     m_ModelFolderPath: 
     m_PortalFolderPath: 
   luminCert:
-    m_CertPath: C:/Users/13052/MagicLeap/certificates/razercert.cert
+    m_CertPath: C:/Users/Administrator/MagicLeap/certificates/firstdev.cert
     m_SignPackage: 1
   luminIsChannelApp: 0
   luminVersion:
-    m_VersionCode: 27
-    m_VersionName: v27-workingplacement
+    m_VersionCode: 2
+    m_VersionName: testervis
   facebookSdkVersion: 
   facebookAppId: 
   facebookCookies: 1
