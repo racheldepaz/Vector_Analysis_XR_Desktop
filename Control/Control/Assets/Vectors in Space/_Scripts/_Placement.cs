@@ -249,7 +249,6 @@ namespace MagicLeap
                 content.transform.rotation = rotation; //get the rotation of the placed prefab
 
                 content0 = content; //save in global variable
-                index++;
             }
         }
         #endregion
