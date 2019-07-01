@@ -12,7 +12,19 @@ namespace MagicLeap
     [RequireComponent(typeof(VectorMath))]
     public class _Placement : MonoBehaviour
     {
+        #region View Mode Enum + declaration
+        public enum ViewMode : int
+        {
+            Axis = 0,
+            Component,
+            Unit,
+            Angle,
+        }
 
+        private ViewMode _viewMode = ViewMode.Axis;
+
+
+        #endregion
         #region Serialized Variables
         [SerializeField, Tooltip("The controller that is used in the scene to cycle and place objects.")]
         private ControllerConnectionHandler _controllerConnectionHandler = null;
@@ -51,7 +63,6 @@ namespace MagicLeap
         private VectorMath _vectorMath = null;
 
         //Stuff I need globally
-        private bool placementModule = true, unitactive = false;
         private Vector3 zero = new Vector3(0, 0, 0);
         private GameObject content0, content1, content2, savedGrid; //origin, point 1, point 2
 
@@ -116,7 +127,6 @@ namespace MagicLeap
             if (index == 0)
             {
                 _instructionLabel.text = "Welcome! Time to place your origin. Point your controller towards a level surface and use the trigger to place your point.";
-                placementModule = true;
                 _placementObject.transform.position = _placement.AdjustedPosition - _placementObject.LocalBounds.center;
                 _placementObject.transform.rotation = _placement.Rotation;
                 beam.SetPosition(1, _placementObject.transform.position);
@@ -127,7 +137,10 @@ namespace MagicLeap
                 beam.SetPosition(1, _controllerConnectionHandler.ConnectedController.Position + (transform.forward * magTouchY));
                 HandlePlacementFree(beam.GetPosition(1));
             }
+            if (index == 2)
+            {
 
+            }
         }
 
         void OnDestroy()
@@ -200,11 +213,8 @@ namespace MagicLeap
             if (index == 1)
             {
                 _instructionLabel.text = "Initalization of your scene is complete. Press on the bumper to toggle between different view modes.";
-                _controllerConnectionHandler.ConnectedController.StartFeedbackPatternVibe(MLInputControllerFeedbackPatternVibe.ForceUp, MLInputControllerFeedbackIntensity.High); //give haptic feedback
-                index++; 
+                _controllerConnectionHandler.ConnectedController.StartFeedbackPatternVibe(MLInputControllerFeedbackPatternVibe.ForceUp, MLInputControllerFeedbackIntensity.High); //give haptic feedback 
             }
-            triggerIsDown = true;
-            lastTriggerWasUp = false;
         }
 
 
@@ -255,7 +265,6 @@ namespace MagicLeap
                 content0 = content; //save in global variable
 
                 index++;
-
             }
         }
         #endregion
@@ -268,13 +277,10 @@ namespace MagicLeap
         /// <param name="newPlacement"></param>
         private void VectorVisualizer(Vector3 newPlacement)
         {
-            if (!unitactive)
-                _vectorMath.vectorComponents(newPlacement, content0.transform);
-            else
-                _vectorMath.vectorUnitComponents(newPlacement, content0.transform);
+            _vectorMath.vectorComponents(newPlacement, content0.transform);
         }
 
-        private PlacementObject CreatePlacementObject(int index)
+        private PlacementObject CreatePlacementObject()
         {   // Destroy previous preview instance
             if (_placementObject != null)
             {
@@ -315,9 +321,9 @@ namespace MagicLeap
 
         private void StartPlacement()
         {
-            _placementObject = CreatePlacementObject(index);
+            _placementObject = CreatePlacementObject();
 
-            if (_placementObject != null && placementModule == true)
+            if (_placementObject != null)
             {
                 _placement.Cancel();
                 _placement.Place(_controllerConnectionHandler.transform, _placementObject.Volume, _placementObject.AllowHorizontal, _placementObject.AllowVertical, HandlePlacementComplete);
