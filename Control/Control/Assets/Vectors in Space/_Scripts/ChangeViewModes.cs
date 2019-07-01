@@ -1,6 +1,4 @@
 ﻿using MagicLeap;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.MagicLeap;
 
@@ -24,6 +22,19 @@ public class ChangeViewModes : MonoBehaviour
 
     private _Placement.ViewMode lastViewMode = _Placement.ViewMode.Axis;
     #endregion
+
+
+     void Awake()
+    {
+        if (null == axes)
+        {
+            Debug.LogError("Error: ChangeViewMode.axes not set.");
+            return;
+        }
+        if (null == units)
+        { }
+
+    }
     // Start is called before the first frame update
     void Start()
     {
