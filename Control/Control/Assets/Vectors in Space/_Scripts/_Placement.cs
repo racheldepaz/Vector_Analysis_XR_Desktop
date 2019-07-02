@@ -59,10 +59,11 @@ namespace MagicLeap
         private Placement _placement = null;
         private PlacementObject _placementObject = null;
         private VectorMath _vectorMath = null;
+        private ChangeViewModes modes = null; 
 
         //Stuff I need globally
         private Vector3 zero = new Vector3(0, 0, 0);
-        private GameObject content0, content1, content2, savedGrid; //origin, point 1, point 2
+        private GameObject content0, content1, content2; //origin, point 1, point 2
 
         private GameObject previewFree;
 
@@ -98,6 +99,7 @@ namespace MagicLeap
 
             _placement = GetComponent<Placement>();
             _vectorMath = GetComponent<VectorMath>();
+            modes = GetComponent<ChangeViewModes>(); 
 
             if (pushRate == 0)
             {
@@ -125,18 +127,18 @@ namespace MagicLeap
             beam.SetPosition(1, _controllerConnectionHandler.ConnectedController.Position + transform.forward);
             if (index == 0)
             {
-                //_instructionLabel.text = "Welcome! Time to place your origin. Point your controller towards a level surface and use the trigger to place your point.";
+                _instructionLabel.text = "Welcome! Time to place your origin. Point your controller towards a level surface and use the trigger to place your point.";
                 _placementObject.transform.position = _placement.AdjustedPosition - _placementObject.LocalBounds.center;
                 _placementObject.transform.rotation = _placement.Rotation;
                 beam.SetPosition(1, _placementObject.transform.position);
             }
             if (index == 1)
             {
-                //_instructionLabel.text = "Great! Press down on the touchpad if you're ready to place your point. Now, point towards another area and press the trigger again. Press the home button to reset.";
+                _instructionLabel.text = "Great! Press down on the touchpad if you're ready to place your point. Now, point towards another area and press the trigger again. Press the home button to reset.";
                 beam.SetPosition(1, _controllerConnectionHandler.ConnectedController.Position + (transform.forward * magTouchY));
                 HandlePlacementFree(beam.GetPosition(1));
             }
-            _instructionLabel.text = index.ToString();
+            //debug stuff _instructionLabel.text = index.ToString();
         }
 
         void OnDestroy()
@@ -225,8 +227,8 @@ namespace MagicLeap
             {
                 //trigger view mode changes here
                 //just a note for future me, you should probs add an enum for allll the view types you want to include (axis, component, unit vec, axis + angle (with resultant vector)). 
-                //you can do this! just go back on your statics project and reuse the logic for the enum+view mode. but transport the functions to another visualizer script, because this one is getting full
-
+                // can do this! just go back on your statics project and reuse the logic for the enum+view mode. but transport the functions to another visualizer script, because this one is getting full
+            // modes.UpdateViewMode(ViewMode)   
             }
         }
 
