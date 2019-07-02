@@ -16,8 +16,9 @@ public class CanvasScript : MonoBehaviour
     #region Essential Variables
     public Vector3 pos;
     public float mag;
-    public float angleX, angleY, angleZ; 
+    public float angleX, angleY, angleZ;
     #endregion
+
 
     #region Public Methods
     //set the value of referred variables as global var. referred to by VectorMath::Update
@@ -25,12 +26,12 @@ public class CanvasScript : MonoBehaviour
     {
         pos = position;
         mag = magnitude;
-        setAngleVals();
+        SetAngleVals();
     }
     #endregion
 
-    #region
-    private void setAngleVals()
+    #region Private Methods
+    private void SetAngleVals()
     {
         angleX = Mathf.Rad2Deg * Mathf.Acos(pos.x / mag);
         angleY = Mathf.Rad2Deg * Mathf.Acos(pos.y / mag);
@@ -50,7 +51,7 @@ public class CanvasScript : MonoBehaviour
     {
         _distanceLabel.text = null;
         _magnitudeLabel.text = null;
-        _angleLabel.text = null; 
+        _angleLabel.text = null;
     }
     void Update()
     {

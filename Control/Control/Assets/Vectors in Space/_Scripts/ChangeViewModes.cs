@@ -19,31 +19,63 @@ public class ChangeViewModes : MonoBehaviour
     private GameObject[] angles = null;
 
     private _Placement _placement = null;
+    private VectorMath vectorMath = null; 
 
     private _Placement.ViewMode lastViewMode = _Placement.ViewMode.Axis;
     #endregion
 
 
-     void Awake()
+    void Awake()
     {
         if (null == axes)
         {
             Debug.LogError("Error: ChangeViewMode.axes not set.");
             return;
         }
+        if (null == components)
+        {
+            Debug.LogError("Error: ChangeViewMode.components not set.");
+            return;
+        }
         if (null == units)
-        { }
+        {
+            Debug.LogError("Error: ChangeViewMode.units not set.");
+            return;
+        }
+        if (null == angles)
+        {
+            Debug.LogError("Error: ChangeViewMode.angles not set.");
+            return;
+        }
 
     }
     // Start is called before the first frame update
     void Start()
     {
-
+        _placement = GetComponent<_Placement>();
+        vectorMath = GetComponent<VectorMath>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void UpdateViewMode(_Placement.ViewMode viewMode)
     {
+        lastViewMode = viewMode;
+        RefreshViewMode();
+    }
 
+    private void RefreshViewMode()
+    {
+        switch (lastViewMode)
+        {
+            case _Placement.ViewMode.Axis:
+                break;
+            case _Placement.ViewMode.Components:
+                break;
+            case _Placement.ViewMode.Units:
+                break;
+            case _Placement.ViewMode.AxisAngle:
+                break;
+            default:
+                break;
+        }
     }
 }

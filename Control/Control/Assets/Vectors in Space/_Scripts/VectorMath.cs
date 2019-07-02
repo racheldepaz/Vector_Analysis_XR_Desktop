@@ -36,25 +36,25 @@ public class VectorMath : MonoBehaviour
     #endregion
 
     #region Public Methods
-    public void vectorComponents(Vector3 point, Transform origin)
+    public void VectorComponents(Vector3 point, Transform origin)
     {
-        relPos = getRelativePosition(origin, point); //position of the point with the non-zero origin as new reference pt
+        relPos = GetRelativePosition(origin, point); //position of the point with the non-zero origin as new reference pt
         relMag = relPos.magnitude; //magnitude of the point with the
         canvasScript.setVariables(relPos, relMag);
         for (int i = 0; i <= 3; i++)
         {
-            visualizeComponent(point, i, origin);
+            VisualizeComponent(point, i, origin);
         }
 
     }
 
-    public void vectorUnitComponents(Vector3 point, Transform origin)
+    public void VectorUnitComponents(Vector3 point, Transform origin)
     {
-        relPos = getRelativePosition(origin, point);
+        relPos = GetRelativePosition(origin, point);
         relMag = relPos.magnitude;
         for(int i = 0; i <= 3; i++)
         {
-            visualizeUnitVectorComponent(point, i, origin);
+            VisualizeUnitVectorComponent(point, i, origin);
         }
 
         canvasScript.setVariables(relPos, relMag);
@@ -62,7 +62,7 @@ public class VectorMath : MonoBehaviour
     #endregion
 
     #region Private Methods
-    private void zeroLR(bool unit)
+    private void ZeroLR(bool unit)
     {
         if (unit)
         {
@@ -82,9 +82,9 @@ public class VectorMath : MonoBehaviour
             }
         }
     }
-    private void visualizeComponent(Vector3 point, int index, Transform origin)
+    private void VisualizeComponent(Vector3 point, int index, Transform origin)
     {
-        zeroLR(false);
+        ZeroLR(false);
         switch (index)
         {
             case 0:
@@ -109,9 +109,9 @@ public class VectorMath : MonoBehaviour
         }
     }
 
-    private void visualizeUnitVectorComponent(Vector3 point, int index, Transform origin)
+    private void VisualizeUnitVectorComponent(Vector3 point, int index, Transform origin)
     {
-        zeroLR(true);
+        ZeroLR(true);
         switch (index)
         {
             case 0:
@@ -144,11 +144,11 @@ public class VectorMath : MonoBehaviour
     }
 
 
-    private Vector3 getRelativePosition(Transform origin, Vector3 position)
+    private Vector3 GetRelativePosition(Transform origin, Vector3 position)
     {
-        float distanceX = origin.position.x - position.x;
-        float distanceY = origin.position.y - position.y;
-        float distanceZ = origin.position.z - position.z;
+        float distanceX = position.x - origin.position.x;
+        float distanceY = position.y - origin.position.y;
+        float distanceZ = position.z - origin.position.z;
 
         Vector3 relativePosition = new Vector3(distanceX, distanceY, distanceZ);
         return relativePosition;

@@ -260,7 +260,7 @@ namespace MagicLeap
         /// <param name="newPlacement">The vector position</param>
         private void VectorVisualizer(Vector3 newPlacement)
         {
-            _vectorMath.vectorComponents(newPlacement, content0.transform);
+            _vectorMath.VectorComponents(newPlacement, content0.transform);
         }
 
         private PlacementObject CreatePlacementObject()
