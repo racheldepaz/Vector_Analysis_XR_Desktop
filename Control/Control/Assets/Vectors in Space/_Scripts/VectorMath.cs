@@ -150,6 +150,8 @@ public class VectorMath : MonoBehaviour
         float distanceY = position.y - origin.position.y;
         float distanceZ = position.z - origin.position.z;
 
+        Vector3 dif = position - origin.position; //uhhhh doesnt this do the same thing? am i dumb stupid?
+
         Vector3 relativePosition = new Vector3(distanceX, distanceY, distanceZ);
         return relativePosition;
     }
