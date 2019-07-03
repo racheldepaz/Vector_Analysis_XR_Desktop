@@ -67,12 +67,44 @@ public class ChangeViewModes : MonoBehaviour
         switch (lastViewMode)
         {
             case _Placement.ViewMode.Axis:
+                for (int i = 0; i <= components.Length; i++)
+                    components[i].SetActive(false);
+                for (int i = 0; i <= units.Length; i++)
+                    units[i].SetActive(false);
+                for (int i = 0; i <= angles.Length; i++)
+                    angles[i].SetActive(false);
+                for (int i = 0; i <= axes.Length; i++)
+                    axes[i].SetActive(true);
                 break;
             case _Placement.ViewMode.Components:
+                for (int i = 0; i <= components.Length; i++)
+                    components[i].SetActive(true);
+                for (int i = 0; i <= units.Length; i++)
+                    units[i].SetActive(false);
+                for (int i = 0; i <= angles.Length; i++)
+                    angles[i].SetActive(false);
+                for (int i = 0; i <= axes.Length; i++)
+                    axes[i].SetActive(false);
                 break;
             case _Placement.ViewMode.Units:
+                for (int i = 0; i <= components.Length; i++)
+                    components[i].SetActive(false);
+                for (int i = 0; i <= units.Length; i++)
+                    units[i].SetActive(true);
+                for (int i = 0; i <= angles.Length; i++)
+                    angles[i].SetActive(false);
+                for (int i = 0; i <= axes.Length; i++)
+                    axes[i].SetActive(false);
                 break;
             case _Placement.ViewMode.AxisAngle:
+                for (int i = 0; i <= components.Length; i++)
+                    components[i].SetActive(false);
+                for (int i = 0; i <= units.Length; i++)
+                    units[i].SetActive(false);
+                for (int i = 0; i <= angles.Length; i++)
+                    angles[i].SetActive(true);
+                for (int i = 0; i <= axes.Length; i++)
+                    axes[i].SetActive(true);
                 break;
             default:
                 break;

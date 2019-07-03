@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: RDP
-  productName: demo7-3
+  productName: Vectors in Space
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -119,7 +119,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 0.04
+  bundleVersion: 0.05
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -160,7 +160,8 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Lumin: com.rdp.demo73
+    Lumin: com.rdp.visplacementbeta
+    Standalone: com.rdp.placement
   buildNumber: {}
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 16
@@ -282,6 +283,11 @@ PlayerSettings:
     m_Enabled: 1
     m_Devices:
     - Lumin
+  - m_BuildTarget: Standalone
+    m_Enabled: 0
+    m_Devices:
+    - Oculus
+    - OpenVR
   m_BuildTargetEnableVuforiaSettings: []
   openGLRequireES31: 0
   openGLRequireES31AEP: 0
@@ -597,12 +603,12 @@ PlayerSettings:
     m_ModelFolderPath: 
     m_PortalFolderPath: 
   luminCert:
-    m_CertPath: C:/Users/Administrator/MagicLeap/certificates/firstdev.cert
+    m_CertPath: C:/Users/13052/MagicLeap/certificates/razercert.cert
     m_SignPackage: 1
   luminIsChannelApp: 0
   luminVersion:
-    m_VersionCode: 4
-    m_VersionName: demo73
+    m_VersionCode: 5
+    m_VersionName: betaplacement
   facebookSdkVersion: 
   facebookAppId: 
   facebookCookies: 1

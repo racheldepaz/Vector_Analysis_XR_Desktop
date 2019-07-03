@@ -59,7 +59,6 @@ public class LaunchArcMesh : MonoBehaviour
                 triangles[i * 12 + 11] = (i + 1) * 2 + 1; //get second vert of second seg
             }
         }
-
         mesh.vertices = vertices;
         mesh.triangles = triangles;
     }

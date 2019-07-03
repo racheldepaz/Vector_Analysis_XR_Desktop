@@ -39,18 +39,6 @@ public class Control6DOF : MonoBehaviour
     private bool lastTriggerWasUp;
     private float trackPadHor;
     private float trackPadVer;
-
-    //delegates
-
-    // trigger is held down
-    public delegate void TriggerDownCallback();
-    public TriggerDownCallback OnTriggerDown;
-    // trigger is released
-    public delegate void TriggerUpCallback();
-    public TriggerUpCallback OnTriggerUp;
-    //trigger is clicked
-    public delegate void TriggerClickedCallback();
-    public TriggerClickedCallback OnTriggerClicked;
     #endregion
 
     #region Event Handlers
