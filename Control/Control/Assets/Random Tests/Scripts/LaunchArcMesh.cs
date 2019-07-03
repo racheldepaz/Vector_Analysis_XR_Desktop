@@ -67,12 +67,13 @@ public class LaunchArcMesh : MonoBehaviour
     Vector3[] CalculateArcArray()
     {
         Vector3[] arcArray = new Vector3[resolution + 1];
+
         radAngle = Mathf.Deg2Rad * angle; 
         float maxDistance = (velocity * velocity * Mathf.Sin(2 * radAngle)) / g;
 
         for (int i = 0; i <= resolution; i++)
         {
-            float t = (float)i / (float)resolution;
+            float t = i / (float)resolution;
             arcArray[i] = CalculateArcPoint(t, maxDistance);
         }
 
@@ -82,7 +83,7 @@ public class LaunchArcMesh : MonoBehaviour
     Vector3 CalculateArcPoint(float t, float maxDistance)
     {
         float x = t * maxDistance;
-        float y = x * Mathf.Tan(radAngle) * ((g * x * x) / (2 * velocity * velocity * Mathf.Cos(radAngle) * Mathf.Cos(radAngle)));
+        float y = x * Mathf.Tan(radAngle) - ((g * x * x) / (2 * velocity * velocity * Mathf.Cos(radAngle) * Mathf.Cos(radAngle)));
         return new Vector3(x, y);
     }
 }
