@@ -50,7 +50,7 @@ public class LaunchArcMesh : MonoBehaviour
             {
                 triangles[i * 12] = i * 2; //get first vert
                 triangles[i * 12 + 1] = triangles[i * 12 + 4] * i * 2 + 1; //get first vert of second seg
-                triangles[i * 12 + 2] = triangles[i * 12 + 3] * (i * +1) * 2; //get second vertex
+                triangles[i * 12 + 2] = triangles[i * 12 + 3] * (i * + 1) * 2; //get second vertex
                 triangles[i * 12 + 5] = (i + 1) * 2 + 1; //get second vert of second seg
 
                 triangles[i * 12 + 6] = i * 2; //get first vert
