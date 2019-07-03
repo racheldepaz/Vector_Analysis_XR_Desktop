@@ -34,7 +34,10 @@ public class script : MonoBehaviour
     [SerializeField]
     private LineRenderer LR4;
 
-    private DebugScript _help; 
+    private DebugScript _help;
+
+    /*[SerializeField]
+    private DrawArc drawArc;*/
 
     private int count;
 
@@ -43,6 +46,11 @@ public class script : MonoBehaviour
     private Vector3 normalised;
 
     Vector3 xComp, xComp1;
+
+    void Awake()
+    {
+        
+    }
 
     /*This is where I test stuff so it is SUPER messy sorry future me/person who has taken over my project. 
      * this scene isnt really meant to be published <3 */
@@ -75,7 +83,8 @@ public class script : MonoBehaviour
         LR1.SetPosition(0, ori.position);
         LR1.SetPosition(1, xComp);
 
-
+        angle = Mathf.Acos(ptA.x / mag_test);
+        //drawArc.setRadAngle(angle);
 
     }
 
