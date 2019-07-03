@@ -36,16 +36,32 @@ public class VectorMath : MonoBehaviour
     #endregion
 
     #region Public Methods
-    public void VectorComponents(Vector3 point, Transform origin)
+    public void VectorComponents(Vector3 point, Transform origin, int index)
     {
         relPos = GetRelativePosition(origin, point); //position of the point with the non-zero origin as new reference pt
         relMag = relPos.magnitude; //magnitude of the point with the
         canvasScript.setVariables(relPos, relMag);
-        for (int i = 0; i <= 3; i++)
+        if (index == 0)
         {
-            VisualizeComponent(point, i, origin);
+            for (int i = 0; i <= 3; i++)
+            {
+                VisualizeComponent(point, i, origin);
+            }
         }
-
+        if (index == 1)
+        {
+            for (int i = 0; i <= 3; i++)
+            {
+                VisualizeAxes(point, i, origin);
+            }
+        }
+        if (index == 2)
+        {
+            for (int i = 0; i <= 3; i++)
+            {
+                VisualizeUnitVectorComponent(point, i, origin);
+            }
+        }
     }
 
     public void VectorUnitComponents(Vector3 point, Transform origin)
@@ -81,7 +97,44 @@ public class VectorMath : MonoBehaviour
                 lineRenderers[j].SetPosition(1, zero);
             }
         }
+        lineRenderers[8].SetPosition(0, zero);
+        lineRenderers[8].SetPosition(1, zero);
+
+        lineRenderers[9].SetPosition(0, zero);
+        lineRenderers[9].SetPosition(1, zero);
+
+        lineRenderers[10].SetPosition(0, zero);
+        lineRenderers[10].SetPosition(1, zero);
     }
+
+    private void VisualizeAxes(Vector3 point, int index, Transform origin)
+    {
+        ZeroLR(false);
+        ZeroLR(true);
+        switch (index)
+        {
+            case 0:
+                lineRenderers[index + 7].SetPosition(0, origin.position);
+                lineRenderers[index + 7].SetPosition(1, point); // new Vector3(point.x, origin.position.y, origin.position.z));
+                break;
+            case 1:
+                lineRenderers[index + 7].SetPosition(0, origin.position);
+                lineRenderers[index + 7].SetPosition(1, new Vector3(origin.position.x + 1, origin.position.y, origin.position.z));
+                break;
+            case 2:
+                lineRenderers[index + 7].SetPosition(0, origin.position);
+                lineRenderers[index + 7].SetPosition(1, new Vector3(origin.position.x, origin.position.y + 1, origin.position.z));
+                break;
+            case 3:
+                lineRenderers[index + 7].SetPosition(0, origin.position);
+                lineRenderers[index + 7].SetPosition(1, new Vector3(origin.position.x, origin.position.y, origin.position.z + 1));
+                break;
+            default:
+                Debug.Log("Something went wrong in the for loop from VectorMath::vectorComponents(V3, T)");
+                break;
+        }
+    }
+
     private void VisualizeComponent(Vector3 point, int index, Transform origin)
     {
         ZeroLR(false);

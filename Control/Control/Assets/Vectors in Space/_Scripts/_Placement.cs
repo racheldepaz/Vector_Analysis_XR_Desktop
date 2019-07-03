@@ -30,6 +30,9 @@ namespace MagicLeap
         [SerializeField, Tooltip("The Text element that will display the instructions for the student to complete the tasks.")]
         private Text _instructionLabel = null;
 
+        [SerializeField]
+        private Text debugText = null; 
+
         [SerializeField, Tooltip("The placement object used in the scene.")]
         private GameObject _placementPrefab = null;
 
@@ -52,6 +55,7 @@ namespace MagicLeap
         private LineRenderer beam;
 
         private int index;
+        private int bumperindex; 
 
         private float lastY, lastX, magTouchY, magTouchX; //values to compare touchpad swipe x,y pos
 
@@ -59,7 +63,7 @@ namespace MagicLeap
         private Placement _placement = null;
         private PlacementObject _placementObject = null;
         private VectorMath _vectorMath = null;
-        private ChangeViewModes modes = null; 
+        //private ChangeViewModes modes = null; 
 
         //Stuff I need globally
         private Vector3 zero = new Vector3(0, 0, 0);
@@ -70,18 +74,6 @@ namespace MagicLeap
         // flags and controller variables
         private bool triggerIsDown;
         private bool lastTriggerWasUp;
-        #endregion
-
-        #region Delegates
-        // trigger is held down
-        public delegate void TriggerDownCallback();
-        public TriggerDownCallback OnTriggerDown;
-        // trigger is released
-        public delegate void TriggerUpCallback();
-        public TriggerUpCallback OnTriggerUp;
-        // trigger was clicked (not pressed to pressed)
-        public delegate void TriggerClicked();
-        public TriggerClicked OnTriggerClicked;
         #endregion
 
         #region Unity Methods
@@ -99,7 +91,7 @@ namespace MagicLeap
 
             _placement = GetComponent<Placement>();
             _vectorMath = GetComponent<VectorMath>();
-            modes = GetComponent<ChangeViewModes>(); 
+            //modes = GetComponent<ChangeViewModes>(); 
 
             if (pushRate == 0)
             {
@@ -123,6 +115,7 @@ namespace MagicLeap
 
         void Update()
         {
+            debugText.text = "DEBUG: Bumper count: " + bumperindex; 
             beam.SetPosition(0, _controllerConnectionHandler.ConnectedController.Position);
             beam.SetPosition(1, _controllerConnectionHandler.ConnectedController.Position + transform.forward);
             if (index == 0)
@@ -228,7 +221,11 @@ namespace MagicLeap
                 //trigger view mode changes here
                 //just a note for future me, you should probs add an enum for allll the view types you want to include (axis, component, unit vec, axis + angle (with resultant vector)). 
                 // can do this! just go back on your statics project and reuse the logic for the enum+view mode. but transport the functions to another visualizer script, because this one is getting full
-            // modes.UpdateViewMode(ViewMode)   
+                // modes.UpdateViewMode(ViewMode)   
+                if (bumperindex < 4)
+                    bumperindex++;
+                else
+                    bumperindex = 0; 
             }
         }
 
@@ -262,7 +259,7 @@ namespace MagicLeap
         /// <param name="newPlacement">The vector position</param>
         private void VectorVisualizer(Vector3 newPlacement)
         {
-            _vectorMath.VectorComponents(newPlacement, content0.transform);
+            _vectorMath.VectorComponents(newPlacement, content0.transform, bumperindex);
         }
 
         private PlacementObject CreatePlacementObject()
