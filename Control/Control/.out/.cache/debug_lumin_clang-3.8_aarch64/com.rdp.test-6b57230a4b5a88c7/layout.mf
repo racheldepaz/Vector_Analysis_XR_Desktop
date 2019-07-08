@@ -1,7 +1,7 @@
 [
  {
   "dest": "bin/libc++_shared.so",
-  "src": "C:/Users/Administrator/MagicLeap/mlsdk/v0.20.0/lumin/stl/libc++/lib/libc++_shared.so"
+  "src": "C:/Users/Administrator/MagicLeap/mlsdk/v0.21.0/lumin/stl/libc++/lib/libc++_shared.so"
  },
  {
   "dest": "bin/libil2cpp.so",
@@ -12,8 +12,24 @@
   "src": "C:/Users/Administrator/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/Temp/StagingArea/Data/Plugins/AudioPluginMSASpatializer.so"
  },
  {
+  "dest": "bin/LuminMediaPlayer.dll",
+  "src": "C:/Users/Administrator/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/Temp/StagingArea/Data/Plugins/LuminMediaPlayer.dll"
+ },
+ {
+  "dest": "bin/LuminUnity.dll",
+  "src": "C:/Users/Administrator/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/Temp/StagingArea/Data/Plugins/LuminUnity.dll"
+ },
+ {
+  "dest": "bin/MSA.Runtime.dll",
+  "src": "C:/Users/Administrator/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/Temp/StagingArea/Data/Plugins/MSA.Runtime.dll"
+ },
+ {
   "dest": "bin/UnityEngine.TestRunner.dll",
   "src": "C:/Users/Administrator/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/Temp/StagingArea/Data/Plugins/UnityEngine.TestRunner.dll"
+ },
+ {
+  "dest": "bin/UnityEngine.UI.dll",
+  "src": "C:/Users/Administrator/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/Temp/StagingArea/Data/Plugins/UnityEngine.UI.dll"
  },
  {
   "dest": "bin/UnityMagicLeap.so",
