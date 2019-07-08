@@ -18,16 +18,11 @@ namespace MagicLeap
 
         private MLInputControllerFeedbackColorLED _color;
 
-<<<<<<< Updated upstream
         [SerializeField, Tooltip("The Text element that will display the vector's distance from origin.")]
         private Text _distanceLabel = null;
 
         [SerializeField, Tooltip("The Text element that will display the vector's magnitude.")]
         private Text _magLabel = null;
-=======
-        [SerializeField, Tooltip("Where you want to drop all the instantiated elements of the visualization")]
-        private Transform root;
->>>>>>> Stashed changes
 
         [SerializeField, Tooltip("The Text element that will display component angles.")]
         private Text _angleLabel = null;
@@ -85,23 +80,8 @@ namespace MagicLeap
 
         void Update()
         {
-<<<<<<< Updated upstream
             // Update the preview location, inside of the validation area.
             if (_placementObject != null)
-=======
-            debugText.text = "DEBUG: Bumper count: " + bumperindex; 
-            beam.SetPosition(0, _controllerConnectionHandler.ConnectedController.Position);
-            beam.SetPosition(1, _controllerConnectionHandler.ConnectedController.Position + transform.forward);
-            //UpdateVisualizers(); 
-
-            if (index == 0)
-            {
-                _instructionLabel.text = "Welcome! Time to place your origin. Point your controller towards a level surface and use the trigger to place your point.";
-                beam.SetPosition(1, _controllerConnectionHandler.ConnectedController.Position + (transform.forward * magTouchY));
-                HandlePlacementFree(beam.GetPosition(1));
-            }
-            if (index == 1)
->>>>>>> Stashed changes
             {
                 _placementObject.transform.position = _placement.AdjustedPosition - _placementObject.LocalBounds.center;
                 _placementObject.transform.rotation = _placement.Rotation;
@@ -174,7 +154,6 @@ namespace MagicLeap
 
             if(_controllerConnectionHandler.IsControllerValid() && _controllerConnectionHandler.ConnectedController.Id == controllerId && button == MLInputControllerButton.Bumper)
             {
-<<<<<<< Updated upstream
                 bumpcount++;
                 if (bumpcount % 2 == 1)
                 {
@@ -225,19 +204,6 @@ namespace MagicLeap
                 content.gameObject.SetActive(true);
                 NextPlacementObject();
             }
-=======
-                //trigger view mode changes here
-                //just a note for future me, you should probs add an enum for allll the view types you want to include (axis, component, unit vec, axis + angle (with resultant vector)). 
-                // can do this! just go back on your statics project and reuse the logic for the enum+view mode. but transport the functions to another visualizer script, because this one is getting full
-                // modes.UpdateViewMode(ViewMode)   
-                //omg. my mind. i love me. 
-                if (bumperindex < 4)
-                    bumperindex++;
-                else
-                    bumperindex = 0; 
-            }
-
->>>>>>> Stashed changes
         }
         #endregion
 
