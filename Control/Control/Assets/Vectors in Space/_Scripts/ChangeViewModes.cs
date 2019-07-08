@@ -15,7 +15,7 @@ public class ChangeViewModes : MonoBehaviour
     [SerializeField, Tooltip("The Line Rendere game objects that represnet the xyz + resultant unit vector components")]
     private GameObject[] units = null;
 
-    [SerializeField, Tooltip("The curve renderers?? idk how this will work yet")]
+    [SerializeField, Tooltip("The curve renderers?? idk how this will work yet")] //it's rachel from the future this doesnt work uWu
     private GameObject[] angles = null;
 
     private _Placement _placement = null;

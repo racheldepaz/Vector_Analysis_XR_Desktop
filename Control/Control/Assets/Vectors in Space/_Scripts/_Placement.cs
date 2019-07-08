@@ -72,8 +72,7 @@ namespace MagicLeap
         private GameObject content0, content1; //save location of the origin, placed point
 
         // flags and controller variables
-        private bool triggerIsDown;
-        private bool lastTriggerWasUp;
+        private bool placementComplete;
         #endregion
 
         #region Unity Methods
@@ -88,6 +87,8 @@ namespace MagicLeap
             }
 
             index = 0;
+            bumperindex = 0; 
+            placementComplete = false;
 
             _placement = GetComponent<Placement>();
             _vectorMath = GetComponent<VectorMath>();
@@ -115,7 +116,6 @@ namespace MagicLeap
 
         void Update()
         {
-            debugText.text = "DEBUG: Bumper count: " + bumperindex; 
             beam.SetPosition(0, _controllerConnectionHandler.ConnectedController.Position);
             beam.SetPosition(1, _controllerConnectionHandler.ConnectedController.Position + transform.forward);
             if (index == 0)
@@ -130,7 +130,15 @@ namespace MagicLeap
                 beam.SetPosition(1, _controllerConnectionHandler.ConnectedController.Position + (transform.forward * magTouchY));
                 HandlePlacementFree(beam.GetPosition(1));
             }
-            _instructionLabel.text = "Placement complete! Press the bumper to go through different view modes, or hover towards the menu icon to view more information about your vector.";
+            if (debugText.text == null)
+                debugText.text = "Now viewing: Components";
+            if (index == 2)
+                placementComplete = true; 
+            if (placementComplete)
+            {
+                _instructionLabel.text = "Placement complete! Press the bumper to go through different view modes, or hover towards the menu icon to view more information about your vector.";
+                VectorVisualizer(content1.transform.position);
+            }
         }
 
         void OnDestroy()
@@ -157,14 +165,6 @@ namespace MagicLeap
             index++; 
         }
 
-        /// <summary>
-        /// Enable/Disable the correct objects depending on view options
-        /// </summary>
-        void UpdateVisualizers()
-        {
-            modes.UpdateViewMode(_viewMode);
-        }
-
         private void HandleOnTriggerUp(byte controllerId, float pressure)
         {
             _controllerConnectionHandler.ConnectedController.StartFeedbackPatternEffectLED(MLInputControllerFeedbackEffectLED.PaintCW, MLInputControllerFeedbackEffectSpeedLED.Fast, MLInputControllerFeedbackPatternLED.Clock6And12, MLInputControllerFeedbackColorLED.BrightCosmicPurple, 1.5f);
@@ -185,14 +185,25 @@ namespace MagicLeap
 
             if (_controllerConnectionHandler.IsControllerValid() && _controllerConnectionHandler.ConnectedController.Id == controllerId && button == MLInputControllerButton.Bumper)
             {
-                //trigger view mode changes here
-                //just a note for future me, you should probs add an enum for allll the view types you want to include (axis, component, unit vec, axis + angle (with resultant vector)). 
-                // can do this! just go back on your statics project and reuse the logic for the enum+view mode. but transport the functions to another visualizer script, because this one is getting full
-                // modes.UpdateViewMode(ViewMode)   
+                switch (bumperindex)
+                {
+                    case 0:
+                        bumperindex++;
+                        debugText.text = "Now viewing: Axes";
+                        break; 
+                    case 1:
+                        bumperindex++;
+                        debugText.text = "Now viewing: Unit Vector";
+                        break;
+                    case 2:
+                        bumperindex = 0;
+                        debugText.text = "Now viewing: Components";
+                        break;
+                    default:
+                        break;
+                }
                 //omg. my mind. i love me. 
-                _viewMode = (ViewMode)((int)(_viewMode + 1) % Enum.GetNames(typeof(ViewMode)).Length);
             }
-            UpdateVisualizers(); 
         }
         #endregion
 
@@ -221,7 +232,6 @@ namespace MagicLeap
 
                     content0.transform.position = targetPos;
                     content0.transform.rotation = transform.rotation * Quaternion.Euler(Vector3.up);
-                    VectorVisualizer(targetPos);
                     break;
                 case 1:
                     Destroy(content1);
@@ -235,9 +245,7 @@ namespace MagicLeap
                     content1.transform.rotation = transform.rotation * Quaternion.Euler(Vector3.up);
                     VectorVisualizer(targetPos1);
                     break;
-
             }
-            
         }
 
         //thx Ryan!!!
@@ -254,6 +262,8 @@ namespace MagicLeap
             {
                 if (controller.Touch1PosAndForce.y - lastY < -0.001)
                     magTouchY -= pushRate;
+                if (magTouchY <= 0)
+                    magTouchY = 0; 
                 else if (controller.Touch1PosAndForce.y - lastY > 0.001)
                     magTouchY += pushRate;
                 lastY = controller.Touch1PosAndForce.y;
