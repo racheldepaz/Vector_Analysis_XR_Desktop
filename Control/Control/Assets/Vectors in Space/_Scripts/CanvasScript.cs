@@ -63,9 +63,9 @@ public class CanvasScript : MonoBehaviour
     }
     void Update()
     {
-        _distanceLabel.text = "Distance from origin: " + pos.ToString("N2");
-        _magnitudeLabel.text = "Magnitude: " + mag.ToString("N2");
-        _angleLabel.text = "X Angle: " + angleX.ToString("N2") + " Y Angle: " + angleY.ToString("N2") + " Z Angle: " + angleZ.ToString("N2");
+        _distanceLabel.text = "Distance from origin: " + pos.ToString("N2") + "(meters)";
+        _magnitudeLabel.text = "Magnitude: " + mag.ToString("N2") + "(meters)";
+        _angleLabel.text = "X Angle: " + angleX.ToString("N2") + "°" + " Y Angle: " + angleY.ToString("N2") + "°" +  " Z Angle: " + angleZ.ToString("N2") + "°";
     } 
     #endregion
 }
