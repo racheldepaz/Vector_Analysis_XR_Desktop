@@ -1,12 +1,21 @@
 ﻿using UnityEngine;
-using UnityEngine.UI; 
-
+using UnityEngine.UI;
+using TMPro;
 
 public class CanvasScript : MonoBehaviour
 {
     #region Text Boxes
     [SerializeField, Tooltip("The Text element that will display the vector's distance from origin.")]
     public Text _distanceLabel;
+
+    [SerializeField, Tooltip("TMP Distance X")]
+    public TextMeshPro distanceX;
+
+    [SerializeField, Tooltip("TMP Distance Y")]
+    public TextMeshPro distanceY;
+
+    [SerializeField, Tooltip("TMP Distance Y")]
+    public TextMeshPro distanceZ;
 
     [SerializeField, Tooltip("The Text element that will display the vector's magnitude.")]
     public Text _magnitudeLabel;
@@ -18,7 +27,6 @@ public class CanvasScript : MonoBehaviour
     public float mag;
     public float angleX, angleY, angleZ;
     #endregion
-
 
     #region Public Methods
     //set the value of referred variables as global var. referred to by VectorMath::Update
@@ -38,7 +46,7 @@ public class CanvasScript : MonoBehaviour
         angleZ = Mathf.Rad2Deg * Mathf.Acos(pos.z / mag);
 
         if (angleX > 90)
-         angleX -= 90;
+            angleX -= 90;
         if (angleY > 90)
             angleY -= 90;
         if (angleZ > 90)

@@ -170,7 +170,7 @@ public class VectorMath : MonoBehaviour
                 units[index].SetPosition(1, zComp);
                 break;
             case 3:
-                point.dire
+                Vector3 oneVec = point - Vector3.one; 
                 Vector3 ptNormal = point.normalized;
                 units[index].SetPosition(0, origin.position);
                 units[index].SetPosition(1, ptNormal);
