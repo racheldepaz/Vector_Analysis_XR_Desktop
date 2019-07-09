@@ -16,7 +16,6 @@ namespace MagicLeap
         #region Public Variables
         public GameObject menuPanel;
         public GameObject regularCanvas; 
-        public bool menuActive; 
         #endregion
 
         #region Serialized Variables
@@ -64,7 +63,9 @@ namespace MagicLeap
 
         // flags and controller variables
         private bool placementComplete;
-        private bool bumperFirstPress; 
+        private bool inPlacementState; 
+        private bool bumperFirstPress;
+        private bool menuActive;
         #endregion
 
         #region Unity Methods
@@ -83,6 +84,7 @@ namespace MagicLeap
 
 
             placementComplete = false;
+            inPlacementState = true; 
             bumperFirstPress = false; 
             menuActive = false;
 
@@ -118,30 +120,33 @@ namespace MagicLeap
             beam.SetPosition(0, _controllerConnectionHandler.ConnectedController.Position);
             beam.SetPosition(1, _controllerConnectionHandler.ConnectedController.Position + transform.forward);
 
-            if (index == 0)
+            if (inPlacementState)
             {
-                _instructionLabel.text = "Welcome! Time to place your origin. Point your controller towards a level surface and use the trigger to place your point.";
-                beam.SetPosition(1, _controllerConnectionHandler.ConnectedController.Position + (transform.forward * magTouchY));
-                HandlePlacementFree(beam.GetPosition(1));
-            }
+                if (index == 0)
+                {
+                    _instructionLabel.text = "Welcome! Time to place your origin. Point your controller towards a level surface and use the trigger to place your point.";
+                    beam.SetPosition(1, _controllerConnectionHandler.ConnectedController.Position + (transform.forward * magTouchY));
+                    HandlePlacementFree(beam.GetPosition(1));
+                }
 
-            if (index == 1)
-            {
-                _instructionLabel.text = "Great! Press down on the touchpad if you're ready to place your point. Now, point towards another area and press the trigger again. Press the home button to reset.";
-                beam.SetPosition(1, _controllerConnectionHandler.ConnectedController.Position + (transform.forward * magTouchY));
-                HandlePlacementFree(beam.GetPosition(1));
-            }
+                if (index == 1)
+                {
+                    _instructionLabel.text = "Great! Press down on the touchpad if you're ready to place your point. Now, point towards another area and press the trigger again. Press the home button to reset.";
+                    beam.SetPosition(1, _controllerConnectionHandler.ConnectedController.Position + (transform.forward * magTouchY));
+                    HandlePlacementFree(beam.GetPosition(1));
+                }
 
-            if (index == 2)
-                placementComplete = true;
+                if (index == 2)
+                    placementComplete = true;
 
-            if (bumperFirstPress == false && index == 1)
-                debugText.text = "Now viewing: Components";
+                if (bumperFirstPress == false && index == 1)
+                    debugText.text = "Now viewing: Components";
 
-            if (placementComplete)
-            {
-                _instructionLabel.text = "Placement complete! Press the bumper to go through different view modes, or hover towards the menu icon to view more information about your vector.";
-                VectorVisualizer(content1.transform.position);
+                if (placementComplete)
+                {
+                    _instructionLabel.text = "Placement complete! Press the bumper to go through different view modes, or hover towards the menu icon to view more information about your vector.";
+                    VectorVisualizer(content1.transform.position);
+                }
             }
         }
 
@@ -166,7 +171,8 @@ namespace MagicLeap
         private void HandleOnTriggerDown(byte controllerId, float pressure)
         {
             _controllerConnectionHandler.ConnectedController.StartFeedbackPatternVibe(MLInputControllerFeedbackPatternVibe.ForceUp, MLInputControllerFeedbackIntensity.High);
-            index++; 
+            if(inPlacementState)
+                index++; 
         }
 
         private void HandleOnTriggerUp(byte controllerId, float pressure)
@@ -188,12 +194,14 @@ namespace MagicLeap
                 {
                     menuActive = false;
                     menuPanel.SetActive(false);
+                    inPlacementState = true;
                     regularCanvas.SetActive(true);
                 }
                 else if (menuActive == false)
                 {
                     menuActive = true;
                     menuPanel.SetActive(true);
+                    inPlacementState = false;
                     regularCanvas.SetActive(false);
                  }
              }

@@ -119,7 +119,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 1.33
+  bundleVersion: 1.35
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -160,7 +160,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Lumin: com.rdp.test3
+    Lumin: com.rdp.test5
     Standalone: com.rdp.placement
   buildNumber: {}
   AndroidBundleVersionCode: 1
@@ -607,7 +607,7 @@ PlayerSettings:
     m_SignPackage: 1
   luminIsChannelApp: 0
   luminVersion:
-    m_VersionCode: 3
+    m_VersionCode: 5
     m_VersionName: test
   facebookSdkVersion: 
   facebookAppId: 
