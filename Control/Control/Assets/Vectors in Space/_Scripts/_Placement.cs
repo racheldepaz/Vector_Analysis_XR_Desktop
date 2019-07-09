@@ -13,16 +13,10 @@ namespace MagicLeap
     [RequireComponent(typeof(VectorMath))]
     public class _Placement : MonoBehaviour
     {
-        #region View Mode Enum + declaration
-        public enum ViewMode : int
-        {
-            Axis = 0,
-            Components,
-            Units,
-            AxisAngle,
-        }
-
-        private ViewMode _viewMode = ViewMode.Axis;
+        #region Public Variables
+        public GameObject menuPanel;
+        public GameObject regularCanvas; 
+        public bool menuActive; 
         #endregion
 
         #region Serialized Variables
@@ -37,9 +31,6 @@ namespace MagicLeap
 
         [SerializeField, Tooltip("The placement object used in the scene.")]
         private GameObject[] placementPoint = null;
-
-        [SerializeField, Tooltip("The placement object not bound to surfaces in the scene.")]
-        private GameObject freePoint;
 
         [SerializeField, Tooltip("Where you want to drop all the instantiated elements of the visualization")]
         private Transform root;
@@ -73,6 +64,7 @@ namespace MagicLeap
 
         // flags and controller variables
         private bool placementComplete;
+        private bool bumperFirstPress; 
         #endregion
 
         #region Unity Methods
@@ -88,7 +80,14 @@ namespace MagicLeap
 
             index = 0;
             bumperindex = 0; 
+
+
             placementComplete = false;
+            bumperFirstPress = false; 
+            menuActive = false;
+
+            regularCanvas.SetActive(true);
+            menuPanel.SetActive(false);
 
             _placement = GetComponent<Placement>();
             _vectorMath = GetComponent<VectorMath>();
@@ -118,22 +117,27 @@ namespace MagicLeap
         {
             beam.SetPosition(0, _controllerConnectionHandler.ConnectedController.Position);
             beam.SetPosition(1, _controllerConnectionHandler.ConnectedController.Position + transform.forward);
+
             if (index == 0)
             {
                 _instructionLabel.text = "Welcome! Time to place your origin. Point your controller towards a level surface and use the trigger to place your point.";
                 beam.SetPosition(1, _controllerConnectionHandler.ConnectedController.Position + (transform.forward * magTouchY));
                 HandlePlacementFree(beam.GetPosition(1));
             }
+
             if (index == 1)
             {
                 _instructionLabel.text = "Great! Press down on the touchpad if you're ready to place your point. Now, point towards another area and press the trigger again. Press the home button to reset.";
                 beam.SetPosition(1, _controllerConnectionHandler.ConnectedController.Position + (transform.forward * magTouchY));
                 HandlePlacementFree(beam.GetPosition(1));
             }
-            if (debugText.text == null)
-                debugText.text = "Now viewing: Components";
+
             if (index == 2)
-                placementComplete = true; 
+                placementComplete = true;
+
+            if (bumperFirstPress == false && index == 1)
+                debugText.text = "Now viewing: Components";
+
             if (placementComplete)
             {
                 _instructionLabel.text = "Placement complete! Press the bumper to go through different view modes, or hover towards the menu icon to view more information about your vector.";
@@ -180,11 +184,25 @@ namespace MagicLeap
             if (_controllerConnectionHandler.IsControllerValid() && _controllerConnectionHandler.ConnectedController.Id
                 == controllerId && button == MLInputControllerButton.HomeTap)
             {
-                SceneManager.LoadScene(0, LoadSceneMode.Single);
-            }
+                if (menuActive == true)
+                {
+                    menuActive = false;
+                    menuPanel.SetActive(false);
+                    regularCanvas.SetActive(true);
+                }
+                else if (menuActive == false)
+                {
+                    menuActive = true;
+                    menuPanel.SetActive(true);
+                    regularCanvas.SetActive(false);
+                 }
+             }
 
             if (_controllerConnectionHandler.IsControllerValid() && _controllerConnectionHandler.ConnectedController.Id == controllerId && button == MLInputControllerButton.Bumper)
             {
+                if (bumperFirstPress && bumperindex == 0)
+                    bumperFirstPress = false; 
+
                 switch (bumperindex)
                 {
                     case 0:

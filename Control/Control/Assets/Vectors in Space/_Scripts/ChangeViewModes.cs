@@ -2,6 +2,9 @@
 using UnityEngine;
 using UnityEngine.XR.MagicLeap;
 
+/// <summary>
+/// DEPRECATED CLASS DO NOT USE
+/// </summary>
 [RequireComponent(typeof(VectorMath))]
 public class ChangeViewModes : MonoBehaviour
 {
@@ -21,7 +24,7 @@ public class ChangeViewModes : MonoBehaviour
     private _Placement _placement = null;
     private VectorMath vectorMath = null; 
 
-    private _Placement.ViewMode lastViewMode = _Placement.ViewMode.Axis;
+    //private _Placement.ViewMode lastViewMode = _Placement.ViewMode.Axis;
     #endregion
 
 
@@ -56,7 +59,7 @@ public class ChangeViewModes : MonoBehaviour
         vectorMath = GetComponent<VectorMath>();
     }
 
-    public void UpdateViewMode(_Placement.ViewMode viewMode)
+    /*public void UpdateViewMode(_Placement.ViewMode viewMode)
     {
         lastViewMode = viewMode;
         RefreshViewMode();
@@ -109,5 +112,5 @@ public class ChangeViewModes : MonoBehaviour
             default:
                 break;
         }
-    }
+    }*/
 }

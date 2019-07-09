@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Vectors in Space/Scenes/Vector_1.unity
     guid: f101f1344ca33b548b5ffd2445ea33c9
+  - enabled: 0
+    path: Assets/MagicLeap/Examples/Scenes/InputModule.unity
+    guid: 1791969e13b627c49afd5bfc3433fdee
   m_configObjects: {}
