@@ -19,6 +19,7 @@ public class CanvasScript : MonoBehaviour
 
     [SerializeField, Tooltip("The Text element that will display the vector's magnitude.")]
     public Text _magnitudeLabel;
+
     public Text _angleLabel;
     #endregion
 
