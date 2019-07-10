@@ -845,7 +845,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a955ee40b78a2c489d4859b55f1f5e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CanvasDistance: 1
+  CanvasDistance: 2
   PositionLerpSpeed: 1
   RotationLerpSpeed: 1
 --- !u!1 &1572772670

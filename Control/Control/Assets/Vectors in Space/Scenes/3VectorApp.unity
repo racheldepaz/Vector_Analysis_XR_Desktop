@@ -513,7 +513,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 9c9078c06443df049a2830962f9dd5ef, type: 3}
+    m_Font: {fileID: 12800000, guid: d87a67b4d1e28a44299d80de0508c9f0, type: 3}
     m_FontSize: 35
     m_FontStyle: 0
     m_BestFit: 1
@@ -1236,7 +1236,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 9c9078c06443df049a2830962f9dd5ef, type: 3}
+    m_Font: {fileID: 12800000, guid: d87a67b4d1e28a44299d80de0508c9f0, type: 3}
     m_FontSize: 35
     m_FontStyle: 0
     m_BestFit: 1
@@ -1290,7 +1290,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a955ee40b78a2c489d4859b55f1f5e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CanvasDistance: 2
+  CanvasDistance: 1.5
   PositionLerpSpeed: 1
   RotationLerpSpeed: 1
 --- !u!114 &1041383642
@@ -1721,7 +1721,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 9c9078c06443df049a2830962f9dd5ef, type: 3}
+    m_Font: {fileID: 12800000, guid: d87a67b4d1e28a44299d80de0508c9f0, type: 3}
     m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 1
@@ -1954,6 +1954,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   angleText: {fileID: 1307412631}
+  _inputModule: {fileID: 1946852107}
+  _beam: {fileID: 1813943459}
+  _angle: {fileID: 1400094403}
 --- !u!222 &1259744842
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2204,7 +2207,7 @@ GameObject:
   - component: {fileID: 1400094404}
   - component: {fileID: 1400094403}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Answer Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2250,7 +2253,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 9c9078c06443df049a2830962f9dd5ef, type: 3}
+    m_Font: {fileID: 12800000, guid: d87a67b4d1e28a44299d80de0508c9f0, type: 3}
     m_FontSize: 35
     m_FontStyle: 0
     m_BestFit: 1
@@ -2262,7 +2265,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Toggle Answers
+  m_Text: 'Answers: Off'
 --- !u!222 &1400094404
 CanvasRenderer:
   m_ObjectHideFlags: 0
