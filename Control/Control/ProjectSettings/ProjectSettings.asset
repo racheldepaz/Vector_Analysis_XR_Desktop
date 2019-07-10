@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: RDP
-  productName: TEST
+  productName: Deliverable
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -119,7 +119,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 1.32
+  bundleVersion: 1.37
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -160,7 +160,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Lumin: com.rdp.test2
+    Lumin: com.rdp.deliverable
     Standalone: com.rdp.placement
   buildNumber: {}
   AndroidBundleVersionCode: 1
@@ -607,8 +607,8 @@ PlayerSettings:
     m_SignPackage: 1
   luminIsChannelApp: 0
   luminVersion:
-    m_VersionCode: 2
-    m_VersionName: test
+    m_VersionCode: 1
+    m_VersionName: deliverabletest
   facebookSdkVersion: 
   facebookAppId: 
   facebookCookies: 1
