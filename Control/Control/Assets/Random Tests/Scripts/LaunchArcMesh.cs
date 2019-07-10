@@ -17,7 +17,7 @@ public class LaunchArcMesh : MonoBehaviour
 
 
 
-    public float velocity;
+    private float velocity = 5f;
 
     public float angle;
 
