@@ -125,6 +125,7 @@ namespace MagicLeap
                 if (index == 0)
                 {
                     _instructionLabel.text = "Welcome! Time to place your origin. Point your controller towards a level surface and use the trigger to place your point.";
+                    debugText.text = "";
                     beam.SetPosition(1, _controllerConnectionHandler.ConnectedController.Position + (transform.forward * magTouchY));
                     HandlePlacementFree(beam.GetPosition(1));
                 }
