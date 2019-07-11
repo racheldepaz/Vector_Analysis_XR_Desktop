@@ -63,7 +63,7 @@ public class VectorMath : MonoBehaviour
         //ideally, you would feed the visualizer with info like the point and origin. but thats a lot of work so im just going off indexes<3
         relPos = GetRelativePosition(origin, point); //position of the point with the non-zero origin as new reference pt
         relMag = relPos.magnitude; //magnitude of the point with the
-        canvasScript.setVariables(relPos, relMag, origin);
+        canvasScript.setVariables(relPos, relMag);
         if (index == 0)
         {
             for (int i = 0; i <= 3; i++)
@@ -97,23 +97,19 @@ public class VectorMath : MonoBehaviour
         {
             case 0:
                 axes[index].SetPosition(0, origin.position);
-                axes[index].SetPosition(1, point);
-                canvasScript.VisualizeText(axes[index].GetPosition(1), 1, index);
+                axes[index].SetPosition(1, point); 
                 break;
             case 1:
                 axes[index].SetPosition(0, origin.position);
                 axes[index].SetPosition(1, new Vector3(origin.position.x + 1, origin.position.y, origin.position.z));
-                canvasScript.VisualizeText(axes[index].GetPosition(1), 1, index);
                 break;
             case 2:
                 axes[index].SetPosition(0, origin.position);
                 axes[index].SetPosition(1, new Vector3(origin.position.x, origin.position.y + 1, origin.position.z));
-                canvasScript.VisualizeText(axes[index].GetPosition(1), 1, index);
                 break;
             case 3:
                 axes[index].SetPosition(0, origin.position);
                 axes[index].SetPosition(1, new Vector3(origin.position.x, origin.position.y, origin.position.z + 1));
-                canvasScript.VisualizeText(axes[index].GetPosition(1), 1, index);
                 break;
             default:
                 Debug.Log("Something went wrong in the for loop from VectorMath::vectorComponents(V3, i, T)");
@@ -130,22 +126,18 @@ public class VectorMath : MonoBehaviour
             case 0:
                 components[index].SetPosition(0, origin.position);
                 components[index].SetPosition(1, new Vector3(point.x, origin.position.y, origin.position.z));
-                canvasScript.VisualizeText(components[index].GetPosition(1), 0, index);
                 break;
             case 1:
                 components[index].SetPosition(0, origin.position);
                 components[index].SetPosition(1, new Vector3(origin.position.x, point.y, origin.position.z));
-                canvasScript.VisualizeText(components[index].GetPosition(1), 0, index);
                 break;
             case 2:
                 components[index].SetPosition(0, origin.position);
                 components[index].SetPosition(1, new Vector3(origin.position.x, origin.position.y, point.z));
-                canvasScript.VisualizeText(components[index].GetPosition(1), 0, index);
                 break;
             case 3:
                 components[index].SetPosition(0, origin.position);
                 components[index].SetPosition(1, point);
-                canvasScript.VisualizeText(components[index].GetPosition(1), 0, index);
                 break;
             default:
                 Debug.Log("Something went wrong in the for loop from VectorMath::vectorComponents(V3, T)");
@@ -164,28 +156,24 @@ public class VectorMath : MonoBehaviour
                 Vector3 xComp = new Vector3(adjustedPos, origin.position.y, origin.position.z);
                 units[index].SetPosition(0, origin.position);
                 units[index].SetPosition(1, xComp);
-                canvasScript.VisualizeText(units[index].GetPosition(1), 2, index);
                 break;
             case 1:
                 adjustedPos = (relPos.y / relMag) + origin.position.y; //account for the offset in the origin
                 Vector3 yComp = new Vector3(origin.position.x, adjustedPos, origin.position.z);
                 units[index].SetPosition(0, origin.position);
                 units[index].SetPosition(1, yComp);
-                canvasScript.VisualizeText(units[index].GetPosition(1), 2, index);
                 break;
             case 2:
                 adjustedPos = (relPos.z / relMag) + origin.position.z; //account for the offset in the origin
                 Vector3 zComp = new Vector3(origin.position.x, origin.position.y, adjustedPos);
                 units[index].SetPosition(0, origin.position);
                 units[index].SetPosition(1, zComp);
-                canvasScript.VisualizeText(units[index].GetPosition(1), 2, index);
                 break;
             case 3: //resultant unit vector
                 Vector3 oneVec = point - Vector3.one; 
                 Vector3 ptNormal = (point - origin.position).normalized;
                 units[index].SetPosition(0, origin.position);
                 units[index].SetPosition(1, ptNormal + origin.position);
-                canvasScript.VisualizeText(units[index].GetPosition(1), 2, index);
                 break;
             default:
                 Debug.Log("Something went wrong in the for loop from VectorMath::vectorUnitComponents(V3, T)");
