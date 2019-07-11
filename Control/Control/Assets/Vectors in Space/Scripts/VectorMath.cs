@@ -24,6 +24,10 @@ public class VectorMath : MonoBehaviour
 
     [SerializeField, Tooltip("The Line Rendere game objects that represnet the xyz + resultant unit vector components")]
     private LineRenderer[] units = null;
+
+    [SerializeField, Tooltip("Gameobjects that hold the meshes for the arcs")]
+    private GameObject[] arcs = null; 
+
     #endregion
 
     #region Unity Methods
@@ -69,6 +73,7 @@ public class VectorMath : MonoBehaviour
             for (int i = 0; i <= 3; i++)
             {
                 VisualizeComponent(point, i, origin);
+                VisualizeArcs(point, i, origin);
             }
         }
         if (index == 1)
@@ -89,6 +94,35 @@ public class VectorMath : MonoBehaviour
     #endregion
 
     #region Private Methods
+    private void VisualizeArcs(Vector3 point, int index, Transform origin)
+    {
+        switch (index)
+        {
+            case 0:
+                arcs[index].transform.position = origin.position;
+                arcs[index].transform.rotation = origin.rotation; 
+                LaunchArcMesh arcMesh = arcs[index].GetComponentInChildren<LaunchArcMesh>();
+                arcMesh.SetAngle(Mathf.Rad2Deg * Mathf.Acos(relPos.x / relMag));
+
+                break;
+            case 1:
+                arcs[index].transform.position = origin.position;
+                arcs[index].transform.rotation = origin.rotation;
+                LaunchArcMesh arcMesh1 = arcs[index].GetComponentInChildren<LaunchArcMesh>();
+                arcMesh1.SetAngle(Mathf.Rad2Deg * Mathf.Acos(relPos.y / relMag));
+                break;
+            case 2:
+                arcs[index].transform.position = origin.position;
+                arcs[index].transform.rotation = origin.rotation;
+                LaunchArcMesh arcMesh2 = arcs[index].GetComponentInChildren<LaunchArcMesh>();
+                arcMesh2.SetAngle(Mathf.Rad2Deg * Mathf.Acos(relPos.z / relMag));
+                break;
+            default:
+                Debug.Log("Error in VectorMath::VisualizeArcs(V3, i, T)");
+                break;
+        }
+    }
+
     private void VisualizeAxes(Vector3 point, int index, Transform origin)
     {
         ZeroLR(components);

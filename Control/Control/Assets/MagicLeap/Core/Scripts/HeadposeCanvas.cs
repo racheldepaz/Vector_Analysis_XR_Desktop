@@ -25,6 +25,9 @@ namespace UnityEngine.XR.MagicLeap
         [Tooltip("The distance from the camera that this object should be placed.")]
         public float CanvasDistance = 1.5f;
 
+        [Tooltip("Is the canvas hard-locked on the user?")]
+        public bool lockedHead;
+
         [Tooltip("The speed at which this object changes its position.")]
         public float PositionLerpSpeed = 5f;
 
@@ -70,6 +73,16 @@ namespace UnityEngine.XR.MagicLeap
         /// </summary>
         void Update()
         {
+            if (lockedHead)
+                LockedCamera();
+            else
+                SlerpedCamera();
+        }
+        #endregion
+
+        #region Private Methods
+        private void SlerpedCamera()
+        {
             // Move the object CanvasDistance units in front of the camera.
             float posSpeed = Time.deltaTime * PositionLerpSpeed;
             Vector3 posTo = _camera.transform.position + (_camera.transform.forward * CanvasDistance);
@@ -80,6 +93,14 @@ namespace UnityEngine.XR.MagicLeap
             Quaternion rotTo = Quaternion.LookRotation(transform.position - _camera.transform.position);
             transform.rotation = Quaternion.Slerp(transform.rotation, rotTo, rotSpeed);
         }
+
+        private void LockedCamera()
+        {
+            //Move the object rght in front of the user
+            transform.position = _camera.transform.position + _camera.transform.forward * CanvasDistance;
+            transform.rotation = _camera.transform.rotation;
+        }
+
         #endregion
     }
 }
