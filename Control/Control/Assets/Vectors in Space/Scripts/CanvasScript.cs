@@ -132,21 +132,21 @@ public class CanvasScript : MonoBehaviour
                 Quaternion rotTowardsUser = Quaternion.LookRotation(xAxisText.transform.position - _camera.transform.position);
                 xAxisText.transform.rotation = Quaternion.Slerp(xAxisText.transform.rotation, rotTowardsUser, 1.5f);
 
-                xAxisText.text = "1 m";
+                xAxisText.text = "X";
                 break;
             case 1:
                 yAxisText.transform.position = endPt;
                 rotTowardsUser = Quaternion.LookRotation(yAxisText.transform.position - _camera.transform.position);
                 yAxisText.transform.rotation = Quaternion.Slerp(yAxisText.transform.rotation, rotTowardsUser, 1.5f);
 
-                yAxisText.text = "1 m";
+                yAxisText.text = "Y";
                 break;
             case 2:
                 zAxisText.transform.position = new Vector3(origin.position.x, origin.position.y, origin.position.z + 1);
                 rotTowardsUser = Quaternion.LookRotation(zAxisText.transform.position - _camera.transform.position);
                 zAxisText.transform.rotation = Quaternion.Slerp(zAxisText.transform.rotation, rotTowardsUser, 1.5f);
 
-                zAxisText.text = "1 m";
+                zAxisText.text = "Z";
                 break;
             default:
                 Debug.Log("There's something wrong in CanvasScript::TMPAssignAx(i, V3)");
@@ -173,7 +173,7 @@ public class CanvasScript : MonoBehaviour
 
                 yUnitText.text = (relPos.y / mag).ToString("N2") + " m";
                 break;
-            case 2:
+            case 2: 
                 zUnitText.transform.position = endPt;
                 rotTowardsUser = Quaternion.LookRotation(zUnitText.transform.position - _camera.transform.position);
                 zUnitText.transform.rotation = Quaternion.Slerp(zUnitText.transform.rotation, rotTowardsUser, 1.5f);
@@ -185,7 +185,7 @@ public class CanvasScript : MonoBehaviour
                 rotTowardsUser = Quaternion.LookRotation(rUnitText.transform.position - _camera.transform.position);
                 rUnitText.transform.rotation = Quaternion.Slerp(rUnitText.transform.rotation, rotTowardsUser, 1.5f);
 
-                rUnitText.text = ((relPos + origin.position).normalized + origin.position).magnitude.ToString("N2") + " m";
+                rUnitText.text = endPt.magnitude.ToString("N2") + " m";
                 break;
             default:
                 Debug.Log("There's something wrong in CanvasScript::TMPAssignUV(i, V3)");

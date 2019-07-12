@@ -132,7 +132,7 @@ namespace MagicLeap
 
                 if (index == 1)
                 {
-                    _instructionLabel.text = "Great! Press down on the touchpad if you're ready to place your point. Now, point towards another area and press the trigger again. Press the home button to reset.";
+                    _instructionLabel.text = "Great! Press the trigger again to place another point. Press the home button to toggle the main menu.";
                     beam.SetPosition(1, _controllerConnectionHandler.ConnectedController.Position + (transform.forward * magTouchY));
                     HandlePlacementFree(beam.GetPosition(1));
                 }
@@ -145,7 +145,7 @@ namespace MagicLeap
 
                 if (placementComplete)
                 {
-                    _instructionLabel.text = "Placement complete! Press the bumper to go through different view modes, or hover towards the menu icon to view more information about your vector.";
+                    _instructionLabel.text = "Placement complete! Press the bumper to go through different view modes, or press the home button to toggle the main menu.";
                     VectorVisualizer(content1.transform.position);
                 }
             }

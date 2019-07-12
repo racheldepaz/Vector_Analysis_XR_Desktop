@@ -100,10 +100,8 @@ public class VectorMath : MonoBehaviour
         {
             case 0:
                 arcs[index].transform.position = origin.position;
-                arcs[index].transform.rotation = origin.rotation; 
-                LaunchArcMesh arcMesh = arcs[index].GetComponentInChildren<LaunchArcMesh>();
-                arcMesh.SetAngle(Mathf.Rad2Deg * Mathf.Acos(relPos.x / relMag));
-
+                arcs[index].transform.rotation = origin.rotation;
+                arcs[index].GetComponent<LaunchArcMesh>().SetAngle(Mathf.Deg2Rad * Mathf.Acos(relPos.x / relMag));
                 break;
             case 1:
                 arcs[index].transform.position = origin.position;
@@ -219,7 +217,7 @@ public class VectorMath : MonoBehaviour
                 Vector3 ptNormal = (point - origin.position).normalized;
                 units[index].SetPosition(0, origin.position);
                 units[index].SetPosition(1, ptNormal + origin.position);
-                canvasScript.VisualizeText(units[index].GetPosition(1), 2, index);
+                canvasScript.VisualizeText(ptNormal, 2, index);
                 break;
             default:
                 Debug.Log("Something went wrong in the for loop from VectorMath::vectorUnitComponents(V3, T)");
