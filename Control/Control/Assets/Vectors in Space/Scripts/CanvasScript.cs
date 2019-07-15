@@ -152,6 +152,8 @@ public class CanvasScript : MonoBehaviour
                 rComponentText.transform.position = endPt;
                 rotTowardsUser = Quaternion.LookRotation(rComponentText.transform.position - _camera.transform.position);
                 rComponentText.transform.rotation = Quaternion.Slerp(rComponentText.transform.rotation, rotTowardsUser, 1.5f);
+
+                rComponentText.text = "Resultant";
                 break;
             default:
                 Debug.Log("There's something wrong in CanvasScript::TMPAssignAx(i, V3)");
