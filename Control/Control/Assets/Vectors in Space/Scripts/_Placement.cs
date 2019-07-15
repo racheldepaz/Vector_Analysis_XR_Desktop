@@ -145,7 +145,7 @@ namespace MagicLeap
 
                 if (placementComplete)
                 {
-                    _instructionLabel.text = "Placement complete! Press the bumper to go through different view modes, or press the home button to toggle the main menu.";
+                    _instructionLabel.text = "Placement complete! Press the bumper to go through different view modes, or press the home button to toggle the main menu.";    
                     VectorVisualizer(content1.transform.position);
                 }
             }

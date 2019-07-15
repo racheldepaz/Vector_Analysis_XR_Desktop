@@ -369,7 +369,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: '2. When placing your points, you can scroll vertically on the touchpad
-    to move the point in the z-direction. '
+    to move the point. '
 --- !u!222 &531649004
 CanvasRenderer:
   m_ObjectHideFlags: 0

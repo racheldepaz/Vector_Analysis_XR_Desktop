@@ -740,6 +740,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CanvasDistance: 2
+  lockedHead: 0
   PositionLerpSpeed: 1
   RotationLerpSpeed: 1
 --- !u!1 &1551916499
@@ -835,7 +836,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Home: toggle main menu
 
-    Touchpad: change z direction of placement
+    Touchpad: move the point
 
     Bumper: switch between view modes
 
