@@ -143,9 +143,9 @@ public class VectorMath : MonoBehaviour
                 canvasScript.VisualizeText(axes[index].GetPosition(1), 1, index);
                 break;
             case 3:
-                axes[index].SetPosition(0, origin.position);
-                axes[index].SetPosition(1, point);
-                canvasScript.VisualizeText(axes[index].GetPosition(1), 1, index);
+                components[index].SetPosition(0, origin.position);
+                components[index].SetPosition(1, point);
+                canvasScript.VisualizeText(components[index].GetPosition(1), 1, index);
                 break;
             default:
                 Debug.Log("Something went wrong in the for loop from VectorMath::vectorComponents(V3, i, T)");

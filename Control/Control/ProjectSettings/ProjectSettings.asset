@@ -160,7 +160,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Lumin: com.rdp.vectorsinspace
+    Lumin: com.rdp.vectorsinspacefinal
     Standalone: com.rdp.placement
   buildNumber: {}
   AndroidBundleVersionCode: 1
@@ -603,7 +603,7 @@ PlayerSettings:
     m_ModelFolderPath: 
     m_PortalFolderPath: 
   luminCert:
-    m_CertPath: C:/Users/Administrator/MagicLeap/certificates/firstdev.cert
+    m_CertPath: C:/Users/13052/MagicLeap/certificates/razercert.cert
     m_SignPackage: 1
   luminIsChannelApp: 0
   luminVersion:
