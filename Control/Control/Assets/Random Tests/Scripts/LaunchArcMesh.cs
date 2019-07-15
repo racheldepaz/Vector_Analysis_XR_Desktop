@@ -6,15 +6,21 @@ public class LaunchArcMesh : MonoBehaviour
     #region Public Variables
     Mesh mesh;
     public float meshWidth;
-    private float velocity = 5f;
+    public float velocity = 5f;
 
     public int resolution = 10;
     #endregion
 
     #region Private Variables
-    float angle;
-    float g; //force of gravity on the y axis
-    float radianAngle;
+    private float angle;
+    private float g; //force of gravity on the y axis
+    private float radianAngle;
+
+    public GameObject origin;
+    public GameObject point;
+
+
+
     #endregion
 
     #region Unity Methods
@@ -34,6 +40,9 @@ public class LaunchArcMesh : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        transform.position = origin.transform.position;
+        transform.rotation = origin.transform.rotation;
+        SetAngle((float)19.87);
         MakeArcMesh(CalculateArcArray());
     }
     #endregion

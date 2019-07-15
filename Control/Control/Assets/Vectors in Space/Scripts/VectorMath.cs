@@ -129,22 +129,22 @@ public class VectorMath : MonoBehaviour
         {
             case 0:
                 axes[index].SetPosition(0, origin.position);
-                axes[index].SetPosition(1, point);
+                axes[index].SetPosition(1, new Vector3(origin.position.x + 1, origin.position.y, origin.position.z));
                 canvasScript.VisualizeText(axes[index].GetPosition(1), 1, index);
                 break;
             case 1:
                 axes[index].SetPosition(0, origin.position);
-                axes[index].SetPosition(1, new Vector3(origin.position.x + 1, origin.position.y, origin.position.z));
+                axes[index].SetPosition(1, new Vector3(origin.position.x, origin.position.y + 1, origin.position.z));
                 canvasScript.VisualizeText(axes[index].GetPosition(1), 1, index);
                 break;
             case 2:
                 axes[index].SetPosition(0, origin.position);
-                axes[index].SetPosition(1, new Vector3(origin.position.x, origin.position.y + 1, origin.position.z));
+                axes[index].SetPosition(1, new Vector3(origin.position.x, origin.position.y, origin.position.z + 1));
                 canvasScript.VisualizeText(axes[index].GetPosition(1), 1, index);
                 break;
             case 3:
                 axes[index].SetPosition(0, origin.position);
-                axes[index].SetPosition(1, new Vector3(origin.position.x, origin.position.y, origin.position.z + 1));
+                axes[index].SetPosition(1, point);
                 canvasScript.VisualizeText(axes[index].GetPosition(1), 1, index);
                 break;
             default:

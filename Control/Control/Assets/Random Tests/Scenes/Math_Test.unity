@@ -141,7 +141,7 @@ PrefabInstance:
     - target: {fileID: 2244636499579855897, guid: 2f6f53b823af7dc43a98588fc2a8de27,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2244636499579855896, guid: 2f6f53b823af7dc43a98588fc2a8de27,
         type: 3}
@@ -374,10 +374,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97cd0e6a9268ec64ea41a2ce67b196db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshWidth: 0.5
-  velocity: 5
-  angle: 45
-  resolution: 10
+  meshWidth: 0.05
+  resolution: 20
+  origin: {fileID: 1423910531}
+  point: {fileID: 1406763646}
 --- !u!23 &590725492
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -758,7 +758,7 @@ PrefabInstance:
     - target: {fileID: 2244636499579855897, guid: 1a0bb70728d4eaa4c854f126d02336bd,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2244636499579855896, guid: 1a0bb70728d4eaa4c854f126d02336bd,
         type: 3}
@@ -1196,6 +1196,12 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!1 &1423910531 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2244636499579855897, guid: 1a0bb70728d4eaa4c854f126d02336bd,
+    type: 3}
+  m_PrefabInstance: {fileID: 1027907047}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1457008711
 GameObject:
   m_ObjectHideFlags: 0
@@ -1473,7 +1479,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84d04186b5d8cca429d430666fbb6c0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shieldArea: 5
 --- !u!1 &1792334623
 GameObject:
   m_ObjectHideFlags: 0
