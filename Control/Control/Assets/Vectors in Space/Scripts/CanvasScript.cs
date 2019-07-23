@@ -6,8 +6,6 @@ using UnityEngine.XR.MagicLeap;
 public class CanvasScript : MonoBehaviour
 {
     #region Text Boxes
-    [SerializeField, Tooltip("The Text element that will display the vector's distance from origin.")]
-    private Text _distanceLabel;
 
     [SerializeField] private TextMeshPro xAxisText;
 
@@ -30,8 +28,6 @@ public class CanvasScript : MonoBehaviour
     [SerializeField] private TextMeshPro zUnitText;
 
     [SerializeField, Tooltip("Resultant unit vector/magnitude")] private TextMeshPro rUnitText;
-
-    [SerializeField, Tooltip("The Text element that will display the vector's magnitude.")] private Text _magnitudeLabel;
 
     public Text[] _angleLabels = new Text[3];
     #endregion
@@ -192,7 +188,7 @@ public class CanvasScript : MonoBehaviour
                 rotTowardsUser = Quaternion.LookRotation(rUnitText.transform.position - _camera.transform.position);
                 rUnitText.transform.rotation = Quaternion.Slerp(rUnitText.transform.rotation, rotTowardsUser, 1.5f);
 
-                rUnitText.text = endPt.magnitude.ToString("N2") + " m";
+                //rUnitText.text = endPt.magnitude.ToString("N2") + " m";
                 break;
             default:
                 Debug.Log("There's something wrong in CanvasScript::TMPAssignUV(i, V3)");
@@ -241,8 +237,6 @@ public class CanvasScript : MonoBehaviour
     #region Unity Methods
     void Awake()
     {
-        _distanceLabel.text = null;
-        _magnitudeLabel.text = null;
         for (int i = 0; i < 3; i++)
         {
             _angleLabels[i].text = null; 
@@ -250,20 +244,18 @@ public class CanvasScript : MonoBehaviour
     }
     void Update()
     {
-        _distanceLabel.text = "Distance from origin: " + relPos.ToString("N2") + "(meters)";
-        _magnitudeLabel.text = "Magnitude: " + mag.ToString("N2") + "(meters)";
         for (int i = 0; i < 3; i++)
         {
             switch (i)
             {
                 case 0:
-                    _angleLabels[i].text = "X angle: " + angleX + "°";
+                    _angleLabels[i].text = "X angle: " + angleX.ToString("N2") + "°";
                     break;
                 case 1:
-                    _angleLabels[i].text = "Y angle: " + angleY + "°";
+                    _angleLabels[i].text = "Y angle: " + angleY.ToString("N2") + "°";
                     break;
                 case 2:
-                    _angleLabels[i].text = "Z angle: " + angleZ + "°";
+                    _angleLabels[i].text = "Z angle: " + angleZ.ToString("N2") + "°";
                     break;
                 default:
                     Debug.Log("BRUH moment. There's a Brerror in CanvasScript's update function. Big sad."); //woah. meta. end my suffering.
