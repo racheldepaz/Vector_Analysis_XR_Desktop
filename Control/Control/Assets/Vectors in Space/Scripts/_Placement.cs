@@ -26,7 +26,7 @@ namespace MagicLeap
         private Text _instructionLabel = null;
 
         [SerializeField, Tooltip("The Text element that will display the displayed component")]
-        private Text _debugLabel = null; 
+        private Text _viewLabel = null; 
 
         [SerializeField, Tooltip("The placement object used in the scene.")]
         private GameObject[] placementPoint = null;
@@ -85,7 +85,7 @@ namespace MagicLeap
 
             placementComplete = false;
             inPlacementState = true; 
-            bumperFirstPress = false; 
+            bumperFirstPress = true; 
             menuActive = false;
 
             regularCanvas.SetActive(true);
@@ -135,6 +135,11 @@ namespace MagicLeap
                     _instructionLabel.text = "Great! Press the trigger again to place another point. Press the home button to toggle the main menu.";
                     beam.SetPosition(1, _controllerConnectionHandler.ConnectedController.Position + (transform.forward * magTouchY));
                     HandlePlacementFree(beam.GetPosition(1));
+
+                    if (bumperFirstPress)
+                    {
+                        _viewLabel.text = "Now viewing: Components";
+                    }
                 }
 
                 if (index == 2)
@@ -145,11 +150,6 @@ namespace MagicLeap
                     _instructionLabel.text = "Placement complete! Press the bumper to go through different view modes, or press the home button to toggle the main menu.";
                     VectorVisualizer(content1.transform.position);
                 }
-            }
-
-            if (bumperFirstPress == false)
-            {
-                _debugLabel.text = "";
             }
         }
 
@@ -211,22 +211,22 @@ namespace MagicLeap
 
             if (_controllerConnectionHandler.IsControllerValid() && _controllerConnectionHandler.ConnectedController.Id == controllerId && button == MLInputControllerButton.Bumper)
             {
-                if (bumperFirstPress && bumperindex == 0)
-                    bumperFirstPress = true;
+                if (bumperFirstPress == true)
+                    bumperFirstPress = false;
 
                 switch (bumperindex)                 //omg. my mind. i love me. 
                 {
                     case 0:
                         bumperindex++;
-                        _debugLabel.text = bumperindex.ToString();
+                        _viewLabel.text = "Now viewing: Axes";
                         break;
                     case 1:
                         bumperindex++;
-                        _debugLabel.text = bumperindex.ToString();
+                        _viewLabel.text = "Now viewing: Unit Vectors ";
                         break;
                     case 2:
-                        _debugLabel.text = bumperindex.ToString();
                         bumperindex = 0;
+                        _viewLabel.text = "Now viewing: Components";
                         break;
                     default:
                         Debug.Log("uh. theres a mistake in ur bumper loop");

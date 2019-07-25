@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.XR.MagicLeap;
 
 public class CanvasScript : MonoBehaviour
 {
