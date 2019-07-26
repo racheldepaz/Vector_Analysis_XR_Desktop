@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<design:rootNode xmlns:design="http://www.magicleap.com/uidesigner/rcp/document/design" name="root" nodeTypeId="lumin.root" modelId="lumin" version="1.11.5">
+  <property id="name" value="root"/>
+  <node name="PortalIcon" nodeTypeId="lumin.ui.portalIcon">
+    <property id="exportSettings">
+      <property id="type" value="luminRuntime"/>
+      <property id="destPath" value="C:\Users\13052\VectorsInSpace_Icon\out\icon"/>
+    </property>
+    <property id="gravityWellProperties">
+      <property id="boundaryShape">
+        <property id="size"/>
+        <property id="offset"/>
+      </property>
+    </property>
+    <property id="hoverPosition"/>
+    <property id="iconSize" value="ExtraLarge"/>
+    <property id="name" value="PortalIcon"/>
+    <property id="position"/>
+    <property id="rotation"/>
+    <property id="scale"/>
+    <node name="model" nodeTypeId="lumin.ui.iconModelRoot">
+      <property id="animationSetupResource"/>
+      <property id="materialAndModel">
+        <property id="material" value="660d1939-9a5f-4c1a-aa9f-627dc582d4b3"/>
+        <property id="model" value="3977d57c-fa7c-4501-83c4-d4cb72a1de07"/>
+      </property>
+      <property id="name" value="model"/>
+      <property id="position"/>
+      <property id="rotation"/>
+      <property id="scale">
+        <property id="x" value="0.01"/>
+        <property id="y" value="0.01"/>
+        <property id="z" value="0.01"/>
+      </property>
+    </node>
+    <node name="iconBackgroundModel" nodeTypeId="lumin.ui.iconBackgroundModel">
+      <property id="name" value="iconBackgroundModel"/>
+      <property id="position"/>
+      <property id="rotation"/>
+      <property id="scale"/>
+      <node name="portalmodel0" nodeTypeId="lumin.portalModel">
+        <property id="animationSetupResource"/>
+        <property id="materialAndModel">
+          <property id="material" value="9c29ff09-73f7-4cd1-a9f4-e2b5e200d101"/>
+          <property id="model" value="805ba87b-ac28-4d78-80ce-a983da99ac81"/>
+        </property>
+        <property id="name" value="portalmodel0"/>
+        <property id="position"/>
+        <property id="rotation"/>
+        <property id="scale">
+          <property id="x" value="0.01"/>
+          <property id="y" value="0.01"/>
+          <property id="z" value="0.01"/>
+        </property>
+      </node>
+    </node>
+  </node>
+</design:rootNode>

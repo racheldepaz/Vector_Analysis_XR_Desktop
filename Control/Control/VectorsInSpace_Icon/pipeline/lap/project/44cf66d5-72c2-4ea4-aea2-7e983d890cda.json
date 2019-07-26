@@ -1,0 +1,23 @@
+{
+  "id": "44cf66d5-72c2-4ea4-aea2-7e983d890cda",
+  "processor": "lap/types/processor/model_from_fbx",
+  "input": {
+    "model": [
+      {
+        "path": "C:/Users/13052/Downloads/visdiorama2.fbx",
+        "sha256": ""
+      }
+    ]
+  },
+  "output": {
+    "model": [
+      {
+        "path": "qrQE4TNp1lw/visdiorama2.fbx",
+        "sha256": ""
+      }
+    ]
+  },
+  "options": [
+    
+  ]
+}

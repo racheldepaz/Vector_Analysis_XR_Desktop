@@ -1,0 +1,23 @@
+{
+  "id": "1e1899e0-c97b-4c6b-a7fe-cf211e2a4635",
+  "processor": "lap/types/processor/material_from_partial_kmats",
+  "input": {
+    "files": [
+      {
+        "path": "ayb_T6moNdY/portal.kmat.files",
+        "sha256": ""
+      }
+    ]
+  },
+  "output": {
+    "material": [
+      {
+        "path": "rmnFpAZoREg/portal.kmat",
+        "sha256": ""
+      }
+    ]
+  },
+  "options": [
+    
+  ]
+}
