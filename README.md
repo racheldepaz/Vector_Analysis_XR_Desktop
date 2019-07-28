@@ -8,3 +8,5 @@ The actual scenes/elements used in the visual demo is in the Control/Assets/Vect
 You'll notice that angle arcs are programmed to be displayed as a dynamic 3D mesh attached to the Content Root empty game object. For some reason, they're not working. The angle arcs are programmed in the VectorMath.cs method under the VisualizeComponents method. 
 
 If you want to add horizontal rotation, you'll need to add that in the main class. 
+
+Newest build: visBUILD2.mpk
