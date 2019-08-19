@@ -1,5 +1,5 @@
 <manifest xmlns:ml="magicleap" ml:developer_id="49ae1b99-94a5-4bfb-bcd4-8254f22131cb" ml:package="com.rdp.vectorsinspacefinal4" ml:version_code="1" ml:version_name="">
-  <application ml:min_api_level="5" ml:sdk_version="1.0" ml:visible_name="[BETA]Vectors in Space">
+  <application ml:min_api_level="3" ml:sdk_version="1.0" ml:visible_name="[BETA]Vectors in Space">
     
     <uses-privilege ml:name="AddressBookRead" />
     

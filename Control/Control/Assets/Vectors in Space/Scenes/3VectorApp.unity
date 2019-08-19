@@ -2568,11 +2568,11 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: d87a67b4d1e28a44299d80de0508c9f0, type: 3}
-    m_FontSize: 14
+    m_FontSize: 36
     m_FontStyle: 0
-    m_BestFit: 1
-    m_MinSize: 10
-    m_MaxSize: 30
+    m_BestFit: 0
+    m_MinSize: 3
+    m_MaxSize: 36
     m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -3213,11 +3213,11 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: d87a67b4d1e28a44299d80de0508c9f0, type: 3}
-    m_FontSize: 14
+    m_FontSize: 36
     m_FontStyle: 0
-    m_BestFit: 1
-    m_MinSize: 10
-    m_MaxSize: 30
+    m_BestFit: 0
+    m_MinSize: 3
+    m_MaxSize: 36
     m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -4009,6 +4009,7 @@ MonoBehaviour:
   instructionLabel: {fileID: 1740078101}
   _inputModule: {fileID: 1946852107}
   _beam: {fileID: 1813943459}
+  angleButton: {fileID: 0}
   _angle: {fileID: 1400094403}
   _instruct: {fileID: 165681286}
 --- !u!222 &1259744842
@@ -4103,11 +4104,11 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: d87a67b4d1e28a44299d80de0508c9f0, type: 3}
-    m_FontSize: 14
+    m_FontSize: 36
     m_FontStyle: 0
-    m_BestFit: 1
-    m_MinSize: 10
-    m_MaxSize: 30
+    m_BestFit: 0
+    m_MinSize: 3
+    m_MaxSize: 36
     m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -5983,9 +5984,9 @@ MonoBehaviour:
   zUnitText: {fileID: 1118145986}
   rUnitText: {fileID: 1385393868}
   _angleLabels:
-  - {fileID: 1307412633}
-  - {fileID: 1068453830}
   - {fileID: 993258182}
+  - {fileID: 1068453830}
+  - {fileID: 1307412633}
   _camera: {fileID: 2048849489}
   parents:
   - {fileID: 234811808}

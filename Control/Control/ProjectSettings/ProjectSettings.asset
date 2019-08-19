@@ -160,7 +160,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Lumin: com.rdp.vectorsinspacefinal4
+    Lumin: com.rdp.vectorsinspaceaugust
     Standalone: com.rdp.placement
   buildNumber: {}
   AndroidBundleVersionCode: 1
@@ -600,10 +600,10 @@ PlayerSettings:
     UNet: 1
   luminIcon:
     m_Name: 
-    m_ModelFolderPath: C:/Users/Administrator/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/VectorsInSpace_Icon/out/icon
-    m_PortalFolderPath: C:/Users/Administrator/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/VectorsInSpace_Icon/out
+    m_ModelFolderPath: C:/Users/Administrator/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/model
+    m_PortalFolderPath: C:/Users/Administrator/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/portal
   luminCert:
-    m_CertPath: C:/Users/Administrator/MagicLeap/certificates/firstdev.cert
+    m_CertPath: C:/Users/Administrator/MagicLeap/certificates/vis-7c2bae6b.cert
     m_SignPackage: 1
   luminIsChannelApp: 0
   luminVersion:

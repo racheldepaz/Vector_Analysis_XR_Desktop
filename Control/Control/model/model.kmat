@@ -1,0 +1,19 @@
+{
+  "global": {
+    "color": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "blendmode": "Opaque"
+  },
+  "materials": [
+    {
+      "shaderName": "UnlitTextured",
+      "name": "com_magicleap_sampleCube",
+      "blendmode": "Opaque",
+      "albedo": "Icon/Model/model.png"
+    }
+  ]
+}
