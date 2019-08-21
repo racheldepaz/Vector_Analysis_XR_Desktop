@@ -31,8 +31,8 @@ namespace MagicLeap
         [SerializeField, Tooltip("The placement object used in the scene.")]
         private GameObject[] placementPoint = null;
 
-        [SerializeField, Tooltip("Where you want to drop all the instantiated elements of the visualization")]
-        private Transform root;
+       [SerializeField, Tooltip("Where you want to drop all the instantiated elements of the visualization")]
+       private Transform root;
 
         [Tooltip("speed to push/pull objects using trackpad - meters per second")]
         public float pushRate;
@@ -42,6 +42,7 @@ namespace MagicLeap
         #endregion
 
         #region Private Variables
+        private float rotateChange;
         private MLInputControllerFeedbackColorLED _color;
 
         private LineRenderer beam;
@@ -55,7 +56,7 @@ namespace MagicLeap
         private Placement _placement = null;
         private PlacementObject _placementObject = null;
         private VectorMath _vectorMath = null;
-        private ChangeViewModes modes = null; 
+        private ChangeViewModes modes = null;
 
         //Stuff I need globally
         private Vector3 zero = new Vector3(0, 0, 0);
@@ -122,6 +123,12 @@ namespace MagicLeap
             HandleTouchpadInput();
 
 
+
+            //rotateChange += magTouchX * rotateRate * Time.deltaTime;
+            //root.rotation = root.rotation * Quaternion.Euler(Vector3.up * rotateChange);
+
+            //_instructionLabel.text = ("Rotate pos: " + root.rotation.ToString());
+
             if (inPlacementState)
             {
                 if (index == 0)
@@ -148,10 +155,13 @@ namespace MagicLeap
 
                 if (placementComplete)
                 {
-                    _instructionLabel.text = "Placement complete! Press the bumper to go through different view modes, or press the home button to toggle the main menu.";
+                    _instructionLabel.text = "";
                     VectorVisualizer(content1.transform.position);
+                 
                 }
             }
+
+
         }
 
         void OnDestroy()
@@ -176,7 +186,12 @@ namespace MagicLeap
         {
             _controllerConnectionHandler.ConnectedController.StartFeedbackPatternVibe(MLInputControllerFeedbackPatternVibe.ForceUp, MLInputControllerFeedbackIntensity.High);
             if(inPlacementState)
-                index++; 
+                index++;
+           if (placementComplete)
+            {
+                _controllerConnectionHandler.ConnectedController.StartFeedbackPatternVibe(MLInputControllerFeedbackPatternVibe.Buzz, MLInputControllerFeedbackIntensity.Low);
+                root.transform.Rotate(Vector3.up, Space.World);
+            }
         }
 
         private void HandleOnTriggerUp(byte controllerId, float pressure)
@@ -297,11 +312,7 @@ namespace MagicLeap
                     magTouchY += pushRate;
                 lastY = controller.Touch1PosAndForce.y;
 
-                if (controller.Touch1PosAndForce.x - lastX < -0.001)
-                    magTouchX -= rotateRate;
-                if (controller.Touch1PosAndForce.x - lastX > 0.001)
-                    magTouchX += rotateRate;
-                lastX = controller.Touch1PosAndForce.x;
+                
             }
         }
         #endregion
