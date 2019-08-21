@@ -2,20 +2,20 @@
  "entries": [
   {
    "compression": 8,
-   "hash": "78b9ee960dd2a6a9a73f5dbc3dbfa5de52451183",
+   "hash": "58be7fac2ff13841437203117907582c3bae77fd",
    "pkgpath": "Data/Managed/Metadata/global-metadata.dat",
-   "size": 4299412,
+   "size": 4299436,
    "src": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/Temp/StagingArea/Data/Managed/Metadata/global-metadata.dat"
   },
   {
    "compression": 8,
-   "hash": "30c7cbb032ae51859cf76a6760db437a5eccc518",
+   "hash": "a62aadc81b7a42c81e3e30c67c4aebbaad08ceb1",
    "pkgpath": "bin/libil2cpp.so",
-   "size": 65476064,
+   "size": 65476144,
    "src": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/Temp/StagingArea/Data/Native/libil2cpp.so",
    "xfrm_flags": {
     "signed": {
-     "cert": "C:\\Users\\13052\\MagicLeap\\certificates\\razercert.cert"
+     "cert": "C:\\Users\\13052\\MagicLeap\\certificates\\firstdev.cert"
     },
     "taildata": {
      "debuggable": true,
@@ -23,9 +23,9 @@
      "version": 3
     }
    },
-   "xfrm_hash": "d2d868256e3e5b5e73add19dae3708f8d4084d47",
+   "xfrm_hash": "1bbec06cfc3fd562c63eeb69240f9d67d041736e",
    "xfrm_path": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/.out/.cache/debug_lumin_clang-3.8_aarch64/com.rdp.vectorsinspacefinal-f860921921163a0f\\libil2cpp.so-39ee3aaf7b998d6e",
-   "xfrm_size": 65476822
+   "xfrm_size": 65476902
   },
   {
    "compression": 8,
@@ -42,7 +42,7 @@
    "src": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/Temp/StagingArea/Data/Plugins/AudioPluginMSASpatializer.so",
    "xfrm_flags": {
     "signed": {
-     "cert": "C:\\Users\\13052\\MagicLeap\\certificates\\razercert.cert"
+     "cert": "C:\\Users\\13052\\MagicLeap\\certificates\\firstdev.cert"
     },
     "taildata": {
      "debuggable": true,
@@ -50,7 +50,7 @@
      "version": 3
     }
    },
-   "xfrm_hash": "3260a79e8724b6c0c496540d341e56ce9636166a",
+   "xfrm_hash": "7a6593b29e04657a988453f3dee921abfd84b3de",
    "xfrm_path": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/.out/.cache/debug_lumin_clang-3.8_aarch64/com.rdp.vectorsinspacefinal-f860921921163a0f\\AudioPluginMSASpatializer.so-59766b2ad6f05eeb",
    "xfrm_size": 270118
   },
@@ -132,7 +132,7 @@
    "src": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/Temp/StagingArea/Data/Plugins/UnityMagicLeap.so",
    "xfrm_flags": {
     "signed": {
-     "cert": "C:\\Users\\13052\\MagicLeap\\certificates\\razercert.cert"
+     "cert": "C:\\Users\\13052\\MagicLeap\\certificates\\firstdev.cert"
     },
     "taildata": {
      "debuggable": true,
@@ -140,7 +140,7 @@
      "version": 3
     }
    },
-   "xfrm_hash": "e1576a3cd05734900333d7a63efb0692a556d61b",
+   "xfrm_hash": "693e9a2fc3c698cf14098a285e90e94105464d36",
    "xfrm_path": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/.out/.cache/debug_lumin_clang-3.8_aarch64/com.rdp.vectorsinspacefinal-f860921921163a0f\\UnityMagicLeap.so-59766b2ad6f05eeb",
    "xfrm_size": 1495766
   },
@@ -166,7 +166,7 @@
    "src": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/Temp/StagingArea/Data/Plugins/libml_camera_plugin.so",
    "xfrm_flags": {
     "signed": {
-     "cert": "C:\\Users\\13052\\MagicLeap\\certificates\\razercert.cert"
+     "cert": "C:\\Users\\13052\\MagicLeap\\certificates\\firstdev.cert"
     },
     "taildata": {
      "debuggable": true,
@@ -174,7 +174,7 @@
      "version": 3
     }
    },
-   "xfrm_hash": "218b9c3293d8a3cc1faaf02d086f551c843d622d",
+   "xfrm_hash": "4a01f05bf49dabfa862fa1b5b1cfd31e10b59df2",
    "xfrm_path": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/.out/.cache/debug_lumin_clang-3.8_aarch64/com.rdp.vectorsinspacefinal-f860921921163a0f\\libml_camera_plugin.so-59766b2ad6f05eeb",
    "xfrm_size": 14942
   },
@@ -186,7 +186,7 @@
    "src": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/Temp/StagingArea/Data/Plugins/libml_mediaplayer_plugin.so",
    "xfrm_flags": {
     "signed": {
-     "cert": "C:\\Users\\13052\\MagicLeap\\certificates\\razercert.cert"
+     "cert": "C:\\Users\\13052\\MagicLeap\\certificates\\firstdev.cert"
     },
     "taildata": {
      "debuggable": true,
@@ -194,7 +194,7 @@
      "version": 3
     }
    },
-   "xfrm_hash": "36a4639fb3042be87f686c57139a3867521007a3",
+   "xfrm_hash": "c55a117503edba770889b37e3252a83804735c37",
    "xfrm_path": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/.out/.cache/debug_lumin_clang-3.8_aarch64/com.rdp.vectorsinspacefinal-f860921921163a0f\\libml_mediaplayer_plugin.so-59766b2ad6f05eeb",
    "xfrm_size": 68382
   },
@@ -235,21 +235,21 @@
   },
   {
    "compression": 8,
-   "hash": "fd8a62cdb97d30d61fcd347de006948d28e9bde8",
+   "hash": "77e6bf0be8962c822aed06b2e2a5ba56411fbcf4",
    "pkgpath": "Data/boot.config",
    "size": 269,
    "src": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/Temp/StagingArea/Data/boot.config"
   },
   {
    "compression": 8,
-   "hash": "e2f8b6c4c2d8303ecffef41939131544093afe44",
+   "hash": "bb71a07ea2222caa3c8839488b16bd994aeb8f58",
    "pkgpath": "Data/globalgamemanagers",
    "size": 46600,
    "src": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/Temp/StagingArea/Data/globalgamemanagers"
   },
   {
    "compression": 8,
-   "hash": "52a5b7b41cbc446e6261e9a01cd8254811a6aa4d",
+   "hash": "fb75659c5bc1c216b3af7d5a7cdd4db1c582de9b",
    "pkgpath": "Data/globalgamemanagers.assets",
    "size": 49692,
    "src": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/Temp/StagingArea/Data/globalgamemanagers.assets"
@@ -263,21 +263,21 @@
   },
   {
    "compression": 8,
-   "hash": "bf0c2e2a31fc1320715c49f0615bca2e314ec5ce",
+   "hash": "5daa953067074b04de7de79c0d8e75750ccd78ba",
    "pkgpath": "Data/level1",
-   "size": 9092,
+   "size": 9076,
    "src": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/Temp/StagingArea/Data/level1"
   },
   {
    "compression": 8,
-   "hash": "61876a8fb342aef7cbcf436bdadf01867209c45c",
+   "hash": "b5c05fd552e035e122847bdbdeb0b9bc34a7bf6f",
    "pkgpath": "Data/level2",
-   "size": 10532,
+   "size": 10516,
    "src": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/Temp/StagingArea/Data/level2"
   },
   {
    "compression": 8,
-   "hash": "8f65f86fed856df34ff3dce55c317d3f9d847447",
+   "hash": "6a6bf69b03b911ab1f15b91aa97a23b40d2889c0",
    "pkgpath": "Data/level3",
    "size": 42284,
    "src": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/Temp/StagingArea/Data/level3"
@@ -333,7 +333,7 @@
   },
   {
    "compression": 8,
-   "hash": "fd0b4ca40b26e94c01f2b22a35549c7aa1b704fe",
+   "hash": "7b3414dafd78920590028fa85999f02400b9cbad",
    "pkgpath": "Data/sharedassets3.assets",
    "size": 312688,
    "src": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/Temp/StagingArea/Data/sharedassets3.assets"
@@ -353,7 +353,7 @@
    "src": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/Temp/StagingArea/Player.elf",
    "xfrm_flags": {
     "signed": {
-     "cert": "C:\\Users\\13052\\MagicLeap\\certificates\\razercert.cert"
+     "cert": "C:\\Users\\13052\\MagicLeap\\certificates\\firstdev.cert"
     },
     "taildata": {
      "debuggable": true,
@@ -361,7 +361,7 @@
      "version": 3
     }
    },
-   "xfrm_hash": "dd0f8a23db9084c8054b0eb50a303791d3219017",
+   "xfrm_hash": "8c98f5d4b27bf6e7066effca7165c0a1b1646c64",
    "xfrm_path": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/.out/.cache/debug_lumin_clang-3.8_aarch64/com.rdp.vectorsinspacefinal-f860921921163a0f\\Player.elf-1184b59c8e8c3990",
    "xfrm_size": 48662054
   },
@@ -373,7 +373,7 @@
    "src": "C:/Users/13052/MagicLeap/mlsdk/v0.21.0/lumin/stl/libc++/lib/libc++_shared.so",
    "xfrm_flags": {
     "signed": {
-     "cert": "C:\\Users\\13052\\MagicLeap\\certificates\\razercert.cert"
+     "cert": "C:\\Users\\13052\\MagicLeap\\certificates\\firstdev.cert"
     },
     "taildata": {
      "debuggable": true,
@@ -381,7 +381,7 @@
      "version": 3
     }
    },
-   "xfrm_hash": "c73d0f05241b26d3d24511effb7eda1f1f44d90a",
+   "xfrm_hash": "bacc3af59ce013b5613f26f52957e4079271a274",
    "xfrm_path": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/.out/.cache/debug_lumin_clang-3.8_aarch64/com.rdp.vectorsinspacefinal-f860921921163a0f\\libc++_shared.so-8539984cad93bf18",
    "xfrm_size": 977590
   },
@@ -393,22 +393,22 @@
    "src": "C:\\Users\\13052\\Documents\\Unity Projects\\Vector_Analysis_XR_Desktop\\Control\\Control\\Temp\\StagingArea\\manifest.xml",
    "xfrm_flags": {
     "manifest": {
-     "cert_hash": "1de142a56b3b1c823e5e3ce27667f93681c31369",
-     "developer_id": "2e2977fc-96f6-4543-9157-3fd9c35e4e30"
+     "cert_hash": "b035a9f50f88bb32b25e3f91bb66266b2044dcb9",
+     "developer_id": "49ae1b99-94a5-4bfb-bcd4-8254f22131cb"
     }
    },
-   "xfrm_hash": "379579189e74239bb62f4e8ab58be7bf9f524523",
+   "xfrm_hash": "94137b1e48fcffec21bc105299520fdeaebf7eb1",
    "xfrm_path": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/.out/.cache/debug_lumin_clang-3.8_aarch64/com.rdp.vectorsinspacefinal-f860921921163a0f\\manifest.xml-1184b59c8e8c3990",
    "xfrm_size": 1238
   }
  ],
  "pkgflags": {
   "signed": {
-   "cert": "C:\\Users\\13052\\MagicLeap\\certificates\\razercert.cert"
+   "cert": "C:\\Users\\13052\\MagicLeap\\certificates\\firstdev.cert"
   },
   "taildata": {
    "debuggable": true,
-   "devcert": "C:\\Users\\13052\\MagicLeap\\certificates\\razercert.cert",
+   "devcert": "C:\\Users\\13052\\MagicLeap\\certificates\\firstdev.cert",
    "sbox": "USER",
    "version": 3
   }
