@@ -1,0 +1,810 @@
+{
+  "intermediate-storage": {
+    "path": "cache",
+    "kind": "in-tree"
+  },
+  "project-schema-version": 4,
+  "types": {
+    "assets": [
+      "lap/types/asset/audio",
+      "lap/types/asset/blend-setup",
+      "lap/types/asset/material",
+      "lap/types/asset/model",
+      "lap/types/asset/motion-set",
+      "lap/types/asset/outline-font",
+      "lap/types/asset/sprite",
+      "lap/types/asset/texture"
+    ],
+    "files": [
+      "lap/types/file/bmp",
+      "lap/types/file/dds",
+      "lap/types/file/fbx",
+      "lap/types/file/files",
+      "lap/types/file/gltf",
+      "lap/types/file/jpg",
+      "lap/types/file/json",
+      "lap/types/file/lac",
+      "lap/types/file/lbs",
+      "lap/types/file/lms",
+      "lap/types/file/kmat",
+      "lap/types/file/mp3",
+      "lap/types/file/ogg",
+      "lap/types/file/otf",
+      "lap/types/file/pcm",
+      "lap/types/file/png",
+      "lap/types/file/tga",
+      "lap/types/file/tiff",
+      "lap/types/file/wav"
+    ]
+  },
+  "checkpoint-hash": "09620f5711b4515f819995af8b229b6ea67780053bafaaab23df46aabe15182a4c4afda3afe109931033ea67cc2f98e2963e2cdbc67bd196bb2cb67ad65ad488",
+  "templates": [
+    "lap/template/converted_texture_from_bmp",
+    "lap/template/converted_texture_from_tga",
+    "lap/template/converted_texture_from_tiff",
+    "lap/template/motion_set_from_lms",
+    "lap/template/passthru_audio_from_mp3",
+    "lap/template/passthru_audio_from_ogg",
+    "lap/template/passthru_audio_from_pcm",
+    "lap/template/passthru_audio_from_wav",
+    "lap/template/passthru_blend_setup_from_lbs",
+    "lap/template/passthru_material_from_kmat",
+    "lap/template/passthru_model_from_fbx",
+    "lap/template/passthru_model_from_gltf",
+    "lap/template/passthru_model_from_lac",
+    "lap/template/passthru_outline_font_from_otf",
+    "lap/template/passthru_particle_from_pkfx",
+    "lap/template/passthru_texture_from_dds",
+    "lap/template/passthru_texture_from_jpg",
+    "lap/template/passthru_texture_from_png",
+    "lap/template/spritesheet_from_json"
+  ],
+  "nodes": {
+    "67518370-2c4e-4686-9cae-94235b648ea1": {
+      "kind": "file",
+      "comment": "model.kmat",
+      "descriptor": {
+        "path": "portal_icon/model/model.kmat",
+        "sha256": "a17b6422aef1bc1a97ba3c17c105a0496daadae0728260e39ba242b22a2ab098"
+      },
+      "name": "portal_icon/model/model.kmat",
+      "links": []
+    },
+    "783c0da4-1dec-4c39-865b-022d370b2740": {
+      "kind": "processor",
+      "comment": "Files Array Builder",
+      "expectedRuntime": 0.3165054222222222,
+      "systemWeights": {
+        "cpuCoreCount": 1.0,
+        "cpuPct": 1.0,
+        "gpuPct": 1.0,
+        "ioPct": 1.0
+      },
+      "descriptor": {
+        "path": "lap/project/783c0da4-1dec-4c39-865b-022d370b2740",
+        "sha256": "7c9f9da5ade44371063b0ef85132cfb18f65c7858dadfc879f48d7a0d0352fed"
+      },
+      "links": [
+        {
+          "source": {
+            "aspect": "file1",
+            "node": "67518370-2c4e-4686-9cae-94235b648ea1"
+          },
+          "target": {
+            "aspect": "files"
+          }
+        }
+      ]
+    },
+    "f54bb783-1dd4-4846-85a5-e2b096dab4c7": {
+      "kind": "file",
+      "comment": "KMATs Files Intermediate model.kmat",
+      "descriptor": {
+        "path": "Anyftw64EI0/model.kmat.files",
+        "sha256": "a17b6422aef1bc1a97ba3c17c105a0496daadae0728260e39ba242b22a2ab098"
+      },
+      "name": "Anyftw64EI0/model.kmat.files",
+      "links": [
+        {
+          "source": {
+            "aspect": "files",
+            "node": "783c0da4-1dec-4c39-865b-022d370b2740"
+          },
+          "target": {
+            "aspect": "files"
+          }
+        }
+      ]
+    },
+    "e1cd3eb9-78f7-4c44-891f-353e843c1980": {
+      "kind": "processor",
+      "comment": "KMATs to material munger",
+      "expectedRuntime": 0.2469773,
+      "systemWeights": {
+        "cpuCoreCount": 1.0,
+        "cpuPct": 1.0,
+        "gpuPct": 1.0,
+        "ioPct": 1.0
+      },
+      "descriptor": {
+        "path": "lap/project/e1cd3eb9-78f7-4c44-891f-353e843c1980",
+        "sha256": "efc1c44781d25f0dd28fc79daf65c9b02526c5c6868f7408c82fc3f236a70db0"
+      },
+      "links": [
+        {
+          "source": {
+            "aspect": "files",
+            "node": "f54bb783-1dd4-4846-85a5-e2b096dab4c7"
+          },
+          "target": {
+            "aspect": "material"
+          }
+        }
+      ]
+    },
+    "a4d112f4-b3b8-4528-81e8-841f80545b01": {
+      "kind": "file",
+      "comment": "KMAT Intermediate model.kmat",
+      "descriptor": {
+        "path": "NpEjYNkFqxg/model.kmat",
+        "sha256": "59c40cea3eab0fb9ef8bbe64fa53eb10b962a5536f73b8c5f762a16af7a5d163"
+      },
+      "name": "NpEjYNkFqxg/model.kmat",
+      "links": [
+        {
+          "source": {
+            "aspect": "material",
+            "node": "e1cd3eb9-78f7-4c44-891f-353e843c1980"
+          },
+          "target": {
+            "aspect": "material"
+          }
+        }
+      ]
+    },
+    "660d1939-9a5f-4c1a-aa9f-627dc582d4b3": {
+      "name": "model.kmat",
+      "kind": "asset",
+      "comment": "Material",
+      "asset": "lap/types/asset/material",
+      "links": [
+        {
+          "source": {
+            "aspect": "material",
+            "node": "a4d112f4-b3b8-4528-81e8-841f80545b01"
+          },
+          "target": {
+            "aspect": "material"
+          }
+        }
+      ],
+      "dirty": false,
+      "exclude": true,
+      "bundle": false
+    },
+    "81e69789-fc60-4e86-a621-7455219efa92": {
+      "kind": "file",
+      "comment": "portal.fbx",
+      "descriptor": {
+        "path": "portal_icon/portal/portal.fbx",
+        "sha256": "8c20caead9db8f8d259cdbcfa96674034e84f74c823d0f634bb9e5c24dee8b7f"
+      },
+      "name": "portal_icon/portal/portal.fbx",
+      "links": []
+    },
+    "55c4858e-4430-4174-9ae9-bf5fa7621eba": {
+      "kind": "processor",
+      "comment": "Passthru portal.fbx to model.",
+      "expectedRuntime": 0.406468,
+      "systemWeights": {
+        "cpuCoreCount": 1.0,
+        "cpuPct": 1.0,
+        "gpuPct": 1.0,
+        "ioPct": 1.0
+      },
+      "descriptor": {
+        "path": "lap/project/55c4858e-4430-4174-9ae9-bf5fa7621eba",
+        "sha256": "7c01b974b402db2b9005944ba2239c7e0172beac41e7c30b62600a27f82f42d6"
+      },
+      "links": [
+        {
+          "source": {
+            "aspect": "file",
+            "node": "81e69789-fc60-4e86-a621-7455219efa92"
+          },
+          "target": {
+            "aspect": "model"
+          }
+        }
+      ]
+    },
+    "9061a94d-6180-4df3-ba9c-1658514b4008": {
+      "kind": "file",
+      "comment": "Intermediate portal.fbx",
+      "descriptor": {
+        "path": "pbsK1yhO5Tg/portal.fbx",
+        "sha256": "8c20caead9db8f8d259cdbcfa96674034e84f74c823d0f634bb9e5c24dee8b7f"
+      },
+      "name": "pbsK1yhO5Tg/portal.fbx",
+      "links": [
+        {
+          "source": {
+            "aspect": "model",
+            "node": "55c4858e-4430-4174-9ae9-bf5fa7621eba"
+          },
+          "target": {
+            "aspect": "file"
+          }
+        }
+      ]
+    },
+    "805ba87b-ac28-4d78-80ce-a983da99ac81": {
+      "name": "portal.fbx",
+      "kind": "asset",
+      "comment": "Intermediate portal.fbx",
+      "asset": "lap/types/asset/model",
+      "links": [
+        {
+          "source": {
+            "aspect": "file",
+            "node": "9061a94d-6180-4df3-ba9c-1658514b4008"
+          },
+          "target": {
+            "aspect": "model"
+          }
+        }
+      ],
+      "dirty": false,
+      "exclude": true,
+      "bundle": false
+    },
+    "5bb8d0f5-8877-4dee-9ce7-6a72d69a58be": {
+      "kind": "file",
+      "comment": "portal.png",
+      "descriptor": {
+        "path": "portal_icon/portal/portal.png",
+        "sha256": "99eeb05a2ed020fb4c6e2a280e7be0d7762aac0d6f3ce805e19de5720015eb62"
+      },
+      "name": "portal_icon/portal/portal.png",
+      "links": []
+    },
+    "a29a5f81-9cfa-49f2-98ac-28f1382be870": {
+      "kind": "processor",
+      "comment": "Passthru portal.png to texture.",
+      "expectedRuntime": 0.4037369,
+      "systemWeights": {
+        "cpuCoreCount": 1.0,
+        "cpuPct": 1.0,
+        "gpuPct": 1.0,
+        "ioPct": 1.0
+      },
+      "descriptor": {
+        "path": "lap/project/a29a5f81-9cfa-49f2-98ac-28f1382be870",
+        "sha256": "4dbd455c2906d6d2e3e9697b2264ab3e88ee092dd228790b7f0146c866b9257d"
+      },
+      "links": [
+        {
+          "source": {
+            "aspect": "file",
+            "node": "5bb8d0f5-8877-4dee-9ce7-6a72d69a58be"
+          },
+          "target": {
+            "aspect": "image"
+          }
+        }
+      ]
+    },
+    "9005406b-6ba4-45ef-9422-fb10d4627a27": {
+      "kind": "file",
+      "comment": "Intermediate portal.png",
+      "descriptor": {
+        "path": "X7u9ZfAmkVc/portal.png",
+        "sha256": "99eeb05a2ed020fb4c6e2a280e7be0d7762aac0d6f3ce805e19de5720015eb62"
+      },
+      "name": "X7u9ZfAmkVc/portal.png",
+      "links": [
+        {
+          "source": {
+            "aspect": "image",
+            "node": "a29a5f81-9cfa-49f2-98ac-28f1382be870"
+          },
+          "target": {
+            "aspect": "file"
+          }
+        }
+      ]
+    },
+    "99feef77-29d0-4a8e-8a3b-11053cc1d053": {
+      "name": "portal.png",
+      "kind": "asset",
+      "comment": "Intermediate portal.png",
+      "asset": "lap/types/asset/texture",
+      "links": [
+        {
+          "source": {
+            "aspect": "file",
+            "node": "9005406b-6ba4-45ef-9422-fb10d4627a27"
+          },
+          "target": {
+            "aspect": "image"
+          }
+        }
+      ],
+      "dirty": false,
+      "exclude": true,
+      "bundle": false
+    },
+    "488e088e-c96a-49c0-a6b1-4ae429657b2d": {
+      "kind": "file",
+      "comment": "model.fbx",
+      "descriptor": {
+        "path": "portal_icon/model/model.fbx",
+        "sha256": "cf7108df034bd4a9ad9a5f9e37df911ff92b30e80f8d22334286f9c330b2ea11"
+      },
+      "name": "portal_icon/model/model.fbx",
+      "links": []
+    },
+    "56a73be8-d4f7-4b5f-b762-6e33fd39e67c": {
+      "kind": "processor",
+      "comment": "Passthru model.fbx to model.",
+      "expectedRuntime": 0.4082448,
+      "systemWeights": {
+        "cpuCoreCount": 1.0,
+        "cpuPct": 1.0,
+        "gpuPct": 1.0,
+        "ioPct": 1.0
+      },
+      "descriptor": {
+        "path": "lap/project/56a73be8-d4f7-4b5f-b762-6e33fd39e67c",
+        "sha256": "0b0edea1d06eddf46fa968883210ccba37a519bbca7ff5f8dc3a6b56959dee76"
+      },
+      "links": [
+        {
+          "source": {
+            "aspect": "file",
+            "node": "488e088e-c96a-49c0-a6b1-4ae429657b2d"
+          },
+          "target": {
+            "aspect": "model"
+          }
+        }
+      ]
+    },
+    "23b01afc-54f9-4ad0-a121-079adfcc7df9": {
+      "kind": "file",
+      "comment": "Intermediate model.fbx",
+      "descriptor": {
+        "path": "rjQaXKYoAho/model.fbx",
+        "sha256": "cf7108df034bd4a9ad9a5f9e37df911ff92b30e80f8d22334286f9c330b2ea11"
+      },
+      "name": "rjQaXKYoAho/model.fbx",
+      "links": [
+        {
+          "source": {
+            "aspect": "model",
+            "node": "56a73be8-d4f7-4b5f-b762-6e33fd39e67c"
+          },
+          "target": {
+            "aspect": "file"
+          }
+        }
+      ]
+    },
+    "3977d57c-fa7c-4501-83c4-d4cb72a1de07": {
+      "name": "model.fbx",
+      "kind": "asset",
+      "comment": "Intermediate model.fbx",
+      "asset": "lap/types/asset/model",
+      "links": [
+        {
+          "source": {
+            "aspect": "file",
+            "node": "23b01afc-54f9-4ad0-a121-079adfcc7df9"
+          },
+          "target": {
+            "aspect": "model"
+          }
+        }
+      ],
+      "dirty": false,
+      "exclude": true,
+      "bundle": false
+    },
+    "8ff09035-5883-4088-bd70-a433e0df6495": {
+      "kind": "file",
+      "comment": "portal.kmat",
+      "descriptor": {
+        "path": "portal_icon/portal/portal.kmat",
+        "sha256": "1b47351f59b2eb6a5258afd7a5a1d4302f69d4ccafec267d1c224dbf7bfda55f"
+      },
+      "name": "portal_icon/portal/portal.kmat",
+      "links": []
+    },
+    "267c64bc-ec9c-4611-a451-1729a739b1b9": {
+      "kind": "processor",
+      "comment": "Files Array Builder",
+      "expectedRuntime": 0.31750462222222225,
+      "systemWeights": {
+        "cpuCoreCount": 1.0,
+        "cpuPct": 1.0,
+        "gpuPct": 1.0,
+        "ioPct": 1.0
+      },
+      "descriptor": {
+        "path": "lap/project/267c64bc-ec9c-4611-a451-1729a739b1b9",
+        "sha256": "618b7106bfd42f9378b60f09a3f57343ed4d82659647b8c9a742bda4b8d3f209"
+      },
+      "links": [
+        {
+          "source": {
+            "aspect": "file1",
+            "node": "8ff09035-5883-4088-bd70-a433e0df6495"
+          },
+          "target": {
+            "aspect": "files"
+          }
+        }
+      ]
+    },
+    "997f0bd4-771f-44d3-b577-55a596281e72": {
+      "kind": "file",
+      "comment": "KMATs Files Intermediate portal.kmat",
+      "descriptor": {
+        "path": "ayb_T6moNdY/portal.kmat.files",
+        "sha256": "1b47351f59b2eb6a5258afd7a5a1d4302f69d4ccafec267d1c224dbf7bfda55f"
+      },
+      "name": "ayb_T6moNdY/portal.kmat.files",
+      "links": [
+        {
+          "source": {
+            "aspect": "files",
+            "node": "267c64bc-ec9c-4611-a451-1729a739b1b9"
+          },
+          "target": {
+            "aspect": "files"
+          }
+        }
+      ]
+    },
+    "1e1899e0-c97b-4c6b-a7fe-cf211e2a4635": {
+      "kind": "processor",
+      "comment": "KMATs to material munger",
+      "expectedRuntime": 0.24667439999999996,
+      "systemWeights": {
+        "cpuCoreCount": 1.0,
+        "cpuPct": 1.0,
+        "gpuPct": 1.0,
+        "ioPct": 1.0
+      },
+      "descriptor": {
+        "path": "lap/project/1e1899e0-c97b-4c6b-a7fe-cf211e2a4635",
+        "sha256": "7ccd1d5323eba230f00d28df3988b6d1159dc0f6c3b65e49a1d297491273af67"
+      },
+      "links": [
+        {
+          "source": {
+            "aspect": "files",
+            "node": "997f0bd4-771f-44d3-b577-55a596281e72"
+          },
+          "target": {
+            "aspect": "material"
+          }
+        }
+      ]
+    },
+    "48f92d8a-eda6-42c9-bdca-a25030a979fc": {
+      "kind": "file",
+      "comment": "KMAT Intermediate portal.kmat",
+      "descriptor": {
+        "path": "rmnFpAZoREg/portal.kmat",
+        "sha256": "cac0b6481690908fdd90fc05024c445fd74cda4e8c3bbe960769d5966ee12e43"
+      },
+      "name": "rmnFpAZoREg/portal.kmat",
+      "links": [
+        {
+          "source": {
+            "aspect": "material",
+            "node": "1e1899e0-c97b-4c6b-a7fe-cf211e2a4635"
+          },
+          "target": {
+            "aspect": "material"
+          }
+        }
+      ]
+    },
+    "9c29ff09-73f7-4cd1-a9f4-e2b5e200d101": {
+      "name": "portal.kmat",
+      "kind": "asset",
+      "comment": "Material",
+      "asset": "lap/types/asset/material",
+      "links": [
+        {
+          "source": {
+            "aspect": "material",
+            "node": "48f92d8a-eda6-42c9-bdca-a25030a979fc"
+          },
+          "target": {
+            "aspect": "material"
+          }
+        }
+      ],
+      "dirty": false,
+      "exclude": true,
+      "bundle": false
+    },
+    "69452a3c-d970-43eb-bc9e-cb7e6eaccc9a": {
+      "kind": "file",
+      "comment": "model.png",
+      "descriptor": {
+        "path": "portal_icon/model/model.png",
+        "sha256": "bdfb020a8dc8683a6f089855a18c4af1bcc45baa01ba745dc729b22a802efc9f"
+      },
+      "name": "portal_icon/model/model.png",
+      "links": []
+    },
+    "eed78a42-f004-4d7d-88d0-d9c8ebb65f1f": {
+      "kind": "processor",
+      "comment": "Passthru model.png to texture.",
+      "expectedRuntime": 0.4007823,
+      "systemWeights": {
+        "cpuCoreCount": 1.0,
+        "cpuPct": 1.0,
+        "gpuPct": 1.0,
+        "ioPct": 1.0
+      },
+      "descriptor": {
+        "path": "lap/project/eed78a42-f004-4d7d-88d0-d9c8ebb65f1f",
+        "sha256": "4ce3a9c798d9f1a5e91bba0df577efee85558346cdcd8dab1160e38bbbe83d93"
+      },
+      "links": [
+        {
+          "source": {
+            "aspect": "file",
+            "node": "69452a3c-d970-43eb-bc9e-cb7e6eaccc9a"
+          },
+          "target": {
+            "aspect": "image"
+          }
+        }
+      ]
+    },
+    "c74a7979-3719-4b15-adb1-829b1375cbfe": {
+      "kind": "file",
+      "comment": "Intermediate model.png",
+      "descriptor": {
+        "path": "HgStFnu1jxM/model.png",
+        "sha256": "bdfb020a8dc8683a6f089855a18c4af1bcc45baa01ba745dc729b22a802efc9f"
+      },
+      "name": "HgStFnu1jxM/model.png",
+      "links": [
+        {
+          "source": {
+            "aspect": "image",
+            "node": "eed78a42-f004-4d7d-88d0-d9c8ebb65f1f"
+          },
+          "target": {
+            "aspect": "file"
+          }
+        }
+      ]
+    },
+    "44b47e65-a962-49de-b93f-f3a2cba051e7": {
+      "name": "model.png",
+      "kind": "asset",
+      "comment": "Intermediate model.png",
+      "asset": "lap/types/asset/texture",
+      "links": [
+        {
+          "source": {
+            "aspect": "file",
+            "node": "c74a7979-3719-4b15-adb1-829b1375cbfe"
+          },
+          "target": {
+            "aspect": "image"
+          }
+        }
+      ],
+      "dirty": false,
+      "exclude": true,
+      "bundle": false
+    },
+    "40b56e74-b7c9-4a02-972e-987f3ba7cb8f": {
+      "kind": "file",
+      "comment": "visdiorama2.fbx",
+      "descriptor": {
+        "path": "C:/Users/13052/Downloads/visdiorama2.fbx",
+        "sha256": "9e89f19e5874d2d592c7897097f0f311b8933d0aab20f3ad9fe933cec32ae2f0"
+      },
+      "name": "visdiorama2.fbx",
+      "links": []
+    },
+    "44cf66d5-72c2-4ea4-aea2-7e983d890cda": {
+      "kind": "processor",
+      "comment": "Passthru visdiorama2.fbx to model.",
+      "expectedRuntime": 0.4431716,
+      "systemWeights": {
+        "cpuCoreCount": 1.0,
+        "cpuPct": 1.0,
+        "gpuPct": 1.0,
+        "ioPct": 1.0
+      },
+      "descriptor": {
+        "path": "lap/project/44cf66d5-72c2-4ea4-aea2-7e983d890cda",
+        "sha256": "bae09d8b01f3f310c54b9a4d2495fc0fbdf749c55420276d924517b1b0eae297"
+      },
+      "links": [
+        {
+          "source": {
+            "aspect": "file",
+            "node": "40b56e74-b7c9-4a02-972e-987f3ba7cb8f"
+          },
+          "target": {
+            "aspect": "model"
+          }
+        }
+      ]
+    },
+    "dc978f57-97d8-46da-8491-1e5030e98a3e": {
+      "kind": "file",
+      "comment": "Intermediate visdiorama2.fbx",
+      "descriptor": {
+        "path": "qrQE4TNp1lw/visdiorama2.fbx",
+        "sha256": "9e89f19e5874d2d592c7897097f0f311b8933d0aab20f3ad9fe933cec32ae2f0"
+      },
+      "name": "",
+      "links": [
+        {
+          "source": {
+            "aspect": "model",
+            "node": "44cf66d5-72c2-4ea4-aea2-7e983d890cda"
+          },
+          "target": {
+            "aspect": "file"
+          }
+        }
+      ]
+    },
+    "b57f6cfc-e01e-4264-9330-e3105d0bb15e": {
+      "name": "visdiorama2.fbx",
+      "kind": "asset",
+      "comment": "Intermediate visdiorama2.fbx",
+      "asset": "lap/types/asset/model",
+      "links": [
+        {
+          "source": {
+            "aspect": "file",
+            "node": "dc978f57-97d8-46da-8491-1e5030e98a3e"
+          },
+          "target": {
+            "aspect": "model"
+          }
+        }
+      ],
+      "dirty": false,
+      "exclude": false,
+      "bundle": false
+    },
+    "a2a23a38-e3cd-4f51-aba1-fe0d293c654e": {
+      "kind": "file",
+      "comment": "red.kmat",
+      "descriptor": {
+        "path": "SourceArt/red.kmat",
+        "sha256": "69235b9fc594b8123a55aff64ae6784093d6f5e909e830164dfa6704644dde65"
+      },
+      "name": "red.kmat",
+      "links": []
+    },
+    "fe00ac14-c009-4211-835e-9cb2a0744733": {
+      "kind": "processor",
+      "comment": "Files Array Builder",
+      "expectedRuntime": 0.3395996111111111,
+      "systemWeights": {
+        "cpuCoreCount": 1.0,
+        "cpuPct": 1.0,
+        "gpuPct": 1.0,
+        "ioPct": 1.0
+      },
+      "descriptor": {
+        "path": "lap/project/fe00ac14-c009-4211-835e-9cb2a0744733",
+        "sha256": "5e5950b9ad1ee7a4f2e032162405c09f2e69b75e50eeba6b828fd7da405b4a7d"
+      },
+      "links": [
+        {
+          "source": {
+            "aspect": "file1",
+            "node": "a2a23a38-e3cd-4f51-aba1-fe0d293c654e"
+          },
+          "target": {
+            "aspect": "files"
+          }
+        }
+      ]
+    },
+    "8dd8a40d-910d-48dc-95b1-fd334b37c6c7": {
+      "kind": "file",
+      "comment": "KMATs Files Intermediate red.kmat",
+      "descriptor": {
+        "path": "ulxR8LmmmEI/red.kmat.files",
+        "sha256": "69235b9fc594b8123a55aff64ae6784093d6f5e909e830164dfa6704644dde65"
+      },
+      "name": "",
+      "links": [
+        {
+          "source": {
+            "aspect": "files",
+            "node": "fe00ac14-c009-4211-835e-9cb2a0744733"
+          },
+          "target": {
+            "aspect": "files"
+          }
+        }
+      ]
+    },
+    "c93d45ce-f09b-4d53-bc22-efa57e692ac1": {
+      "kind": "processor",
+      "comment": "KMATs to material munger",
+      "expectedRuntime": 0.3391344333333333,
+      "systemWeights": {
+        "cpuCoreCount": 1.0,
+        "cpuPct": 1.0,
+        "gpuPct": 1.0,
+        "ioPct": 1.0
+      },
+      "descriptor": {
+        "path": "lap/project/c93d45ce-f09b-4d53-bc22-efa57e692ac1",
+        "sha256": "98700f322851124e21710970804e9e13c5ee51f9933f524846d59f2d6cc0062d"
+      },
+      "links": [
+        {
+          "source": {
+            "aspect": "files",
+            "node": "8dd8a40d-910d-48dc-95b1-fd334b37c6c7"
+          },
+          "target": {
+            "aspect": "material"
+          }
+        }
+      ]
+    },
+    "5ff2863d-fdc9-4d47-8af1-56920522f5b7": {
+      "kind": "file",
+      "comment": "KMAT Intermediate red.kmat",
+      "descriptor": {
+        "path": "3zRb81i9iWs/red.kmat",
+        "sha256": "68b91e5b334bc570a42b44f87f88d552e14739a46226094af9bec02612046067"
+      },
+      "name": "",
+      "links": [
+        {
+          "source": {
+            "aspect": "material",
+            "node": "c93d45ce-f09b-4d53-bc22-efa57e692ac1"
+          },
+          "target": {
+            "aspect": "material"
+          }
+        }
+      ]
+    },
+    "82d45a68-e929-4d61-8a43-f914c83c280d": {
+      "name": "red.kmat",
+      "kind": "asset",
+      "comment": "Material",
+      "asset": "lap/types/asset/material",
+      "links": [
+        {
+          "source": {
+            "aspect": "material",
+            "node": "5ff2863d-fdc9-4d47-8af1-56920522f5b7"
+          },
+          "target": {
+            "aspect": "material"
+          }
+        }
+      ],
+      "dirty": false,
+      "exclude": false,
+      "bundle": false
+    }
+  }
+}

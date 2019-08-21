@@ -25,8 +25,8 @@ namespace MagicLeap
         [SerializeField, Tooltip("The Text element that will display the instructions for the student to complete the tasks.")]
         private Text _instructionLabel = null;
 
-        [SerializeField]
-        private Text debugText = null; 
+        [SerializeField, Tooltip("The Text element that will display the displayed component")]
+        private Text _viewLabel = null; 
 
         [SerializeField, Tooltip("The placement object used in the scene.")]
         private GameObject[] placementPoint = null;
@@ -85,7 +85,7 @@ namespace MagicLeap
 
             placementComplete = false;
             inPlacementState = true; 
-            bumperFirstPress = false; 
+            bumperFirstPress = true; 
             menuActive = false;
 
             regularCanvas.SetActive(true);
@@ -121,12 +121,12 @@ namespace MagicLeap
             beam.SetPosition(1, _controllerConnectionHandler.ConnectedController.Position + transform.forward);
             HandleTouchpadInput();
 
+
             if (inPlacementState)
             {
                 if (index == 0)
                 {
                     _instructionLabel.text = "Welcome! Time to place your origin. Point your controller towards a level surface and use the trigger to place your point.";
-                    debugText.text = "";
                     beam.SetPosition(1, _controllerConnectionHandler.ConnectedController.Position + (transform.forward * magTouchY));
                     HandlePlacementFree(beam.GetPosition(1));
                 }
@@ -136,17 +136,19 @@ namespace MagicLeap
                     _instructionLabel.text = "Great! Press the trigger again to place another point. Press the home button to toggle the main menu.";
                     beam.SetPosition(1, _controllerConnectionHandler.ConnectedController.Position + (transform.forward * magTouchY));
                     HandlePlacementFree(beam.GetPosition(1));
+
+                    if (bumperFirstPress)
+                    {
+                        _viewLabel.text = "Now viewing: Components";
+                    }
                 }
 
                 if (index == 2)
                     placementComplete = true;
 
-                if (bumperFirstPress == false && index == 1)
-                    debugText.text = "Now viewing: Components";
-
                 if (placementComplete)
                 {
-                    _instructionLabel.text = "Placement complete! Press the bumper to go through different view modes, or press the home button to toggle the main menu.";    
+                    _instructionLabel.text = "Placement complete! Press the bumper to go through different view modes, or press the home button to toggle the main menu.";
                     VectorVisualizer(content1.transform.position);
                 }
             }
@@ -210,27 +212,28 @@ namespace MagicLeap
 
             if (_controllerConnectionHandler.IsControllerValid() && _controllerConnectionHandler.ConnectedController.Id == controllerId && button == MLInputControllerButton.Bumper)
             {
-                if (bumperFirstPress && bumperindex == 0)
-                    bumperFirstPress = false; 
+                if (bumperFirstPress == true)
+                    bumperFirstPress = false;
 
-                switch (bumperindex)
+                switch (bumperindex)                 //omg. my mind. i love me. 
                 {
                     case 0:
                         bumperindex++;
-                        debugText.text = "Now viewing: Axes";
-                        break; 
+                        _viewLabel.text = "Now viewing: Axes";
+                        break;
                     case 1:
                         bumperindex++;
-                        debugText.text = "Now viewing: Unit Vector";
+                        _viewLabel.text = "Now viewing: Unit Vectors ";
                         break;
                     case 2:
                         bumperindex = 0;
-                        debugText.text = "Now viewing: Components";
+                        _viewLabel.text = "Now viewing: Components";
                         break;
                     default:
+                        Debug.Log("uh. theres a mistake in ur bumper loop");
                         break;
                 }
-                //omg. my mind. i love me. 
+
             }
         }
         #endregion
@@ -247,7 +250,7 @@ namespace MagicLeap
 
         private void HandlePlacementFree(Vector3 beamPos)
         {
-            HandleTouchpadInput();  //add this method if you want to include touchpad input yo gotteeeem 
+            HandleTouchpadInput();
             switch(index)
             {
                 case 0:
@@ -290,8 +293,6 @@ namespace MagicLeap
             {
                 if (controller.Touch1PosAndForce.y - lastY < -0.001)
                     magTouchY -= pushRate;
-                if (magTouchY <= 0)
-                    magTouchY = 0; 
                 else if (controller.Touch1PosAndForce.y - lastY > 0.001)
                     magTouchY += pushRate;
                 lastY = controller.Touch1PosAndForce.y;

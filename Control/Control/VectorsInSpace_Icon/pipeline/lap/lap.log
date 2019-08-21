@@ -1,0 +1,15 @@
+[Info] Attemping to lock project...
+[Info] Loading project file: C:\Users\13052\VectorsInSpace_Icon\pipeline\lap\project.json
+[Info] Building "C:\Users\13052\VectorsInSpace_Icon\pipeline\lap\project.json"
+[Info] 0 dirty processors to run
+[Info] All processors up to date!
+[Info] Linking asset "model.kmat"
+[Info] Linking asset "portal.fbx"
+[Info] Linking asset "portal.png"
+[Info] Linking asset "model.fbx"
+[Info] Linking asset "portal.kmat"
+[Info] Linking asset "model.png"
+[Info] Linking asset "visdiorama2.fbx"
+[Info] Linking asset "red.kmat"
+[Info] Asset Manifest written to C:\Users\13052\VectorsInSpace_Icon\pipeline\cache\AssetManifest.comp
+[Info] Time to complete: 0.1017 second(s)

@@ -26,5 +26,7 @@ public class NextScene : MonoBehaviour
     {
         if (controllerId == controller.Id && button == MLInputControllerButton.Bumper)
             SceneManager.LoadScene(nextSceneNumber, LoadSceneMode.Single);
+        if (controllerId == controller.Id && button == MLInputControllerButton.HomeTap)
+            SceneManager.LoadScene(3, LoadSceneMode.Single);
     }
 }

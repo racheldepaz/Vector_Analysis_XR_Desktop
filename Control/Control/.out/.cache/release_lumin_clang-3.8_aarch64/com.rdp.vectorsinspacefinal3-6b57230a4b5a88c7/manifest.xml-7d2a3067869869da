@@ -1,0 +1,30 @@
+<manifest xmlns:ml="magicleap" ml:developer_id="2e2977fc-96f6-4543-9157-3fd9c35e4e30.7c2bae6b-dd0a-4ead-8590-2c63a4745c91" ml:package="com.rdp.vectorsinspacefinal3" ml:version_code="1" ml:version_name="">
+  <application ml:min_api_level="5" ml:sdk_version="1.0" ml:visible_name="[BETA]Vectors in Space">
+    
+    <uses-privilege ml:name="AddressBookRead" />
+    
+    <uses-privilege ml:name="AddressBookWrite" />
+    
+    <uses-privilege ml:name="AudioCaptureMic" />
+    
+    <uses-privilege ml:name="CameraCapture" />
+    
+    <uses-privilege ml:name="GesturesSubscribe" />
+    
+    <uses-privilege ml:name="GesturesConfig" />
+    
+    <uses-privilege ml:name="Internet" />
+    
+    <uses-privilege ml:name="PwFoundObjRead" />
+    
+    <uses-privilege ml:name="WorldReconstruction" />
+    
+    <uses-privilege ml:name="ControllerPose" />
+    
+    <uses-privilege ml:name="CoarseLocation" />
+    
+    <uses-privilege ml:name="ScreensProvider" />
+    <component ml:binary_name="bin/Player.elf" ml:name=".fullscreen" ml:type="Fullscreen" ml:visible_name="[BETA]Vectors in Space" />
+    <uses-privilege ml:name="LowLatencyLightwear" />
+  </application>
+</manifest>
