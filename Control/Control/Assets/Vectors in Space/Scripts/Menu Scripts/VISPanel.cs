@@ -15,9 +15,6 @@ public class VISPanel : MonoBehaviour
     LineRenderer _beam = null;
 
     [SerializeField]
-    Button angleButton; 
-
-    [SerializeField]
     Text _angle, _instruct;
 
     //Button:Reset.OnClick()

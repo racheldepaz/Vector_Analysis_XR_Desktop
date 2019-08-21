@@ -1,8 +1,0 @@
-<ResourceModel version="1">
-    <Model file="assets/portal.fbx/pbsK1yhO5Tg/portal.fbx" forceMaterialScope="true" name="assets/portal.fbx/pbsK1yhO5Tg/portal.fbx" scopedMaterialResource="assets/portal.kmat/rmnFpAZoREg/portal.kmat"/>
-    <Material file="assets/portal.kmat/rmnFpAZoREg/portal.kmat" localScope="true" name="assets/portal.kmat/rmnFpAZoREg/portal.kmat"/>
-    <Texture file="assets/portal.png/X7u9ZfAmkVc/portal.png" name="assets/portal.png/X7u9ZfAmkVc/portal.png"/>
-    <Material file="assets/model.kmat/NpEjYNkFqxg/model.kmat" localScope="true" name="assets/model.kmat/NpEjYNkFqxg/model.kmat"/>
-    <Texture file="assets/model.png/HgStFnu1jxM/model.png" name="assets/model.png/HgStFnu1jxM/model.png"/>
-    <Model file="assets/model.fbx/rjQaXKYoAho/model.fbx" forceMaterialScope="true" name="assets/model.fbx/rjQaXKYoAho/model.fbx" scopedMaterialResource="assets/model.kmat/NpEjYNkFqxg/model.kmat"/>
-</ResourceModel>

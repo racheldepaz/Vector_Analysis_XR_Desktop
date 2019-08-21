@@ -1,4 +1,4 @@
-<manifest xmlns:ml="magicleap" ml:developer_id="2e2977fc-96f6-4543-9157-3fd9c35e4e30.7c2bae6b-dd0a-4ead-8590-2c63a4745c91" ml:package="com.rdp.vectorsinspacefinal3" ml:version_code="1" ml:version_name="">
+<manifest xmlns:ml="magicleap" ml:developer_id="49ae1b99-94a5-4bfb-bcd4-8254f22131cb" ml:package="com.rdp.vectorsinspacefinal3" ml:version_code="1" ml:version_name="">
   <application ml:min_api_level="5" ml:sdk_version="1.0" ml:visible_name="[BETA]Vectors in Space">
     
     <uses-privilege ml:name="AddressBookRead" />
@@ -24,7 +24,9 @@
     <uses-privilege ml:name="CoarseLocation" />
     
     <uses-privilege ml:name="ScreensProvider" />
-    <component ml:binary_name="bin/Player.elf" ml:name=".fullscreen" ml:type="Fullscreen" ml:visible_name="[BETA]Vectors in Space" />
+    <component ml:binary_name="bin/Player.elf" ml:name=".fullscreen" ml:type="Fullscreen" ml:visible_name="[BETA]Vectors in Space">
+      <icon ml:model_folder="Icon/Model" ml:portal_folder="Icon/Portal" />
+    </component>
     <uses-privilege ml:name="LowLatencyLightwear" />
   </application>
 </manifest>

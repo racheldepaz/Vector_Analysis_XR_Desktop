@@ -1,4 +1,0 @@
-<ObjectModel name="portalIcon" version="1">
-    <TransformNode/>
-    <UiPortalIcon PortalIconSize="ExtraLarge" gravityWellRoundness="0.000000" gravityWellSize="0.000000, 0.000000" gravityWellSnap="ClosestEdge" iconHoverPosition="0.000000, 0.000000, 0.000000" name="PortalIcon" text="Portal icon"/>
-</ObjectModel>
