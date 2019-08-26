@@ -290,7 +290,8 @@ namespace MagicLeap
                     Vector3 targetPos1 = beamPos;
 
                     content1.transform.position = targetPos1;
-                    content1.transform.rotation = transform.rotation * Quaternion.Euler(Vector3.up);
+                    content1.transform.rotation = Quaternion.LookRotation((targetPos1 - content0.transform.position).normalized);
+                        //transform.rotation * Quaternion.Euler(Vector3.up);
                     VectorVisualizer(targetPos1);
                     break;
             }
