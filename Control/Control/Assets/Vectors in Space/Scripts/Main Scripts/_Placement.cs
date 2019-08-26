@@ -190,7 +190,9 @@ namespace MagicLeap
            if (placementComplete)
             {
                 _controllerConnectionHandler.ConnectedController.StartFeedbackPatternVibe(MLInputControllerFeedbackPatternVibe.Buzz, MLInputControllerFeedbackIntensity.Low);
-                root.transform.Rotate(Vector3.up, Space.World);
+                root.transform.rotation = Quaternion.Euler(0, magTouchX * rotateRate + root.transform.rotation.y, 0); //maybe works maybe not. needs additional testing 
+
+               // root.transform.Rotate(Vector3.up, Space.World);
             }
         }
 

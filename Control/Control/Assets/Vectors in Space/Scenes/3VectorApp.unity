@@ -5983,9 +5983,9 @@ MonoBehaviour:
   zUnitText: {fileID: 1118145986}
   rUnitText: {fileID: 1385393868}
   _angleLabels:
-  - {fileID: 993258182}
-  - {fileID: 1068453830}
   - {fileID: 1307412633}
+  - {fileID: 1068453830}
+  - {fileID: 993258182}
   _camera: {fileID: 2048849489}
   parents:
   - {fileID: 234811808}
@@ -6010,7 +6010,7 @@ MonoBehaviour:
   _viewLabel: {fileID: 603830481}
   placementPoint:
   - {fileID: 2244636499579855897, guid: 0c19b81e8e4d53648a1b38bd15143f45, type: 3}
-  - {fileID: 2244636499579855897, guid: 2f6f53b823af7dc43a98588fc2a8de27, type: 3}
+  - {fileID: 1850798190924521931, guid: 4712c8a6d1f21e64ba7c0fbf32490f74, type: 3}
   root: {fileID: 2028925481}
   pushRate: 0.03
   rotateRate: 10
