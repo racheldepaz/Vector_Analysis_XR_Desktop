@@ -84,28 +84,28 @@ public class CanvasScript : MonoBehaviour
         switch (component)
         {
             case 0:
-                xComponentText.transform.position = endPt;
+                xComponentText.transform.position = endPt + new Vector3(0.01f, 0.01f, 0.01f);
                 Quaternion rotTowardsUser = Quaternion.LookRotation(xComponentText.transform.position - _camera.transform.position);
                 xComponentText.transform.rotation = Quaternion.Slerp(xComponentText.transform.rotation, rotTowardsUser, 1.5f);
 
                 xComponentText.text = relPos.x.ToString("N2") + " m";
                 break;
             case 1:
-                yComponentText.transform.position = endPt;
+                yComponentText.transform.position = endPt + new Vector3(0.01f, 0.01f, 0.01f);
                 rotTowardsUser = Quaternion.LookRotation(yComponentText.transform.position - _camera.transform.position);
                 yComponentText.transform.rotation = Quaternion.Slerp(yComponentText.transform.rotation, rotTowardsUser, 1.5f);
 
                 yComponentText.text = relPos.y.ToString("N2") + " m";
                 break;
             case 2:
-                zComponentText.transform.position = endPt;
+                zComponentText.transform.position = endPt + new Vector3(0.01f, 0.01f, 0.01f);
                 rotTowardsUser = Quaternion.LookRotation(zComponentText.transform.position - _camera.transform.position);
                 zComponentText.transform.rotation = Quaternion.Slerp(zComponentText.transform.rotation, rotTowardsUser, 1.5f);
 
                 zComponentText.text = relPos.z.ToString("N2") + " m";
                 break;
             case 3:
-                rComponentText.transform.position = endPt;
+                rComponentText.transform.position = endPt + new Vector3(0.01f, 0.01f, 0.01f);
                 rotTowardsUser = Quaternion.LookRotation(rComponentText.transform.position - _camera.transform.position);
                 rComponentText.transform.rotation = Quaternion.Slerp(rComponentText.transform.rotation, rotTowardsUser, 1.5f);
 
@@ -123,28 +123,28 @@ public class CanvasScript : MonoBehaviour
         switch (component)
         {
             case 0:
-                xAxisText.transform.position = endPt;
+                xAxisText.transform.position = endPt + new Vector3(0.01f, 0.01f, 0.01f);
                 Quaternion rotTowardsUser = Quaternion.LookRotation(xAxisText.transform.position - _camera.transform.position);
                 xAxisText.transform.rotation = Quaternion.Slerp(xAxisText.transform.rotation, rotTowardsUser, 1.5f);
 
                 xAxisText.text = "X";
                 break;
             case 1:
-                yAxisText.transform.position = endPt;
+                yAxisText.transform.position = endPt + new Vector3(0.01f, 0.01f, 0.01f);
                 rotTowardsUser = Quaternion.LookRotation(yAxisText.transform.position - _camera.transform.position);
                 yAxisText.transform.rotation = Quaternion.Slerp(yAxisText.transform.rotation, rotTowardsUser, 1.5f);
 
                 yAxisText.text = "Y";
                 break;
             case 2:
-                zAxisText.transform.position = endPt;
+                zAxisText.transform.position = endPt + new Vector3(0.01f, 0.01f, 0.01f);
                 rotTowardsUser = Quaternion.LookRotation(zAxisText.transform.position - _camera.transform.position);
                 zAxisText.transform.rotation = Quaternion.Slerp(zAxisText.transform.rotation, rotTowardsUser, 1.5f);
 
                 zAxisText.text = "Z";
                 break;
             case 3:
-                rComponentText.transform.position = endPt;
+                rComponentText.transform.position = endPt + new Vector3(0.01f, 0.01f, 0.01f);
                 rotTowardsUser = Quaternion.LookRotation(rComponentText.transform.position - _camera.transform.position);
                 rComponentText.transform.rotation = Quaternion.Slerp(rComponentText.transform.rotation, rotTowardsUser, 1.5f);
 
@@ -162,28 +162,28 @@ public class CanvasScript : MonoBehaviour
         switch (component)
         {
             case 0:
-                xUnitText.transform.position = endPt;
+                xUnitText.transform.position = endPt + new Vector3(0.01f, 0.01f, 0.01f);
                 Quaternion rotTowardsUser = Quaternion.LookRotation(xUnitText.transform.position - _camera.transform.position);
                 xUnitText.transform.rotation = Quaternion.Slerp(xUnitText.transform.rotation, rotTowardsUser, 1.5f);
 
                 xUnitText.text = (relPos.x / mag).ToString("N2") + " m";
                 break;
             case 1:
-                yUnitText.transform.position = endPt;
+                yUnitText.transform.position = endPt + new Vector3(0.01f, 0.01f, 0.01f);
                 rotTowardsUser = Quaternion.LookRotation(yUnitText.transform.position - _camera.transform.position);
                 yUnitText.transform.rotation = Quaternion.Slerp(yUnitText.transform.rotation, rotTowardsUser, 1.5f);
 
                 yUnitText.text = (relPos.y / mag).ToString("N2") + " m";
                 break;
             case 2: 
-                zUnitText.transform.position = endPt;
+                zUnitText.transform.position = endPt + new Vector3(0.01f, 0.01f, 0.01f);
                 rotTowardsUser = Quaternion.LookRotation(zUnitText.transform.position - _camera.transform.position);
                 zUnitText.transform.rotation = Quaternion.Slerp(zUnitText.transform.rotation, rotTowardsUser, 1.5f);
 
                 zUnitText.text = (relPos.z / mag).ToString("N2") + " m";
                 break;
             case 3:
-                rUnitText.transform.position = endPt;
+                rUnitText.transform.position = endPt + new Vector3(0.01f, 0.01f, 0.01f);
                 rotTowardsUser = Quaternion.LookRotation(rUnitText.transform.position - _camera.transform.position);
                 rUnitText.transform.rotation = Quaternion.Slerp(rUnitText.transform.rotation, rotTowardsUser, 1.5f);
 
