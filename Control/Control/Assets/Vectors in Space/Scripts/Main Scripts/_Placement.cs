@@ -60,7 +60,7 @@ namespace MagicLeap
 
         //Stuff I need globally
         private Vector3 zero = new Vector3(0, 0, 0);
-        private GameObject content0, content1; //save location of the origin, placed point
+        private GameObject content0, content1, content2; //save location of the origin, placed point
 
         // flags and controller variables
         private bool placementComplete;
@@ -279,7 +279,7 @@ namespace MagicLeap
                     Vector3 targetPos = beamPos;
 
                     content0.transform.position = targetPos;
-                    content0.transform.rotation = transform.rotation * Quaternion.Euler(Vector3.up);
+                    //content0.transform.rotation = transform.rotation * Quaternion.Euler(Vector3.up);
                     break;
                 case 1:
                     Destroy(content1);
@@ -288,25 +288,13 @@ namespace MagicLeap
 
                     Vector3 sourcePos1 = _controllerConnectionHandler.ConnectedController.Position;
                     Vector3 targetPos1 = beamPos;
+                    content1.transform.position = targetPos1;
 
+                    content2 = Instantiate(placementPoint[3], root);
+                    content2.transform.position = beamPos + new Vector3(0.1f, 0.1f, 0.1f);
 
-                   // content1.transform.position = targetPos1;
-                    //content1.transform.LookAt(beamPos-content0.transform.position);
-                   content1.transform.position = targetPos1;
-                   content1.transform.rotation = Quaternion.LookRotation(content1.transform.position - content0.transform.position, content0.transform.position);
-                   // Quaternion deg90 = new Quaternion(90f, 0, 0, 0);
-
-
-
-
-                    //float please =  Quaternion.Dot(deg90, content1.transform.rotation);
-
-                    //content1.transform.rotation = new Quaternion(content1.transform.rotation.x, content1.transform.rotation.y, please, 0);
-                        
-                        //Quaternion.FromToRotation(targetPos1, content0.transform.position) * transform.rotation;
-                        
-                        //transform.rotation * Quaternion.Euler(Vector3.up);
-                    VectorVisualizer(targetPos1);
+                    content1.transform.LookAt(content2.transform);
+                    VectorVisualizer(content1.transform.position);
                     break;
             }
         }
