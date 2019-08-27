@@ -9,7 +9,7 @@
   },
   {
    "compression": 8,
-   "hash": "0ebe339957be24b92635ed6254a6d09eae6abbe1",
+   "hash": "ba2801d170033ac6f22627eed54fc2c2ab79ee65",
    "pkgpath": "bin/libil2cpp.so",
    "size": 51499048,
    "src": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/Temp/StagingArea/Data/Native/libil2cpp.so",
@@ -23,7 +23,7 @@
      "version": 3
     }
    },
-   "xfrm_hash": "46ad15242aecc823623f04ae020f476bb9a8b1c8",
+   "xfrm_hash": "1eb2df5040a15e6d84f7bd1f4a7dfe7c286188e9",
    "xfrm_path": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/.out/.cache/debug_lumin_clang-3.8_aarch64/com.rdp.unstablevis-f860921921163a0f\\libil2cpp.so-39ee3aaf7b998d6e",
    "xfrm_size": 51499806
   },
@@ -242,9 +242,9 @@
   },
   {
    "compression": 8,
-   "hash": "5b7f2dc00d6308269fb97a9eecd28cb1feda7207",
+   "hash": "25fd03a3f4acb744c3d2bf87f6a60b5a208da13f",
    "pkgpath": "Data/globalgamemanagers",
-   "size": 46632,
+   "size": 46640,
    "src": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/Temp/StagingArea/Data/globalgamemanagers"
   },
   {
@@ -394,9 +394,9 @@
   },
   {
    "compression": 8,
-   "hash": "118057a423ed7031b84a6ca7e70c22d4670dbf0d",
+   "hash": "b062e05ae92ee385050c4e30b82f2da8cbf8310d",
    "pkgpath": "manifest.xml",
-   "size": 3608,
+   "size": 3610,
    "src": "C:\\Users\\13052\\Documents\\Unity Projects\\Vector_Analysis_XR_Desktop\\Control\\Control\\Temp\\StagingArea\\manifest.xml",
    "xfrm_flags": {
     "manifest": {
@@ -404,9 +404,9 @@
      "developer_id": "49ae1b99-94a5-4bfb-bcd4-8254f22131cb"
     }
    },
-   "xfrm_hash": "c83726bcb1bba4e15afba8cd4ca864ec2c76cecd",
+   "xfrm_hash": "9ece27cb432d51dbf2f379bb670b3bc54870cc7d",
    "xfrm_path": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/.out/.cache/debug_lumin_clang-3.8_aarch64/com.rdp.unstablevis-f860921921163a0f\\manifest.xml-1184b59c8e8c3990",
-   "xfrm_size": 1216
+   "xfrm_size": 1218
   }
  ],
  "pkgflags": {
