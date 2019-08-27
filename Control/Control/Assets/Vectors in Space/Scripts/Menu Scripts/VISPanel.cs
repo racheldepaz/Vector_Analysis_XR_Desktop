@@ -23,6 +23,11 @@ public class VISPanel : MonoBehaviour
         SceneManager.LoadScene(3, LoadSceneMode.Single);
     }
 
+    public void AddVector()
+    {
+        SceneManager.LoadScene(3, LoadSceneMode.Additive);
+    }
+
     //Button:Exit.OnClick()
     public void Exit()
     {
