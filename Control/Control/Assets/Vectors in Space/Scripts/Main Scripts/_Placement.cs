@@ -293,7 +293,7 @@ namespace MagicLeap
                    // content1.transform.position = targetPos1;
                     //content1.transform.LookAt(beamPos-content0.transform.position);
                    content1.transform.position = targetPos1;
-                    content1.transform.rotation = Quaternion.FromToRotation(content0.transform.position, content1.transform.position);
+                   content1.transform.rotation = Quaternion.LookRotation(content0.transform.position, Vector3.right);
                         
                         //Quaternion.FromToRotation(targetPos1, content0.transform.position) * transform.rotation;
                         
