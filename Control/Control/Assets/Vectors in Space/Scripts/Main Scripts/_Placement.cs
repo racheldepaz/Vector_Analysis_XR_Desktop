@@ -15,7 +15,8 @@ namespace MagicLeap
     {
         #region Public Variables
         public GameObject menuPanel;
-        public GameObject regularCanvas; 
+        public GameObject regularCanvas;
+        public float measurementFactor = 1f;
         #endregion
 
         #region Serialized Variables
@@ -31,8 +32,8 @@ namespace MagicLeap
         [SerializeField, Tooltip("The placement object used in the scene.")]
         private GameObject[] placementPoint = null;
 
-       [SerializeField, Tooltip("Where you want to drop all the instantiated elements of the visualization")]
-       private Transform root;
+        [SerializeField, Tooltip("Where you want to drop all the instantiated elements of the visualization")]
+        private Transform root;
 
         [Tooltip("speed to push/pull objects using trackpad - meters per second")]
         public float pushRate;
@@ -60,7 +61,7 @@ namespace MagicLeap
 
         //Stuff I need globally
         private Vector3 zero = new Vector3(0, 0, 0);
-        private GameObject content0, content1, content2; //save location of the origin, placed point
+        private GameObject content0, content1; //save location of the origin, placed point
 
         // flags and controller variables
         private bool placementComplete;
@@ -109,11 +110,14 @@ namespace MagicLeap
 
             beam = GetComponent<LineRenderer>();
 
+
             MLInput.OnTriggerDown += HandleOnTriggerDown;
             MLInput.OnTriggerUp += HandleOnTriggerUp;
             MLInput.OnControllerButtonDown += HandleOnButtonDown;
 
             HandlePlacementFree(_controllerConnectionHandler.ConnectedController.Position + transform.forward);
+
+           
         }
 
         void Update()
@@ -121,13 +125,6 @@ namespace MagicLeap
             beam.SetPosition(0, _controllerConnectionHandler.ConnectedController.Position);
             beam.SetPosition(1, _controllerConnectionHandler.ConnectedController.Position + transform.forward);
             HandleTouchpadInput();
-
-
-
-            //rotateChange += magTouchX * rotateRate * Time.deltaTime;
-            //root.rotation = root.rotation * Quaternion.Euler(Vector3.up * rotateChange);
-
-            //_instructionLabel.text = ("Rotate pos: " + root.rotation.ToString());
 
             if (inPlacementState)
             {
@@ -160,15 +157,12 @@ namespace MagicLeap
                  
                 }
             }
-
-
         }
 
         void OnDestroy()
         {
             MLInput.OnTriggerDown -= HandleOnTriggerDown;
             MLInput.OnTriggerUp -= HandleOnTriggerUp;
-            MLInput.OnControllerButtonDown -= HandleOnButtonDown;
         }
         #endregion
 
@@ -187,13 +181,6 @@ namespace MagicLeap
             _controllerConnectionHandler.ConnectedController.StartFeedbackPatternVibe(MLInputControllerFeedbackPatternVibe.ForceUp, MLInputControllerFeedbackIntensity.High);
             if(inPlacementState)
                 index++;
-           if (placementComplete)
-            {
-                _controllerConnectionHandler.ConnectedController.StartFeedbackPatternVibe(MLInputControllerFeedbackPatternVibe.Buzz, MLInputControllerFeedbackIntensity.Low);
-                root.transform.rotation = Quaternion.Euler(0, magTouchX * rotateRate + root.transform.rotation.y, 0); //maybe works maybe not. needs additional testing 
-
-               // root.transform.Rotate(Vector3.up, Space.World);
-            }
         }
 
         private void HandleOnTriggerUp(byte controllerId, float pressure)
@@ -279,7 +266,7 @@ namespace MagicLeap
                     Vector3 targetPos = beamPos;
 
                     content0.transform.position = targetPos;
-                    //content0.transform.rotation = transform.rotation * Quaternion.Euler(Vector3.up);
+                    content0.transform.rotation = transform.rotation * Quaternion.Euler(Vector3.up);
                     break;
                 case 1:
                     Destroy(content1);
@@ -289,11 +276,8 @@ namespace MagicLeap
                     Vector3 sourcePos1 = _controllerConnectionHandler.ConnectedController.Position;
                     Vector3 targetPos1 = beamPos;
                     content1.transform.position = targetPos1;
+                    content1.transform.rotation = transform.rotation * Quaternion.Euler(Vector3.up);
 
-                    content2 = Instantiate(placementPoint[3], root);
-                    content2.transform.position = beamPos + new Vector3(0.1f, 0.1f, 0.1f);
-
-                    content1.transform.LookAt(content2.transform);
                     VectorVisualizer(content1.transform.position);
                     break;
             }

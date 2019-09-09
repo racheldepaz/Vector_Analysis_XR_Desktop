@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class VISPanel : MonoBehaviour
 {
     [SerializeField]
-    GameObject angleText, instructionLabel;  //must be the exact gameobject holding the angle label used in CanvasScript
+    GameObject angleText;  //must be the exact gameobject holding the angle label used in CanvasScript
 
     [SerializeField]
     MLInputModule _inputModule = null;
@@ -21,11 +21,6 @@ public class VISPanel : MonoBehaviour
     public void Reset()
     {
         SceneManager.LoadScene(3, LoadSceneMode.Single);
-    }
-
-    public void AddVector()
-    {
-        SceneManager.LoadScene(3, LoadSceneMode.Additive);
     }
 
     //Button:Exit.OnClick()
@@ -46,21 +41,6 @@ public class VISPanel : MonoBehaviour
         {
             angleText.SetActive(true);
             _angle.text = "Answers: On";
-        }
-    }
-
-    //Button:ToggleInstruction.OnClick()
-    public void ShowInstructions()
-    {
-        if (instructionLabel.activeSelf == true)
-        {
-            instructionLabel.SetActive(false);
-            _instruct.text = "Instructions: Off";
-        }
-        else
-        {
-            instructionLabel.SetActive(true);
-            _instruct.text = "Instructions: On";
         }
     }
 
