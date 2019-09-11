@@ -37,7 +37,7 @@ public class LookAndTrack : MonoBehaviour
     {
         if (MLEyes.FixationConfidence > 0.75)
         {
-            eyeConf.text = "Current eye position: " + MLEyes.FixationPoint.ToString();
+           // eyeConf.text = "Current eye position: " + MLEyes.FixationPoint.ToString();
             Vector3 fixationPoint = MLEyes.FixationPoint;
             rowData.Add(System.DateTime.Now.ToString("MM_dd_yyyy__HH_mm_ss") + "," + fixationPoint.ToString());
         }
@@ -64,7 +64,9 @@ public class LookAndTrack : MonoBehaviour
                 outstream.Write(s);
                 outstream.WriteLine();
             }
-            conf.text = "Data sucessfully outputted.";
+            handler.ConnectedController.StartFeedbackPatternVibe(MLInputControllerFeedbackPatternVibe.Tick, MLInputControllerFeedbackIntensity.Medium);
+            handler.ConnectedController.StartFeedbackPatternEffectLED(MLInputControllerFeedbackEffectLED.PaintCW, MLInputControllerFeedbackEffectSpeedLED.Medium, MLInputControllerFeedbackPatternLED.Clock1, MLInputControllerFeedbackColorLED.BrightLunaYellow, 2f);
+            //conf.text = "Data sucessfully outputted.";
         }
     }
 
