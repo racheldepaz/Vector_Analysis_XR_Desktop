@@ -17,6 +17,7 @@ namespace MagicLeap
         public GameObject menuPanel;
         public GameObject regularCanvas;
         public float measurementFactor = 1f;
+        public Text debug = null; 
         #endregion
 
         #region Serialized Variables
@@ -265,8 +266,13 @@ namespace MagicLeap
                     Vector3 sourcePos = _controllerConnectionHandler.ConnectedController.Position;
                     Vector3 targetPos = beamPos;
 
+                    debug.text = "content 0 pos: " + targetPos.ToString(); 
+
                     content0.transform.position = targetPos;
                     content0.transform.rotation = transform.rotation * Quaternion.Euler(Vector3.up);
+
+                    debug.text += "content 0 rot: " + content0.transform.rotation.ToString(); 
+                    
                     break;
                 case 1:
                     Destroy(content1);
@@ -276,7 +282,12 @@ namespace MagicLeap
                     Vector3 sourcePos1 = _controllerConnectionHandler.ConnectedController.Position;
                     Vector3 targetPos1 = beamPos;
                     content1.transform.position = targetPos1;
-                    content1.transform.rotation = transform.rotation * Quaternion.Euler(Vector3.up);
+
+
+                    debug.text += "content1 pos: " + targetPos1 + "content1 rot: " + content1.transform.rotation; 
+                    content1.transform.rotation = Quaternion.Euler(Vector3.up);
+                    debug.text += "content1 pos: " + targetPos1 + "content1 rot: " + content1.transform.rotation;
+                    //transform.rotation * Quaternion.Euler(Vector3.up);
 
                     VectorVisualizer(content1.transform.position);
                     break;

@@ -11,7 +11,7 @@ public class LookAndTrack : MonoBehaviour
     private int count = 0;
 
     [SerializeField]
-    private Text eyeConf = null;
+    private Text eyeVectorPos = null;
 
     [SerializeField]
     private Text conf = null; 
@@ -22,7 +22,7 @@ public class LookAndTrack : MonoBehaviour
     void Start()
     {
         MLEyes.Start();
-        MLInput.OnControllerButtonDown += HandleOnButtonDown;
+       // MLInput.OnControllerButtonDown += HandleOnButtonDown;
  
         conf.text = "";
 
@@ -41,21 +41,32 @@ public class LookAndTrack : MonoBehaviour
             Vector3 fixationPoint = MLEyes.FixationPoint;
             rowData.Add(System.DateTime.Now.ToString("MM_dd_yyyy__HH_mm_ss") + "," + fixationPoint.ToString());
         }
+        HandleTouchpadDown();
     }
 
     void OnDestroy()
     {
         MLEyes.Stop();
-        MLInput.OnControllerButtonDown -= HandleOnButtonDown;
+     //   MLInput.OnControllerButtonDown -= HandleOnButtonDown;
     }
 
     #region Event Handlers
-    private void HandleOnButtonDown(byte controllerId, MLInputControllerButton button)
+    private void HandleTouchpadDown()
     {
-        if (handler.ConnectedController.Id == controllerId && button == MLInputControllerButton.Bumper)
+        MLInputController controller = handler.ConnectedController;
+        if (controller.Touch1Active && controller.TouchpadGesture.Type == MLInputControllerTouchpadGestureType.SecondForceDown)
         {
+            SaveFile();
+        }
+    }
+
+
+    private void SaveFile()
+    {
+       // if (handler.ConnectedController.Id == controllerId && button == MLInputControllerButton.Bumper)
+        //{
             //conf.text = "button pressed";
-            string filename = "sampledata" + ".csv";
+            string filename = "EyeTracking_" + System.DateTime.Now.ToString("MM_dd_yyy_HH_mm_ss") + ".csv";
             string extension = System.IO.Path.GetExtension(filename);
             string pathName = System.IO.Path.Combine(Application.persistentDataPath, filename);
             StreamWriter outstream = File.CreateText(pathName);
@@ -66,8 +77,8 @@ public class LookAndTrack : MonoBehaviour
             }
             handler.ConnectedController.StartFeedbackPatternVibe(MLInputControllerFeedbackPatternVibe.Tick, MLInputControllerFeedbackIntensity.Medium);
             handler.ConnectedController.StartFeedbackPatternEffectLED(MLInputControllerFeedbackEffectLED.PaintCW, MLInputControllerFeedbackEffectSpeedLED.Medium, MLInputControllerFeedbackPatternLED.Clock1, MLInputControllerFeedbackColorLED.BrightLunaYellow, 2f);
-            //conf.text = "Data sucessfully outputted.";
-        }
+            conf.text = (rowData.Count - 2) + " eye tracking data points successfully saved as " + filename.ToString();
+       // }
     }
 
     #endregion

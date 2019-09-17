@@ -2,16 +2,16 @@
  "entries": [
   {
    "compression": 8,
-   "hash": "584b491b6f3eb61aa67382ce715bd8425da0941e",
+   "hash": "0df883e68b8f114c8823b56999643077b61f9b4d",
    "pkgpath": "Data/Managed/Metadata/global-metadata.dat",
-   "size": 3293404,
+   "size": 3293420,
    "src": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/Temp/StagingArea/Data/Managed/Metadata/global-metadata.dat"
   },
   {
    "compression": 8,
-   "hash": "19326829d6340852dd8cb17cb2cdc0852b685987",
+   "hash": "2be20ca9f63760778a69fa6779dae5b9405bcaba",
    "pkgpath": "bin/libil2cpp.so",
-   "size": 51509592,
+   "size": 51509944,
    "src": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/Temp/StagingArea/Data/Native/libil2cpp.so",
    "xfrm_flags": {
     "signed": {
@@ -23,9 +23,9 @@
      "version": 3
     }
    },
-   "xfrm_hash": "9b68f672804a82e63fdeca95a99b7054cff05c3f",
+   "xfrm_hash": "24ff1ab2a2d04e2d87c834b4414731e85b823418",
    "xfrm_path": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/.out/.cache/debug_lumin_clang-3.8_aarch64/com.rdp.vectorsinspace090619-f860921921163a0f\\libil2cpp.so-39ee3aaf7b998d6e",
-   "xfrm_size": 51510350
+   "xfrm_size": 51510702
   },
   {
    "compression": 8,
@@ -242,16 +242,16 @@
   },
   {
    "compression": 8,
-   "hash": "381dbe5b89db77d8059c5b355c465a2222c62a1a",
+   "hash": "1d874ac4c63a1f107188b5f086f13a10e27612d9",
    "pkgpath": "Data/globalgamemanagers",
    "size": 46720,
    "src": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/Temp/StagingArea/Data/globalgamemanagers"
   },
   {
    "compression": 8,
-   "hash": "05419deea3db8fd5b2300fd9daee115e11b95292",
+   "hash": "1a71ca8afde77ce30f629be1ee3ba6d3d7e3fdb1",
    "pkgpath": "Data/globalgamemanagers.assets",
-   "size": 50204,
+   "size": 50188,
    "src": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/Temp/StagingArea/Data/globalgamemanagers.assets"
   },
   {
@@ -284,9 +284,9 @@
   },
   {
    "compression": 8,
-   "hash": "1a4ab5dff189223cb32b79930e01ef5c9c857d5c",
+   "hash": "de8a80e048819d52aed411d317e5fa398c3cf59a",
    "pkgpath": "Data/level3",
-   "size": 45516,
+   "size": 44924,
    "src": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/Temp/StagingArea/Data/level3"
   },
   {
@@ -394,9 +394,9 @@
   },
   {
    "compression": 8,
-   "hash": "7b33c38f2af2eb2710f675f434c34cc95010feb9",
+   "hash": "cf5ef00d529ffeb9a0dcbd824aa917e51ce2b573",
    "pkgpath": "manifest.xml",
-   "size": 3609,
+   "size": 3613,
    "src": "C:\\Users\\13052\\Documents\\Unity Projects\\Vector_Analysis_XR_Desktop\\Control\\Control\\Temp\\StagingArea\\manifest.xml",
    "xfrm_flags": {
     "manifest": {
@@ -404,9 +404,9 @@
      "developer_id": "49ae1b99-94a5-4bfb-bcd4-8254f22131cb"
     }
    },
-   "xfrm_hash": "9125cb95be1daccfb0028cb5ee8bfdaf7885c6d2",
+   "xfrm_hash": "1d911ea3ba8a6c80490c881b6779f1dc3ee19662",
    "xfrm_path": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/.out/.cache/debug_lumin_clang-3.8_aarch64/com.rdp.vectorsinspace090619-f860921921163a0f\\manifest.xml-1184b59c8e8c3990",
-   "xfrm_size": 1217
+   "xfrm_size": 1221
   }
  ],
  "pkgflags": {
