@@ -26,8 +26,13 @@ public class VectorMath : MonoBehaviour
     private LineRenderer[] units = null;
 
     [SerializeField, Tooltip("Gameobjects that hold the meshes for the arcs")]
-    private GameObject[] arcs = null; 
+    private LineRenderer[] arcs = null;
 
+    [SerializeField, Tooltip("The markers for where the arc should begin")]
+    private GameObject[] dots = null;
+
+    [SerializeField]
+    private GameObject arrowHead; 
     #endregion
 
     #region Unity Methods
@@ -99,15 +104,12 @@ public class VectorMath : MonoBehaviour
         switch (index)
         {
             case 0:
-                arcs[index].transform.position = origin.position;
-                arcs[index].transform.rotation = origin.rotation;
-                arcs[index].GetComponent<LaunchArcMesh>().SetAngle(Mathf.Deg2Rad * Mathf.Acos(relPos.x / relMag));
+                arcs[index].SetPosition(0, origin.position); //go from origin to 1/10 of the point on the x axis
+                arcs[index].SetPosition(1, new Vector3(point.x - point.x/10f, origin.position.y, origin.position.z));
                 break;
             case 1:
-                arcs[index].transform.position = origin.position;
-                arcs[index].transform.rotation = origin.rotation;
-                LaunchArcMesh arcMesh1 = arcs[index].GetComponentInChildren<LaunchArcMesh>();
-                arcMesh1.SetAngle(Mathf.Rad2Deg * Mathf.Acos(relPos.y / relMag));
+                arcs[index].SetPosition(0, origin.position); //go from origin to 1/10 of the point on the x axis
+                arcs[index].SetPosition(1, new Vector3(origin.position.x, point.y - point.y/10f, origin.position.z));
                 break;
             case 2:
                 arcs[index].transform.position = origin.position;
@@ -128,23 +130,43 @@ public class VectorMath : MonoBehaviour
         switch (index)
         {
             case 0:
-                axes[index].SetPosition(0, origin.position);
+                axes[index].SetPosition(0, point - origin.position);
                 axes[index].SetPosition(1, new Vector3(origin.position.x, origin.position.y, origin.position.z + 1));
+
+                Instantiate(arrowHead);
+                arrowHead.transform.position = new Vector3(origin.position.x, origin.position.y, origin.position.z + 1);
+                arrowHead.transform.Rotate(new Vector3(0, 90, 0), Space.Self);
+
                 canvasScript.VisualizeText(axes[index].GetPosition(1), 1, index);
                 break;
             case 1:
                 axes[index].SetPosition(0, origin.position);
                 axes[index].SetPosition(1, new Vector3(origin.position.x, origin.position.y + 1, origin.position.z));
+
+                Instantiate(arrowHead);
+                arrowHead.transform.position = new Vector3(origin.position.x, origin.position.y + 1, origin.position.z);
+                arrowHead.transform.Rotate(new Vector3(0, 0, 90), Space.Self);
+
                 canvasScript.VisualizeText(axes[index].GetPosition(1), 1, index);
                 break;
             case 2:
                 axes[index].SetPosition(0, origin.position);
                 axes[index].SetPosition(1, new Vector3(origin.position.x + 1, origin.position.y, origin.position.z));
+
+                Instantiate(arrowHead);
+                arrowHead.transform.position = new Vector3(origin.position.x + 1, origin.position.y, origin.position.z);
+                arrowHead.transform.Rotate(new Vector3(90, 0, 0), Space.Self);
+
                 canvasScript.VisualizeText(axes[index].GetPosition(1), 1, index);
                 break;
             case 3:
                 components[index].SetPosition(0, origin.position);
                 components[index].SetPosition(1, point);
+
+                Instantiate(arrowHead);
+                arrowHead.transform.position = point;
+                arrowHead.transform.Rotate(new Vector3(90, 0, 0), Space.Self);
+
                 canvasScript.VisualizeText(components[index].GetPosition(1), 1, index);
                 break;
             default:

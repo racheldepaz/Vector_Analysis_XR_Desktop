@@ -61,8 +61,7 @@ namespace MagicLeap
         private ChangeViewModes modes = null;
 
         //Stuff I need globally
-        private Vector3 zero = new Vector3(0, 0, 0);
-        private GameObject content0, content1; //save location of the origin, placed point
+        private GameObject content0, content1, content2; //save location of the origin, placed point
 
         // flags and controller variables
         private bool placementComplete;
@@ -266,48 +265,35 @@ namespace MagicLeap
                     Vector3 sourcePos = _controllerConnectionHandler.ConnectedController.Position;
                     Vector3 targetPos = beamPos;
 
-                    //debug.text = "content 0 pos: " + targetPos.ToString(); 
 
                     content0.transform.position = targetPos;
                     content0.transform.rotation = transform.rotation * Quaternion.Euler(Vector3.up);
 
-                   // debug.text += "content 0 rot: " + content0.transform.rotation.ToString(); 
+                    Destroy(content1);
+                    Instantiate(placementPoint[index + 1], root);
+                    content1.transform.position = content0.transform.position;
+                    content1.transform.rotation = content0.transform.rotation; 
                     
                     break;
                 case 1:
-                    Destroy(content1);
+                   // Destroy(content1);
+                    Destroy(content2);
 
                     content1 = Instantiate(placementPoint[index], root);
-   
+                    content2 = Instantiate(placementPoint[index+1], root);
 
+   
                     Vector3 sourcePos1 = _controllerConnectionHandler.ConnectedController.Position;
                     Vector3 targetPos1 = beamPos;
                     content1.transform.position = targetPos1;
+                    //content2.transform.position = targetPos1 + Vector3.one;
 
-                   //content1.transform.LookAt(content0.transform, Vector3.forward);
+                    content2.transform.LookAt(targetPos1, Vector3.up);
+                 //   content2.transform.Rotate(90, 0, 0);
 
-                    Quaternion q;
-                    Vector3 a = Vector3.Cross(content0.transform.position, content1.transform.position);
-                    q.x = a.x; q.y = a.y; q.z = a.z;
+                    debug.text = "pos: " + content0.transform.position.ToString() + "rot: " + content0.transform.rotation;
 
-                    double d = content0.transform.position.sqrMagnitude * content0.transform.position.sqrMagnitude;
-                    double dd = content1.transform.position.sqrMagnitude * content1.transform.position.sqrMagnitude;
-                    float f = Vector3.Dot(content0.transform.position, content1.transform.position);
-                    float ff = (float)Math.Sqrt(d * dd);
-
-                    q.w = f + ff;
-
-
-
-                    // Vector3 v = content1.transform.position - content0.transform.position;
-                    // ..v.Normalize();
-
-                    //debug.text = "content1 pos: " + targetPos1 + "content1 rot: " + content1.transform.rotation; 
-                    content1.transform.rotation = q; 
-                    debug.text = "content1 pos: " + targetPos1 + "content1 rot: " + content1.transform.rotation.ToString("N3");
-                    //transform.rotation * Quaternion.Euler(Vector3.up);
-
-                    VectorVisualizer(content1.transform.position);
+                    VectorVisualizer(content1.transform.position);  
                     break;
             }
         }
