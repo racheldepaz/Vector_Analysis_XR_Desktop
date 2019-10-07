@@ -125,10 +125,6 @@ namespace MagicLeap
             beam.SetPosition(1, _controllerConnectionHandler.ConnectedController.Position + transform.forward);
             HandleTouchpadInput();
 
-<<<<<<< HEAD
-=======
-
->>>>>>> parent of 8c9941c... Final Submitted to Arboleda
             if (inPlacementState)
             {
                 if (index == 0)
@@ -157,10 +153,6 @@ namespace MagicLeap
                 {
                     _instructionLabel.text = "Placement complete! Press the bumper to go through different view modes, or press the home button to toggle the main menu.";
                     VectorVisualizer(content1.transform.position);
-<<<<<<< HEAD
-
-=======
->>>>>>> parent of 8c9941c... Final Submitted to Arboleda
                 }
             }
         }
@@ -185,13 +177,8 @@ namespace MagicLeap
         private void HandleOnTriggerDown(byte controllerId, float pressure)
         {
             _controllerConnectionHandler.ConnectedController.StartFeedbackPatternVibe(MLInputControllerFeedbackPatternVibe.ForceUp, MLInputControllerFeedbackIntensity.High);
-<<<<<<< HEAD
-            if (inPlacementState)
-                index++;
-=======
             if(inPlacementState)
                 index++; 
->>>>>>> parent of 8c9941c... Final Submitted to Arboleda
         }
 
         private void HandleOnTriggerUp(byte controllerId, float pressure)
@@ -326,16 +313,6 @@ namespace MagicLeap
                 else if (controller.Touch1PosAndForce.y - lastY > 0.001)
                     magTouchY += pushRate;
                 lastY = controller.Touch1PosAndForce.y;
-
-<<<<<<< HEAD
-
-=======
-                if (controller.Touch1PosAndForce.x - lastX < -0.001)
-                    magTouchX -= rotateRate;
-                if (controller.Touch1PosAndForce.x - lastX > 0.001)
-                    magTouchX += rotateRate;
-                lastX = controller.Touch1PosAndForce.x;
->>>>>>> parent of 8c9941c... Final Submitted to Arboleda
             }
         }
         #endregion
