@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 16
-  productGUID: a0eaed664d62d6142ad032ac18236474
+  productGUID: b544842d7deb3bc45837b7e13ae23235
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -12,8 +12,13 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
+<<<<<<< HEAD
   companyName: rdp
   productName: Vectors
+=======
+  companyName: RDP
+  productName: '[BETA]Vectors in Space'
+>>>>>>> parent of 8c9941c... Final Submitted to Arboleda
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -40,11 +45,10 @@ PlayerSettings:
     width: 1
     height: 1
   m_SplashScreenLogos: []
-  m_VirtualRealitySplashScreen: {fileID: 2800000, guid: 9f38965180c77104eb1c39627ae4a65d,
-    type: 3}
+  m_VirtualRealitySplashScreen: {fileID: 0}
   m_HolographicTrackingLossScreen: {fileID: 0}
-  defaultScreenWidth: 1024
-  defaultScreenHeight: 768
+  defaultScreenWidth: 2560
+  defaultScreenHeight: 1600
   defaultScreenWidthWeb: 960
   defaultScreenHeightWeb: 600
   m_StereoRenderingPath: 2
@@ -161,7 +165,16 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
+<<<<<<< HEAD
     Lumin: com.rdp.vectorsinspaceunstable
+=======
+<<<<<<< HEAD
+    Lumin: com.rdp.vectorsinspaceaugust
+=======
+    Lumin: com.rdp.vectorsinspacefinal3
+>>>>>>> parent of 05104b5... final edits
+    Standalone: com.rdp.placement
+>>>>>>> parent of 8c9941c... Final Submitted to Arboleda
   buildNumber: {}
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 16
@@ -276,13 +289,18 @@ PlayerSettings:
   m_BuildTargetBatching: []
   m_BuildTargetGraphicsAPIs:
   - m_BuildTarget: WindowsStandaloneSupport
-    m_APIs: 1100000002000000
+    m_APIs: 11000000
     m_Automatic: 0
   m_BuildTargetVRSettings:
   - m_BuildTarget: Lumin
     m_Enabled: 1
     m_Devices:
     - Lumin
+  - m_BuildTarget: Standalone
+    m_Enabled: 0
+    m_Devices:
+    - Oculus
+    - OpenVR
   m_BuildTargetEnableVuforiaSettings: []
   openGLRequireES31: 0
   openGLRequireES31AEP: 0
@@ -533,14 +551,14 @@ PlayerSettings:
   apiCompatibilityLevelPerPlatform: {}
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: Control
+  metroPackageName: Vector_App
   metroPackageVersion: 
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
   metroCertificateIssuer: 
   metroCertificateNotAfter: 0000000000000000
-  metroApplicationDescription: Control
+  metroApplicationDescription: Vector_App
   wsaImages: {}
   metroTileShortName: 
   metroTileShowName: 0
@@ -590,18 +608,29 @@ PlayerSettings:
     daydream:
       daydreamIconForeground: {fileID: 0}
       daydreamIconBackground: {fileID: 0}
-  cloudServicesEnabled: {}
+  cloudServicesEnabled:
+    Collab: 0
+    UNet: 1
   luminIcon:
     m_Name: 
+<<<<<<< HEAD
+    m_ModelFolderPath: C:/Users/Administrator/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/model
+    m_PortalFolderPath: C:/Users/Administrator/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/portal
+=======
     m_ModelFolderPath: 
     m_PortalFolderPath: 
+>>>>>>> parent of 05104b5... final edits
   luminCert:
+<<<<<<< HEAD
     m_CertPath: C:/Users/13052/MagicLeap/certificates/firstdev.cert
+=======
+    m_CertPath: C:/Users/Administrator/MagicLeap/certificates/vis-7c2bae6b.cert
+>>>>>>> 79a557005b2a9c50c7da12af573ef941a5fd1ab4
     m_SignPackage: 1
   luminIsChannelApp: 0
   luminVersion:
     m_VersionCode: 1
-    m_VersionName: 
+    m_VersionName: vis
   facebookSdkVersion: 
   facebookAppId: 
   facebookCookies: 1
