@@ -5,13 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Vectors in Space/Scenes/0Welcome.unity
     guid: faccab67eab26684aa5a3b75f7542fc3
-  - enabled: 0
+  - enabled: 1
     path: Assets/Vectors in Space/Scenes/1Control.unity
     guid: 5a14de09e107d254f9e4a2ddd672aae5
-  - enabled: 0
+  - enabled: 1
     path: Assets/Vectors in Space/Scenes/2Instruction.unity
     guid: a336eb98d8086e9468155bd4c3dee301
   - enabled: 1
