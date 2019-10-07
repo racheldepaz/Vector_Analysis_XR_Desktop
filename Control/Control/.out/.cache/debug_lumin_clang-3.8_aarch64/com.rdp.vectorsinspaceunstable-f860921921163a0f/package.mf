@@ -4,6 +4,7 @@
    "compression": 8,
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
    "hash": "8a82810a2f302bd944ec2ab786dec70ec146763b",
    "pkgpath": "Data/Managed/Metadata/global-metadata.dat",
    "size": 3293396,
@@ -17,10 +18,16 @@
    "pkgpath": "Data/Managed/Metadata/global-metadata.dat",
    "size": 3293528,
 >>>>>>> parent of d8a2bd8... BUG-placement is completely broken/unresponsive. arc function is being tested and new method with marker placement has been created
+=======
+   "hash": "a82f2834c133b41c702c916a4203fc234c8741e8",
+   "pkgpath": "Data/Managed/Metadata/global-metadata.dat",
+   "size": 3293628,
+>>>>>>> parent of 3cbb09e... Additional edits to add the vector arcs
    "src": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/Temp/StagingArea/Data/Managed/Metadata/global-metadata.dat"
   },
   {
    "compression": 8,
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
    "hash": "03cb38bbbdb7c6095c4235bdca05f62ff8186561",
@@ -36,6 +43,11 @@
    "pkgpath": "bin/libil2cpp.so",
    "size": 51510272,
 >>>>>>> parent of d8a2bd8... BUG-placement is completely broken/unresponsive. arc function is being tested and new method with marker placement has been created
+=======
+   "hash": "058656a6771e1486ba21808323bb4f6f87ec50d5",
+   "pkgpath": "bin/libil2cpp.so",
+   "size": 51514920,
+>>>>>>> parent of 3cbb09e... Additional edits to add the vector arcs
    "src": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/Temp/StagingArea/Data/Native/libil2cpp.so",
    "xfrm_flags": {
     "signed": {
@@ -47,6 +59,7 @@
      "version": 3
     }
    },
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
    "xfrm_hash": "e7627086c815c64ed18a2f2bd35d7591503c751a",
@@ -62,6 +75,11 @@
    "xfrm_path": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/.out/.cache/debug_lumin_clang-3.8_aarch64/com.rdp.vectorsinspaceunstable-f860921921163a0f\\libil2cpp.so-39ee3aaf7b998d6e",
    "xfrm_size": 51511030
 >>>>>>> parent of d8a2bd8... BUG-placement is completely broken/unresponsive. arc function is being tested and new method with marker placement has been created
+=======
+   "xfrm_hash": "2c6dc3a986368200bdad2e8958c1c67205469288",
+   "xfrm_path": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/.out/.cache/debug_lumin_clang-3.8_aarch64/com.rdp.vectorsinspaceunstable-f860921921163a0f\\libil2cpp.so-39ee3aaf7b998d6e",
+   "xfrm_size": 51515678
+>>>>>>> parent of 3cbb09e... Additional edits to add the vector arcs
   },
   {
    "compression": 8,
@@ -280,6 +298,7 @@
    "compression": 8,
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
    "hash": "0bf986120ef13a4ca7e1ed363fd44b08256478b6",
 =======
    "hash": "d74c2cb9f62a8720830976e4d1fe3d5296387448",
@@ -287,12 +306,16 @@
 =======
    "hash": "deca3d7c7a0eff9971caf45caacb610d42aacff5",
 >>>>>>> parent of d8a2bd8... BUG-placement is completely broken/unresponsive. arc function is being tested and new method with marker placement has been created
+=======
+   "hash": "d74c2cb9f62a8720830976e4d1fe3d5296387448",
+>>>>>>> parent of 3cbb09e... Additional edits to add the vector arcs
    "pkgpath": "Data/globalgamemanagers",
    "size": 46720,
    "src": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/Temp/StagingArea/Data/globalgamemanagers"
   },
   {
    "compression": 8,
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
    "hash": "91be8f43ac5b8d46785f40e06c23881474a28299",
@@ -302,6 +325,9 @@
 =======
    "hash": "000487eec0f73a7b2291252693c77c3b6aa36985",
 >>>>>>> parent of d8a2bd8... BUG-placement is completely broken/unresponsive. arc function is being tested and new method with marker placement has been created
+=======
+   "hash": "4a86dd438e5fbd661c4cd54c9d2496fcaae9fe77",
+>>>>>>> parent of 3cbb09e... Additional edits to add the vector arcs
    "pkgpath": "Data/globalgamemanagers.assets",
    "size": 50188,
    "src": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/Temp/StagingArea/Data/globalgamemanagers.assets"
@@ -338,6 +364,7 @@
    "compression": 8,
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
    "hash": "617fa80f8c1ebdfe6be3b5db70888565826359fc",
    "pkgpath": "Data/level3",
    "size": 48820,
@@ -351,6 +378,11 @@
    "pkgpath": "Data/level3",
    "size": 44924,
 >>>>>>> parent of d8a2bd8... BUG-placement is completely broken/unresponsive. arc function is being tested and new method with marker placement has been created
+=======
+   "hash": "a1da322baeaca898e972b8572b9a5efb8b0edcad",
+   "pkgpath": "Data/level3",
+   "size": 44916,
+>>>>>>> parent of 3cbb09e... Additional edits to add the vector arcs
    "src": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/Temp/StagingArea/Data/level3"
   },
   {
@@ -406,6 +438,7 @@
    "compression": 8,
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
    "hash": "a94abc26d7e79109b247b3f288d13659d696f4c4",
    "pkgpath": "Data/sharedassets3.assets",
    "size": 320120,
@@ -419,6 +452,11 @@
    "pkgpath": "Data/sharedassets3.assets",
    "size": 312792,
 >>>>>>> parent of d8a2bd8... BUG-placement is completely broken/unresponsive. arc function is being tested and new method with marker placement has been created
+=======
+   "hash": "ca77689af8faed55e29daf507515e65350538e4f",
+   "pkgpath": "Data/sharedassets3.assets",
+   "size": 315056,
+>>>>>>> parent of 3cbb09e... Additional edits to add the vector arcs
    "src": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/Temp/StagingArea/Data/sharedassets3.assets"
   },
   {
