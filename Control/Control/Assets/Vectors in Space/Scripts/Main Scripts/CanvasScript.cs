@@ -33,11 +33,11 @@ public class CanvasScript : MonoBehaviour
 
     #region Essential Variables
     private Vector3 relPos, startPoint, endPoint;
-    private Transform origin; 
+    private Transform origin;
     private float mag;
     private float angleX, angleY, angleZ;
     private float toFeet = 2.381f;
-    private float toMeter = 1.0f; 
+    private float toMeter = 1.0f;
 
     private Vector3 add = new Vector3(0.05f, 0.05f, 0.05f);
     public Camera _camera;
@@ -56,14 +56,14 @@ public class CanvasScript : MonoBehaviour
     {
         relPos = position;
         mag = magnitude;
-        origin = ori; 
+        origin = ori;
         SetAngleVals();
     }
 
     public void VisualizeText(Vector3 end, int index, int component)
     {
         SetCorrectParentActive(index);
-        switch(index)
+        switch (index)
         {
             case 0: //begin component
                 TMPAssignComponents(component, end);
@@ -179,7 +179,7 @@ public class CanvasScript : MonoBehaviour
 
                 yUnitText.text = (toMeter * (relPos.y / mag)).ToString("N2") + " m";
                 break;
-            case 2: 
+            case 2:
                 zUnitText.transform.position = endPt + add;
                 rotTowardsUser = Quaternion.LookRotation(zUnitText.transform.position - _camera.transform.position);
                 zUnitText.transform.rotation = Quaternion.Slerp(zUnitText.transform.rotation, rotTowardsUser, 1.5f);
@@ -241,7 +241,7 @@ public class CanvasScript : MonoBehaviour
     {
         for (int i = 0; i < 3; i++)
         {
-            _angleLabels[i].text = null; 
+            _angleLabels[i].text = null;
         }
     }
     void Update()
@@ -264,6 +264,6 @@ public class CanvasScript : MonoBehaviour
                     break;
             }
         }
-    } 
+    }
     #endregion
 }
