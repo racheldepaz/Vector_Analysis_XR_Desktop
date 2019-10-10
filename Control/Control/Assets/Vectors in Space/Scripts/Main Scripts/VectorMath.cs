@@ -29,7 +29,6 @@ public class VectorMath : MonoBehaviour
     private GameObject[] arcs = null; 
 
 <<<<<<< HEAD
-<<<<<<< HEAD
     //[SerializeField, Tooltip("The markers for where the arc should begin")]
     //private GameObject[] dots = null;
 
@@ -39,13 +38,6 @@ public class VectorMath : MonoBehaviour
     private GameObject marker; 
 =======
 >>>>>>> parent of 3cbb09e... Additional edits to add the vector arcs
-=======
-    [SerializeField, Tooltip("The markers for where the arc should begin")]
-    private GameObject[] dots = null;
-
-    [SerializeField]
-    private GameObject arrowHead; 
->>>>>>> parent of d8a2bd8... BUG-placement is completely broken/unresponsive. arc function is being tested and new method with marker placement has been created
     #endregion
 
     #region Unity Methods
@@ -74,6 +66,7 @@ public class VectorMath : MonoBehaviour
         ZeroLR(axes);
         ZeroLR(components);
         ZeroLR(units);
+        ZeroLR(arcs);
 
         canvasScript = GetComponent<CanvasScript>();
     }
@@ -86,19 +79,18 @@ public class VectorMath : MonoBehaviour
         relPos = GetRelativePosition(origin, point); //position of the point with the non-zero origin as new reference pt
         relMag = relPos.magnitude; //magnitude of the point with the
         canvasScript.setVariables(relPos, relMag, origin);
-        if (index == 0)
+        /*if (index == 0)
         {
             for (int i = 0; i <= 3; i++)
             {
                 VisualizeComponent(point, i, origin);
-                VisualizeArcs(point, i, origin);
             }
         }
         if (index == 1)
         {
             for (int i = 0; i <= 3; i++)
             {
-                VisualizeAxes(point, i, origin);
+               // VisualizeAxes(point, i, origin);
             }
         }
         if (index == 2)
@@ -107,22 +99,18 @@ public class VectorMath : MonoBehaviour
             {
                 VisualizeUnitVectorComponent(point, i, origin);
             }
-        }
+        }*/
     }
     #endregion
 
     #region Private Methods
 <<<<<<< HEAD
-<<<<<<< HEAD
 =======
-=======
->>>>>>> parent of d8a2bd8... BUG-placement is completely broken/unresponsive. arc function is being tested and new method with marker placement has been created
     private void VisualizeArcs(Vector3 point, int index, Transform origin)
     {
         switch (index)
         {
             case 0:
-<<<<<<< HEAD
                 arcs[index].transform.position = origin.position;
                 arcs[index].transform.rotation = origin.rotation;
                 arcs[index].GetComponent<LaunchArcMesh>().SetAngle(Mathf.Deg2Rad * Mathf.Acos(relPos.x / relMag));
@@ -132,14 +120,6 @@ public class VectorMath : MonoBehaviour
                 arcs[index].transform.rotation = origin.rotation;
                 LaunchArcMesh arcMesh1 = arcs[index].GetComponentInChildren<LaunchArcMesh>();
                 arcMesh1.SetAngle(Mathf.Rad2Deg * Mathf.Acos(relPos.y / relMag));
-=======
-                arcs[index].SetPosition(0, origin.position); //go from origin to 1/10 of the point on the x axis
-                arcs[index].SetPosition(1, new Vector3(point.x - point.x/10f, origin.position.y, origin.position.z));
-                break;
-            case 1:
-                arcs[index].SetPosition(0, origin.position); //go from origin to 1/10 of the point on the x axis
-                arcs[index].SetPosition(1, new Vector3(origin.position.x, point.y - point.y/10f, origin.position.z));
->>>>>>> parent of d8a2bd8... BUG-placement is completely broken/unresponsive. arc function is being tested and new method with marker placement has been created
                 break;
             case 2:
                 arcs[index].transform.position = origin.position;
@@ -153,10 +133,7 @@ public class VectorMath : MonoBehaviour
         }
     }
 
-<<<<<<< HEAD
 >>>>>>> parent of 3cbb09e... Additional edits to add the vector arcs
-=======
->>>>>>> parent of d8a2bd8... BUG-placement is completely broken/unresponsive. arc function is being tested and new method with marker placement has been created
     private void VisualizeAxes(Vector3 point, int index, Transform origin)
     {
         ZeroLR(components);
@@ -168,19 +145,17 @@ public class VectorMath : MonoBehaviour
                 axes[index].SetPosition(1, new Vector3(origin.position.x, origin.position.y, origin.position.z + 1));
 <<<<<<< HEAD
 
+                Destroy(arrowHead);
                 Instantiate(arrowHead);
                 arrowHead.transform.position = new Vector3(origin.position.x, origin.position.y, origin.position.z + 1);
                 arrowHead.transform.Rotate(new Vector3(0, 90, 0), Space.Self);
 
-<<<<<<< HEAD
                 Destroy(marker);
                 Instantiate(marker);
                 marker.transform.position = new Vector3(origin.position.x, origin.position.y, origin.position.z/5f); //at one fifth of z
                 
 =======
 >>>>>>> parent of 3cbb09e... Additional edits to add the vector arcs
-=======
->>>>>>> parent of d8a2bd8... BUG-placement is completely broken/unresponsive. arc function is being tested and new method with marker placement has been created
                 canvasScript.VisualizeText(axes[index].GetPosition(1), 1, index);
                 break;
             case 1:
@@ -188,19 +163,17 @@ public class VectorMath : MonoBehaviour
                 axes[index].SetPosition(1, new Vector3(origin.position.x, origin.position.y + 1, origin.position.z));
 <<<<<<< HEAD
 
+                Destroy(arrowHead);
                 Instantiate(arrowHead);
                 arrowHead.transform.position = new Vector3(origin.position.x, origin.position.y + 1, origin.position.z);
                 arrowHead.transform.Rotate(new Vector3(0, 0, 90), Space.Self);
 
-<<<<<<< HEAD
                 Destroy(marker);
                 Instantiate(marker);
                 marker.transform.position = new Vector3(origin.position.x, origin.position.y + origin.position.y / 5f, origin.position.z);
 
 =======
 >>>>>>> parent of 3cbb09e... Additional edits to add the vector arcs
-=======
->>>>>>> parent of d8a2bd8... BUG-placement is completely broken/unresponsive. arc function is being tested and new method with marker placement has been created
                 canvasScript.VisualizeText(axes[index].GetPosition(1), 1, index);
                 break;
             case 2:
@@ -208,18 +181,16 @@ public class VectorMath : MonoBehaviour
                 axes[index].SetPosition(1, new Vector3(origin.position.x + 1, origin.position.y, origin.position.z));
 <<<<<<< HEAD
 
+                Destroy(arrowHead);
                 Instantiate(arrowHead);
                 arrowHead.transform.position = new Vector3(origin.position.x + 1, origin.position.y, origin.position.z);
                 arrowHead.transform.Rotate(new Vector3(90, 0, 0), Space.Self);
 
-<<<<<<< HEAD
                 Instantiate(marker);
                 marker.transform.position = new Vector3(origin.position.x + origin.position.x / 5f, origin.position.y, origin.position.z);
 
 =======
 >>>>>>> parent of 3cbb09e... Additional edits to add the vector arcs
-=======
->>>>>>> parent of d8a2bd8... BUG-placement is completely broken/unresponsive. arc function is being tested and new method with marker placement has been created
                 canvasScript.VisualizeText(axes[index].GetPosition(1), 1, index);
                 break;
             case 3:
@@ -227,17 +198,13 @@ public class VectorMath : MonoBehaviour
                 components[index].SetPosition(1, point);
 <<<<<<< HEAD
 
+                Destroy(arrowHead);
                 Instantiate(arrowHead);
                 arrowHead.transform.position = point;
-<<<<<<< HEAD
                 arrowHead.transform.Rotate(new Vector3(0, 90, 0), Space.Self);
                
 =======
 >>>>>>> parent of 3cbb09e... Additional edits to add the vector arcs
-=======
-                arrowHead.transform.Rotate(new Vector3(90, 0, 0), Space.Self);
-
->>>>>>> parent of d8a2bd8... BUG-placement is completely broken/unresponsive. arc function is being tested and new method with marker placement has been created
                 canvasScript.VisualizeText(components[index].GetPosition(1), 1, index);
                 break;
             default:

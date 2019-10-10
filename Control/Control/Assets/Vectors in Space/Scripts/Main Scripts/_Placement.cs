@@ -1,4 +1,4 @@
-﻿using System; 
+﻿using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -17,7 +17,7 @@ namespace MagicLeap
         public GameObject menuPanel;
         public GameObject regularCanvas;
         public float measurementFactor = 1f;
-        public Text debug = null; 
+        public Text debug = null;
         #endregion
 
         #region Serialized Variables
@@ -28,7 +28,7 @@ namespace MagicLeap
         private Text _instructionLabel = null;
 
         [SerializeField, Tooltip("The Text element that will display the displayed component")]
-        private Text _viewLabel = null; 
+        private Text _viewLabel = null;
 
         [SerializeField, Tooltip("The placement object used in the scene.")]
         private GameObject[] placementPoint = null;
@@ -49,7 +49,7 @@ namespace MagicLeap
         private LineRenderer beam;
 
         private int index;
-        private int bumperindex; 
+        private int bumperindex;
 
         private float lastY, lastX, magTouchY, magTouchX; //values to compare touchpad swipe x,y pos
 
@@ -65,7 +65,7 @@ namespace MagicLeap
 
         // flags and controller variables
         private bool placementComplete;
-        private bool inPlacementState; 
+        private bool inPlacementState;
         private bool bumperFirstPress;
         private bool menuActive;
         #endregion
@@ -82,12 +82,12 @@ namespace MagicLeap
             }
 
             index = 0;
-            bumperindex = 0; 
+            bumperindex = 0;
 
 
             placementComplete = false;
-            inPlacementState = true; 
-            bumperFirstPress = true; 
+            inPlacementState = true;
+            bumperFirstPress = true;
             menuActive = false;
 
             regularCanvas.SetActive(true);
@@ -95,7 +95,7 @@ namespace MagicLeap
 
             _placement = GetComponent<Placement>();
             _vectorMath = GetComponent<VectorMath>();
-            modes = GetComponent<ChangeViewModes>(); 
+            modes = GetComponent<ChangeViewModes>();
 
             if (pushRate == 0)
             {
@@ -117,7 +117,7 @@ namespace MagicLeap
 
             HandlePlacementFree(_controllerConnectionHandler.ConnectedController.Position + transform.forward);
 
-           
+
         }
 
         void Update()
@@ -154,10 +154,6 @@ namespace MagicLeap
                 {
                     _instructionLabel.text = "Placement complete! Press the bumper to go through different view modes, or press the home button to toggle the main menu.";
                     VectorVisualizer(content1.transform.position);
-<<<<<<< HEAD
-=======
-                 
->>>>>>> parent of d8a2bd8... BUG-placement is completely broken/unresponsive. arc function is being tested and new method with marker placement has been created
                 }
             }
         }
@@ -170,7 +166,7 @@ namespace MagicLeap
         #endregion
 
         #region Event Handlers
-        
+
 
         /// <summary>
         /// If the trigger is pressed:
@@ -183,11 +179,7 @@ namespace MagicLeap
         {
             _controllerConnectionHandler.ConnectedController.StartFeedbackPatternVibe(MLInputControllerFeedbackPatternVibe.ForceUp, MLInputControllerFeedbackIntensity.High);
             if(inPlacementState)
-<<<<<<< HEAD
                 index++; 
-=======
-                index++;
->>>>>>> parent of d8a2bd8... BUG-placement is completely broken/unresponsive. arc function is being tested and new method with marker placement has been created
         }
 
         private void HandleOnTriggerUp(byte controllerId, float pressure)
@@ -218,8 +210,8 @@ namespace MagicLeap
                     menuPanel.SetActive(true);
                     inPlacementState = false;
                     regularCanvas.SetActive(false);
-                 }
-             }
+                }
+            }
 
             if (_controllerConnectionHandler.IsControllerValid() && _controllerConnectionHandler.ConnectedController.Id == controllerId && button == MLInputControllerButton.Bumper)
             {
@@ -262,7 +254,7 @@ namespace MagicLeap
         private void HandlePlacementFree(Vector3 beamPos)
         {
             HandleTouchpadInput();
-            switch(index)
+            switch (index)
             {
                 case 0:
                     Destroy(content0);
@@ -281,15 +273,14 @@ namespace MagicLeap
                     Destroy(content1);
                     Instantiate(placementPoint[index + 1], root);
                     content1.transform.position = content0.transform.position;
-                    content1.transform.rotation = content0.transform.rotation; 
-                    
+                    content1.transform.rotation = content0.transform.rotation;
+
                     break;
                 case 1:
-                   // Destroy(content1);
+                    // Destroy(content1);
                     Destroy(content2);
 
                     content1 = Instantiate(placementPoint[index], root);
-<<<<<<< HEAD
                     content2 = Instantiate(placementPoint[index + 1], root);
 
 =======
@@ -302,18 +293,13 @@ namespace MagicLeap
                     content1 = Instantiate(placementPoint[index], root);
    
 >>>>>>> parent of 3cbb09e... Additional edits to add the vector arcs
-=======
-                    content2 = Instantiate(placementPoint[index+1], root);
->>>>>>> parent of d8a2bd8... BUG-placement is completely broken/unresponsive. arc function is being tested and new method with marker placement has been created
 
-   
                     Vector3 sourcePos1 = _controllerConnectionHandler.ConnectedController.Position;
                     Vector3 targetPos1 = beamPos;
                     content1.transform.position = targetPos1;
 
 <<<<<<< HEAD
                     content2.transform.LookAt(targetPos1, Vector3.up);
-<<<<<<< HEAD
                     //   content2.transform.Rotate(90, 0, 0);
 =======
                    //content1.transform.LookAt(content0.transform, Vector3.forward);
@@ -321,9 +307,6 @@ namespace MagicLeap
                     Quaternion q;
                     Vector3 a = Vector3.Cross(content0.transform.position, content1.transform.position);
                     q.x = a.x; q.y = a.y; q.z = a.z;
-=======
-                 //   content2.transform.Rotate(90, 0, 0);
->>>>>>> parent of d8a2bd8... BUG-placement is completely broken/unresponsive. arc function is being tested and new method with marker placement has been created
 
                     double d = content0.transform.position.sqrMagnitude * content0.transform.position.sqrMagnitude;
                     double dd = content1.transform.position.sqrMagnitude * content1.transform.position.sqrMagnitude;
@@ -331,7 +314,6 @@ namespace MagicLeap
                     float ff = (float)Math.Sqrt(d * dd);
 >>>>>>> parent of 3cbb09e... Additional edits to add the vector arcs
 
-<<<<<<< HEAD
                     q.w = f + ff;
 
 <<<<<<< HEAD
@@ -348,9 +330,6 @@ namespace MagicLeap
 
 >>>>>>> parent of 3cbb09e... Additional edits to add the vector arcs
                     VectorVisualizer(content1.transform.position);
-=======
-                    VectorVisualizer(content1.transform.position);  
->>>>>>> parent of d8a2bd8... BUG-placement is completely broken/unresponsive. arc function is being tested and new method with marker placement has been created
                     break;
             }
         }
@@ -372,11 +351,6 @@ namespace MagicLeap
                 else if (controller.Touch1PosAndForce.y - lastY > 0.001)
                     magTouchY += pushRate;
                 lastY = controller.Touch1PosAndForce.y;
-<<<<<<< HEAD
-=======
-
-                
->>>>>>> parent of d8a2bd8... BUG-placement is completely broken/unresponsive. arc function is being tested and new method with marker placement has been created
             }
         }
         #endregion
