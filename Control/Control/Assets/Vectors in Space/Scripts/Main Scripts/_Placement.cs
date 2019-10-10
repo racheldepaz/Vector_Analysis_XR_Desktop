@@ -154,6 +154,10 @@ namespace MagicLeap
                 {
                     _instructionLabel.text = "Placement complete! Press the bumper to go through different view modes, or press the home button to toggle the main menu.";
                     VectorVisualizer(content1.transform.position);
+<<<<<<< HEAD
+=======
+                 
+>>>>>>> parent of d8a2bd8... BUG-placement is completely broken/unresponsive. arc function is being tested and new method with marker placement has been created
                 }
             }
         }
@@ -179,8 +183,11 @@ namespace MagicLeap
         {
             _controllerConnectionHandler.ConnectedController.StartFeedbackPatternVibe(MLInputControllerFeedbackPatternVibe.ForceUp, MLInputControllerFeedbackIntensity.High);
             if(inPlacementState)
+<<<<<<< HEAD
                 index++; 
-
+=======
+                index++;
+>>>>>>> parent of d8a2bd8... BUG-placement is completely broken/unresponsive. arc function is being tested and new method with marker placement has been created
         }
 
         private void HandleOnTriggerUp(byte controllerId, float pressure)
@@ -270,23 +277,80 @@ namespace MagicLeap
                     content0.transform.position = targetPos;
                     content0.transform.rotation = transform.rotation * Quaternion.Euler(Vector3.up);
 
+<<<<<<< HEAD
                     Destroy(content1);
-                    Instantiate(placementPoint[index], root);
+                    Instantiate(placementPoint[index + 1], root);
                     content1.transform.position = content0.transform.position;
-                    content1.transform.rotation = content0.transform.rotation;      
+                    content1.transform.rotation = content0.transform.rotation; 
+                    
                     break;
-               
+                case 1:
+                   // Destroy(content1);
+                    Destroy(content2);
+
+                    content1 = Instantiate(placementPoint[index], root);
+<<<<<<< HEAD
+                    content2 = Instantiate(placementPoint[index + 1], root);
+
+=======
+                   // debug.text += "content 0 rot: " + content0.transform.rotation.ToString(); 
+                    
+                    break;
                 case 1:
                     Destroy(content1);
 
                     content1 = Instantiate(placementPoint[index], root);
    
+>>>>>>> parent of 3cbb09e... Additional edits to add the vector arcs
+=======
+                    content2 = Instantiate(placementPoint[index+1], root);
+>>>>>>> parent of d8a2bd8... BUG-placement is completely broken/unresponsive. arc function is being tested and new method with marker placement has been created
+
+   
                     Vector3 sourcePos1 = _controllerConnectionHandler.ConnectedController.Position;
                     Vector3 targetPos1 = beamPos;
                     content1.transform.position = targetPos1;
 
-                    VectorVisualizer(content1.transform.position);
+<<<<<<< HEAD
+                    content2.transform.LookAt(targetPos1, Vector3.up);
+<<<<<<< HEAD
+                    //   content2.transform.Rotate(90, 0, 0);
+=======
+                   //content1.transform.LookAt(content0.transform, Vector3.forward);
 
+                    Quaternion q;
+                    Vector3 a = Vector3.Cross(content0.transform.position, content1.transform.position);
+                    q.x = a.x; q.y = a.y; q.z = a.z;
+=======
+                 //   content2.transform.Rotate(90, 0, 0);
+>>>>>>> parent of d8a2bd8... BUG-placement is completely broken/unresponsive. arc function is being tested and new method with marker placement has been created
+
+                    double d = content0.transform.position.sqrMagnitude * content0.transform.position.sqrMagnitude;
+                    double dd = content1.transform.position.sqrMagnitude * content1.transform.position.sqrMagnitude;
+                    float f = Vector3.Dot(content0.transform.position, content1.transform.position);
+                    float ff = (float)Math.Sqrt(d * dd);
+>>>>>>> parent of 3cbb09e... Additional edits to add the vector arcs
+
+<<<<<<< HEAD
+                    q.w = f + ff;
+
+<<<<<<< HEAD
+=======
+
+
+                    // Vector3 v = content1.transform.position - content0.transform.position;
+                    // ..v.Normalize();
+
+                    //debug.text = "content1 pos: " + targetPos1 + "content1 rot: " + content1.transform.rotation; 
+                    content1.transform.rotation = q; 
+                    debug.text = "content1 pos: " + targetPos1 + "content1 rot: " + content1.transform.rotation.ToString("N3");
+                    //transform.rotation * Quaternion.Euler(Vector3.up);
+
+>>>>>>> parent of 3cbb09e... Additional edits to add the vector arcs
+                    VectorVisualizer(content1.transform.position);
+=======
+                    VectorVisualizer(content1.transform.position);  
+>>>>>>> parent of d8a2bd8... BUG-placement is completely broken/unresponsive. arc function is being tested and new method with marker placement has been created
                     break;
             }
         }
@@ -308,6 +372,11 @@ namespace MagicLeap
                 else if (controller.Touch1PosAndForce.y - lastY > 0.001)
                     magTouchY += pushRate;
                 lastY = controller.Touch1PosAndForce.y;
+<<<<<<< HEAD
+=======
+
+                
+>>>>>>> parent of d8a2bd8... BUG-placement is completely broken/unresponsive. arc function is being tested and new method with marker placement has been created
             }
         }
         #endregion
