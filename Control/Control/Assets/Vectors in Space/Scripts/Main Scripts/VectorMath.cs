@@ -26,7 +26,6 @@ public class VectorMath : MonoBehaviour
     private LineRenderer[] units = null;
 
     [SerializeField, Tooltip("Gameobjects that hold the meshes for the arcs")]
-<<<<<<< HEAD
     private LineRenderer[] arcs = null; 
 
     [SerializeField]
@@ -36,10 +35,6 @@ public class VectorMath : MonoBehaviour
 
     [SerializeField, Tooltip("The markers for where the arc should begin")]
     private GameObject[] dots = null;
-=======
-    private GameObject[] arcs = null; 
-
->>>>>>> parent of 3cbb09e... Additional edits to add the vector arcs
     #endregion
 
     #region Unity Methods
@@ -111,37 +106,8 @@ public class VectorMath : MonoBehaviour
     #endregion
 
     #region Private Methods
-<<<<<<< HEAD
 
 
-=======
-    private void VisualizeArcs(Vector3 point, int index, Transform origin)
-    {
-        switch (index)
-        {
-            case 0:
-                arcs[index].transform.position = origin.position;
-                arcs[index].transform.rotation = origin.rotation;
-                arcs[index].GetComponent<LaunchArcMesh>().SetAngle(Mathf.Deg2Rad * Mathf.Acos(relPos.x / relMag));
-                break;
-            case 1:
-                arcs[index].transform.position = origin.position;
-                arcs[index].transform.rotation = origin.rotation;
-                LaunchArcMesh arcMesh1 = arcs[index].GetComponentInChildren<LaunchArcMesh>();
-                arcMesh1.SetAngle(Mathf.Rad2Deg * Mathf.Acos(relPos.y / relMag));
-                break;
-            case 2:
-                arcs[index].transform.position = origin.position;
-                arcs[index].transform.rotation = origin.rotation;
-                LaunchArcMesh arcMesh2 = arcs[index].GetComponentInChildren<LaunchArcMesh>();
-                arcMesh2.SetAngle(Mathf.Rad2Deg * Mathf.Acos(relPos.z / relMag));
-                break;
-            default:
-                Debug.Log("Error in VectorMath::VisualizeArcs(V3, i, T)");
-                break;
-        }
-    }
->>>>>>> parent of 3cbb09e... Additional edits to add the vector arcs
 
     private void VisualizeAxes(Vector3 point, int index, Transform origin)
     {
@@ -152,7 +118,6 @@ public class VectorMath : MonoBehaviour
             case 0:
                 axes[index].SetPosition(0, origin.position);
                 axes[index].SetPosition(1, new Vector3(origin.position.x, origin.position.y, origin.position.z + 1));
-<<<<<<< HEAD
 
                 Instantiate(arrowHead);
                 arrowHead.transform.position = new Vector3(origin.position.x, origin.position.y, origin.position.z + 1);
@@ -162,14 +127,11 @@ public class VectorMath : MonoBehaviour
                 Instantiate(marker);
                 marker.transform.position = new Vector3(origin.position.x, origin.position.y, origin.position.z/5f); //at one fifth of z
                 
-=======
->>>>>>> parent of 3cbb09e... Additional edits to add the vector arcs
                 canvasScript.VisualizeText(axes[index].GetPosition(1), 1, index);
                 break;
             case 1:
                 axes[index].SetPosition(0, origin.position);
                 axes[index].SetPosition(1, new Vector3(origin.position.x, origin.position.y + 1, origin.position.z));
-<<<<<<< HEAD
                 Instantiate(arrowHead);
                 arrowHead.transform.position = new Vector3(origin.position.x, origin.position.y + 1, origin.position.z);
                 arrowHead.transform.Rotate(new Vector3(0, 0, 90), Space.Self);
@@ -178,14 +140,11 @@ public class VectorMath : MonoBehaviour
                 Instantiate(marker);
                 marker.transform.position = new Vector3(origin.position.x, origin.position.y + origin.position.y / 5f, origin.position.z);
 
-=======
->>>>>>> parent of 3cbb09e... Additional edits to add the vector arcs
                 canvasScript.VisualizeText(axes[index].GetPosition(1), 1, index);
                 break;
             case 2:
                 axes[index].SetPosition(0, origin.position);
                 axes[index].SetPosition(1, new Vector3(origin.position.x + 1, origin.position.y, origin.position.z));
-<<<<<<< HEAD
 
                 Instantiate(arrowHead);
                 arrowHead.transform.position = new Vector3(origin.position.x + 1, origin.position.y, origin.position.z);
@@ -194,21 +153,16 @@ public class VectorMath : MonoBehaviour
                 Instantiate(marker);
                 marker.transform.position = new Vector3(origin.position.x + origin.position.x / 5f, origin.position.y, origin.position.z);
 
-=======
->>>>>>> parent of 3cbb09e... Additional edits to add the vector arcs
                 canvasScript.VisualizeText(axes[index].GetPosition(1), 1, index);
                 break;
             case 3:
                 components[index].SetPosition(0, origin.position);
                 components[index].SetPosition(1, point);
-<<<<<<< HEAD
 
                 Instantiate(arrowHead);
                 arrowHead.transform.position = point;
                 arrowHead.transform.Rotate(new Vector3(0, 90, 0), Space.Self);
 
-=======
->>>>>>> parent of 3cbb09e... Additional edits to add the vector arcs
                 canvasScript.VisualizeText(components[index].GetPosition(1), 1, index);
                 break;
             default:
