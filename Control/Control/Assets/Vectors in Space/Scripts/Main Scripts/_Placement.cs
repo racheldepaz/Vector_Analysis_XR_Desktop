@@ -265,12 +265,11 @@ namespace MagicLeap
                     Vector3 sourcePos = _controllerConnectionHandler.ConnectedController.Position;
                     Vector3 targetPos = beamPos;
 
-                    debug.text = "content 0 pos: " + targetPos.ToString(); 
+                    //debug.text = "content 0 pos: " + targetPos.ToString(); 
 
                     content0.transform.position = targetPos;
                     content0.transform.rotation = transform.rotation * Quaternion.Euler(Vector3.up);
 
-<<<<<<< HEAD
 <<<<<<< HEAD
                     Destroy(content1);
                     Instantiate(placementPoint[index], root);
@@ -278,9 +277,6 @@ namespace MagicLeap
                     content1.transform.rotation = content0.transform.rotation;      
 =======
                    // debug.text += "content 0 rot: " + content0.transform.rotation.ToString(); 
-=======
-                    debug.text += "content 0 rot: " + content0.transform.rotation.ToString(); 
->>>>>>> parent of 76030cc... more attemps at creating direction arrow
                     
 >>>>>>> parent of 3cbb09e... Additional edits to add the vector arcs
                     break;
@@ -289,23 +285,37 @@ namespace MagicLeap
                     Destroy(content1);
 
                     content1 = Instantiate(placementPoint[index], root);
+   
 
                     Vector3 sourcePos1 = _controllerConnectionHandler.ConnectedController.Position;
                     Vector3 targetPos1 = beamPos;
                     content1.transform.position = targetPos1;
 
 <<<<<<< HEAD
-<<<<<<< HEAD
                     VectorVisualizer(content1.transform.position);
 
 =======
                    //content1.transform.LookAt(content0.transform, Vector3.forward);
-=======
->>>>>>> parent of 76030cc... more attemps at creating direction arrow
 
-                    debug.text += "content1 pos: " + targetPos1 + "content1 rot: " + content1.transform.rotation; 
-                    content1.transform.rotation = Quaternion.Euler(Vector3.up);
-                    debug.text += "content1 pos: " + targetPos1 + "content1 rot: " + content1.transform.rotation;
+                    Quaternion q;
+                    Vector3 a = Vector3.Cross(content0.transform.position, content1.transform.position);
+                    q.x = a.x; q.y = a.y; q.z = a.z;
+
+                    double d = content0.transform.position.sqrMagnitude * content0.transform.position.sqrMagnitude;
+                    double dd = content1.transform.position.sqrMagnitude * content1.transform.position.sqrMagnitude;
+                    float f = Vector3.Dot(content0.transform.position, content1.transform.position);
+                    float ff = (float)Math.Sqrt(d * dd);
+
+                    q.w = f + ff;
+
+
+
+                    // Vector3 v = content1.transform.position - content0.transform.position;
+                    // ..v.Normalize();
+
+                    //debug.text = "content1 pos: " + targetPos1 + "content1 rot: " + content1.transform.rotation; 
+                    content1.transform.rotation = q; 
+                    debug.text = "content1 pos: " + targetPos1 + "content1 rot: " + content1.transform.rotation.ToString("N3");
                     //transform.rotation * Quaternion.Euler(Vector3.up);
 
                     VectorVisualizer(content1.transform.position);
