@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System; 
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -17,7 +17,7 @@ namespace MagicLeap
         public GameObject menuPanel;
         public GameObject regularCanvas;
         public float measurementFactor = 1f;
-        public Text debug = null;
+        public Text debug = null; 
         #endregion
 
         #region Serialized Variables
@@ -28,7 +28,7 @@ namespace MagicLeap
         private Text _instructionLabel = null;
 
         [SerializeField, Tooltip("The Text element that will display the displayed component")]
-        private Text _viewLabel = null;
+        private Text _viewLabel = null; 
 
         [SerializeField, Tooltip("The placement object used in the scene.")]
         private GameObject[] placementPoint = null;
@@ -50,7 +50,7 @@ namespace MagicLeap
         private LineRenderer beam;
 
         private int index;
-        private int bumperindex;
+        private int bumperindex; 
 
         private float lastY, lastX, magTouchY, magTouchX; //values to compare touchpad swipe x,y pos
 
@@ -65,7 +65,7 @@ namespace MagicLeap
 
         // flags and controller variables
         private bool placementComplete;
-        private bool inPlacementState;
+        private bool inPlacementState; 
         private bool bumperFirstPress;
         private bool menuActive;
         #endregion
@@ -82,12 +82,12 @@ namespace MagicLeap
             }
 
             index = 0;
-            bumperindex = 0;
+            bumperindex = 0; 
 
 
             placementComplete = false;
-            inPlacementState = true;
-            bumperFirstPress = true;
+            inPlacementState = true; 
+            bumperFirstPress = true; 
             menuActive = false;
 
             regularCanvas.SetActive(true);
@@ -95,7 +95,7 @@ namespace MagicLeap
 
             _placement = GetComponent<Placement>();
             _vectorMath = GetComponent<VectorMath>();
-            modes = GetComponent<ChangeViewModes>();
+            modes = GetComponent<ChangeViewModes>(); 
 
             if (pushRate == 0)
             {
@@ -117,7 +117,7 @@ namespace MagicLeap
 
             HandlePlacementFree(_controllerConnectionHandler.ConnectedController.Position + transform.forward);
 
-
+           
         }
 
         void Update()
@@ -154,7 +154,7 @@ namespace MagicLeap
                 {
                     _instructionLabel.text = "";
                     VectorVisualizer(content1.transform.position);
-
+                 
                 }
             }
         }
@@ -167,7 +167,7 @@ namespace MagicLeap
         #endregion
 
         #region Event Handlers
-
+        
 
         /// <summary>
         /// If the trigger is pressed:
@@ -179,7 +179,7 @@ namespace MagicLeap
         private void HandleOnTriggerDown(byte controllerId, float pressure)
         {
             _controllerConnectionHandler.ConnectedController.StartFeedbackPatternVibe(MLInputControllerFeedbackPatternVibe.ForceUp, MLInputControllerFeedbackIntensity.High);
-            if (inPlacementState)
+            if(inPlacementState)
                 index++;
         }
 
@@ -211,8 +211,8 @@ namespace MagicLeap
                     menuPanel.SetActive(true);
                     inPlacementState = false;
                     regularCanvas.SetActive(false);
-                }
-            }
+                 }
+             }
 
             if (_controllerConnectionHandler.IsControllerValid() && _controllerConnectionHandler.ConnectedController.Id == controllerId && button == MLInputControllerButton.Bumper)
             {
@@ -255,7 +255,7 @@ namespace MagicLeap
         private void HandlePlacementFree(Vector3 beamPos)
         {
             HandleTouchpadInput();
-            switch (index)
+            switch(index)
             {
                 case 0:
                     Destroy(content0);
@@ -272,28 +272,28 @@ namespace MagicLeap
                     Destroy(content1);
                     Instantiate(placementPoint[index + 1], root);
                     content1.transform.position = content0.transform.position;
-                    content1.transform.rotation = content0.transform.rotation;
-
+                    content1.transform.rotation = content0.transform.rotation; 
+                    
                     break;
                 case 1:
-                    // Destroy(content1);
+                   // Destroy(content1);
                     Destroy(content2);
 
                     content1 = Instantiate(placementPoint[index], root);
-                    content2 = Instantiate(placementPoint[index + 1], root);
+                    content2 = Instantiate(placementPoint[index+1], root);
 
-
+   
                     Vector3 sourcePos1 = _controllerConnectionHandler.ConnectedController.Position;
                     Vector3 targetPos1 = beamPos;
                     content1.transform.position = targetPos1;
                     //content2.transform.position = targetPos1 + Vector3.one;
 
                     content2.transform.LookAt(targetPos1, Vector3.up);
-                    //   content2.transform.Rotate(90, 0, 0);
+                 //   content2.transform.Rotate(90, 0, 0);
 
                     debug.text = "pos: " + content0.transform.position.ToString() + "rot: " + content0.transform.rotation;
 
-                    VectorVisualizer(content1.transform.position);
+                    VectorVisualizer(content1.transform.position);  
                     break;
             }
         }
@@ -316,7 +316,7 @@ namespace MagicLeap
                     magTouchY += pushRate;
                 lastY = controller.Touch1PosAndForce.y;
 
-
+                
             }
         }
         #endregion
