@@ -20,7 +20,7 @@ public class VISPanel : MonoBehaviour
     //Button:Reset.OnClick()
     public void Reset()
     {
-        SceneManager.LoadScene(3, LoadSceneMode.Single);
+        SceneManager.LoadScene(0, LoadSceneMode.Single);
     }
 
     //Button:Exit.OnClick()

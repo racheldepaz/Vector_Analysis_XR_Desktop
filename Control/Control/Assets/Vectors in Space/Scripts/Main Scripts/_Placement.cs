@@ -267,31 +267,18 @@ namespace MagicLeap
 
 
                     content0.transform.position = targetPos;
-                    content0.transform.rotation = transform.rotation * Quaternion.Euler(Vector3.up);
-
-                    Destroy(content1);
-                    Instantiate(placementPoint[index + 1], root);
-                    content1.transform.position = content0.transform.position;
-                    content1.transform.rotation = content0.transform.rotation; 
-                    
+                    content0.transform.rotation = transform.rotation * Quaternion.Euler(Vector3.up);           
                     break;
                 case 1:
-                   // Destroy(content1);
-                    Destroy(content2);
+                    Destroy(content1);
 
                     content1 = Instantiate(placementPoint[index], root);
-                    content2 = Instantiate(placementPoint[index+1], root);
 
-   
                     Vector3 sourcePos1 = _controllerConnectionHandler.ConnectedController.Position;
                     Vector3 targetPos1 = beamPos;
                     content1.transform.position = targetPos1;
-                    //content2.transform.position = targetPos1 + Vector3.one;
 
-                    content2.transform.LookAt(targetPos1, Vector3.up);
-                 //   content2.transform.Rotate(90, 0, 0);
-
-                    debug.text = "pos: " + content0.transform.position.ToString() + "rot: " + content0.transform.rotation;
+                    debug.text = "pos: " + content1.transform.position.ToString() + "rot: " + content1.transform.rotation;
 
                     VectorVisualizer(content1.transform.position);  
                     break;

@@ -61,6 +61,7 @@ public class VectorMath : MonoBehaviour
         ZeroLR(axes);
         ZeroLR(components);
         ZeroLR(units);
+        ZeroLR(arcs);
 
         canvasScript = GetComponent<CanvasScript>();
     }
@@ -78,7 +79,6 @@ public class VectorMath : MonoBehaviour
             for (int i = 0; i <= 3; i++)
             {
                 VisualizeComponent(point, i, origin);
-                VisualizeArcs(point, i, origin);
             }
         }
         if (index == 1)
@@ -99,43 +99,19 @@ public class VectorMath : MonoBehaviour
     #endregion
 
     #region Private Methods
-    private void VisualizeArcs(Vector3 point, int index, Transform origin)
-    {
-        switch (index)
-        {
-            case 0:
-                arcs[index].SetPosition(0, origin.position); //go from origin to 1/10 of the point on the x axis
-                arcs[index].SetPosition(1, new Vector3(point.x - point.x/10f, origin.position.y, origin.position.z));
-                break;
-            case 1:
-                arcs[index].SetPosition(0, origin.position); //go from origin to 1/10 of the point on the x axis
-                arcs[index].SetPosition(1, new Vector3(origin.position.x, point.y - point.y/10f, origin.position.z));
-                break;
-            case 2:
-                arcs[index].transform.position = origin.position;
-                arcs[index].transform.rotation = origin.rotation;
-                LaunchArcMesh arcMesh2 = arcs[index].GetComponentInChildren<LaunchArcMesh>();
-                arcMesh2.SetAngle(Mathf.Rad2Deg * Mathf.Acos(relPos.z / relMag));
-                break;
-            default:
-                Debug.Log("Error in VectorMath::VisualizeArcs(V3, i, T)");
-                break;
-        }
-    }
-
     private void VisualizeAxes(Vector3 point, int index, Transform origin)
     {
         ZeroLR(components);
         ZeroLR(units);
+       // ZeroLR(arcs);
         switch (index)
         {
             case 0:
-                axes[index].SetPosition(0, point - origin.position);
+                axes[index].SetPosition(0, origin.position);
                 axes[index].SetPosition(1, new Vector3(origin.position.x, origin.position.y, origin.position.z + 1));
 
-                Instantiate(arrowHead);
-                arrowHead.transform.position = new Vector3(origin.position.x, origin.position.y, origin.position.z + 1);
-                arrowHead.transform.Rotate(new Vector3(0, 90, 0), Space.Self);
+                arcs[index].SetPosition(0, origin.position + (point-origin.position)/4f);
+                arcs[index].SetPosition(1, new Vector3(origin.position.x, origin.position.y, origin.position.z + .25f));
 
                 canvasScript.VisualizeText(axes[index].GetPosition(1), 1, index);
                 break;
@@ -143,9 +119,8 @@ public class VectorMath : MonoBehaviour
                 axes[index].SetPosition(0, origin.position);
                 axes[index].SetPosition(1, new Vector3(origin.position.x, origin.position.y + 1, origin.position.z));
 
-                Instantiate(arrowHead);
-                arrowHead.transform.position = new Vector3(origin.position.x, origin.position.y + 1, origin.position.z);
-                arrowHead.transform.Rotate(new Vector3(0, 0, 90), Space.Self);
+                arcs[index].SetPosition(0, origin.position + (point - origin.position) / 4f);
+                arcs[index].SetPosition(1, new Vector3(origin.position.x, origin.position.y + .25f, origin.position.z));
 
                 canvasScript.VisualizeText(axes[index].GetPosition(1), 1, index);
                 break;
@@ -153,19 +128,14 @@ public class VectorMath : MonoBehaviour
                 axes[index].SetPosition(0, origin.position);
                 axes[index].SetPosition(1, new Vector3(origin.position.x + 1, origin.position.y, origin.position.z));
 
-                Instantiate(arrowHead);
-                arrowHead.transform.position = new Vector3(origin.position.x + 1, origin.position.y, origin.position.z);
-                arrowHead.transform.Rotate(new Vector3(90, 0, 0), Space.Self);
+                arcs[index].SetPosition(0, origin.position + (point - origin.position) / 4f);
+                arcs[index].SetPosition(1, new Vector3(origin.position.x + .25f, origin.position.y, origin.position.z));
 
                 canvasScript.VisualizeText(axes[index].GetPosition(1), 1, index);
                 break;
             case 3:
                 components[index].SetPosition(0, origin.position);
                 components[index].SetPosition(1, point);
-
-                Instantiate(arrowHead);
-                arrowHead.transform.position = point;
-                arrowHead.transform.Rotate(new Vector3(90, 0, 0), Space.Self);
 
                 canvasScript.VisualizeText(components[index].GetPosition(1), 1, index);
                 break;
@@ -179,6 +149,7 @@ public class VectorMath : MonoBehaviour
     {
         ZeroLR(axes);
         ZeroLR(units);
+        ZeroLR(arcs);
         switch (index)
         {
             case 0:
@@ -211,6 +182,7 @@ public class VectorMath : MonoBehaviour
     {
         ZeroLR(axes);
         ZeroLR(components);
+        ZeroLR(arcs);
         switch (index)
         {
             case 0:
