@@ -28,6 +28,13 @@ public class CanvasScript : MonoBehaviour
 
     [SerializeField, Tooltip("Resultant unit vector/magnitude")] private TextMeshPro rUnitText;
 
+
+    [SerializeField] private TextMeshPro xAngleText;
+
+    [SerializeField] private TextMeshPro yAngleText;
+
+    [SerializeField] private TextMeshPro zAngleText;
+
     public Text[] _angleLabels = new Text[3];
     #endregion
 
