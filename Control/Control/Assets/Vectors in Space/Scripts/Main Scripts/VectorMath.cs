@@ -28,9 +28,6 @@ public class VectorMath : MonoBehaviour
     [SerializeField, Tooltip("Gameobjects that hold the meshes for the arcs")]
     private LineRenderer[] arcs = null;
 
-    [SerializeField, Tooltip("The markers for where the arc should begin")]
-    private GameObject[] dots = null;
-
     [SerializeField]
     private GameObject arrowHead; 
     #endregion
@@ -110,26 +107,17 @@ public class VectorMath : MonoBehaviour
                 axes[index].SetPosition(0, origin.position);
                 axes[index].SetPosition(1, new Vector3(origin.position.x + 1, origin.position.y, origin.position.z));
 
-                /*arcs[index].SetPosition(0, origin.position + (point-origin.position)/4f);
-                arcs[index].SetPosition(1, new Vector3(origin.position.x, origin.position.y, origin.position.z + .25f));*/
-
                 canvasScript.VisualizeText(axes[index].GetPosition(1), 1, index);
                 break;
             case 1:
                 axes[index].SetPosition(0, origin.position);
                 axes[index].SetPosition(1, new Vector3(origin.position.x, origin.position.y + 1, origin.position.z));
 
-                /*arcs[index].SetPosition(0, origin.position + (point - origin.position) / 4f);
-                arcs[index].SetPosition(1, new Vector3(origin.position.x, origin.position.y + .25f, origin.position.z));*/
-
                 canvasScript.VisualizeText(axes[index].GetPosition(1), 1, index);
                 break;
             case 2:
                 axes[index].SetPosition(0, origin.position);
                 axes[index].SetPosition(1, new Vector3(origin.position.x, origin.position.y, origin.position.z + 1));
-
-                /*arcs[index].SetPosition(0, origin.position + (point - origin.position) / 4f);
-                arcs[index].SetPosition(1, new Vector3(origin.position.x + .25f, origin.position.y, origin.position.z));*/
 
                 canvasScript.VisualizeText(axes[index].GetPosition(1), 1, index);
                 break;
@@ -145,11 +133,50 @@ public class VectorMath : MonoBehaviour
         }
     }
 
+    private void CreateArcs(Vector3 origin, Vector3 point, int index)
+    {
+        switch (index)
+        {
+            case 0:
+                arcs[index].SetPosition(0, origin + (point - origin) / 4f);
+                arcs[index].SetPosition(1, new Vector3(origin.x + (point.x - origin.x) / 4f, origin.y, origin.z));
+
+                Vector3 arcVec = arcs[index].GetPosition(0); //position where the arc hits the resultant vector
+                Vector3 arcCom = arcs[index].GetPosition(arcs[index].positionCount); //position where the arc hits the component
+
+                Vector3 textPos = arcCom + new Vector3(0, 0, 0.01f);
+                canvasScript.VisualizeText(textPos, 3, index);
+                break;
+            case 1:
+                arcs[index].SetPosition(0, origin + (point - origin) / 4f);
+                arcs[index].SetPosition(1, new Vector3(origin.x, origin.y + (point.y - origin.y) / 4f, origin.z));
+
+                arcVec = arcs[index].GetPosition(0); //position where the arc hits the resultant vector
+                arcCom = arcs[index].GetPosition(arcs[index].positionCount); //position where the arc hits the component
+
+                textPos = arcCom + new Vector3(0, 0, 0.01f);
+                canvasScript.VisualizeText(textPos, 3, index);
+                break;
+            case 2:
+                arcs[index].SetPosition(0, origin + (point - origin) / 4f);
+                arcs[index].SetPosition(1, new Vector3(origin.x, origin.y, origin.z + (point.z - origin.z) / 4f));
+
+                arcVec = arcs[index].GetPosition(0); //position where the arc hits the resultant vector
+                arcCom = arcs[index].GetPosition(arcs[index].positionCount); //position where the arc hits the component
+
+                textPos = arcCom + new Vector3(0, 0, 0.01f);
+                canvasScript.VisualizeText(textPos, 3, index);
+                break;
+            default:
+                Debug.LogError("Error implementing CreateArcs in VectorMath.cs");
+                break;
+        }
+    }
+
     private void VisualizeComponent(Vector3 point, int index, Transform origin)
     {
         ZeroLR(axes);
         ZeroLR(units);
-        //ZeroLR(arcs);
         switch (index)
         {
             case 0:
@@ -157,24 +184,22 @@ public class VectorMath : MonoBehaviour
                 components[index].SetPosition(1, new Vector3(point.x, origin.position.y, origin.position.z));
                 canvasScript.VisualizeText(components[index].GetPosition(1), 0, index);
 
-                arcs[index].SetPosition(0, origin.position + (point - origin.position) / 4f);
-                arcs[index].SetPosition(1, new Vector3(origin.position.x + (point.x-origin.position.x)/4f, origin.position.y, origin.position.z));
+                CreateArcs(origin.position, point, index);
+                
                 break;
             case 1:
                 components[index].SetPosition(0, origin.position);
                 components[index].SetPosition(1, new Vector3(origin.position.x, point.y, origin.position.z));
                 canvasScript.VisualizeText(components[index].GetPosition(1), 0, index);
 
-                arcs[index].SetPosition(0, origin.position + (point - origin.position) / 4f);
-                arcs[index].SetPosition(1, new Vector3(origin.position.x, origin.position.y + (point.y - origin.position.y) / 4f, origin.position.z));
+                CreateArcs(origin.position, point, index);
                 break;
             case 2:
                 components[index].SetPosition(0, origin.position);
                 components[index].SetPosition(1, new Vector3(origin.position.x, origin.position.y, point.z));
                 canvasScript.VisualizeText(components[index].GetPosition(1), 0, index);
 
-                arcs[index].SetPosition(0, origin.position + (point - origin.position) / 4f);
-                arcs[index].SetPosition(1, new Vector3(origin.position.x, origin.position.y, origin.position.z + (point.z - origin.position.z) / 4f));
+                CreateArcs(origin.position, point, index);
                 break;
             case 3:
                 components[index].SetPosition(0, origin.position);

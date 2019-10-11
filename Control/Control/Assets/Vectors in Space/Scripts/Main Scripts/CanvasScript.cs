@@ -28,7 +28,6 @@ public class CanvasScript : MonoBehaviour
 
     [SerializeField, Tooltip("Resultant unit vector/magnitude")] private TextMeshPro rUnitText;
 
-
     [SerializeField] private TextMeshPro xAngleText;
 
     [SerializeField] private TextMeshPro yAngleText;
@@ -53,7 +52,6 @@ public class CanvasScript : MonoBehaviour
     #region Parents
     [SerializeField]
     private GameObject[] parents = new GameObject[3]; //0-comp, 1-axes, 2-unit
-
     #endregion
 
 
@@ -81,6 +79,9 @@ public class CanvasScript : MonoBehaviour
             case 2: //begin unit vectors
                 TMPAssignUnitVectors(component, end);
                 break;
+            case 3:
+                TMPAssignAngles(component, end);
+                break;
             default:
                 break;
         }
@@ -88,6 +89,38 @@ public class CanvasScript : MonoBehaviour
     #endregion
 
     #region Private Methods
+    private void TMPAssignAngles(int component, Vector3 point)
+    {
+        SetCorrectParentActive(0);
+        switch (component)
+        {
+            case 0:
+                xAngleText.transform.position = point;
+                Quaternion rotTowardsUser = Quaternion.LookRotation(xAngleText.transform.position - _camera.transform.position);
+                xAngleText.transform.rotation = Quaternion.Slerp(xAngleText.transform.rotation, rotTowardsUser, 1.5f);
+
+                xAngleText.text = angleX.ToString("N2") + "°";
+                break;
+            case 1:
+
+                yAngleText.transform.position = point + new Vector3(0.01f, 0.01f, 0.01f);
+                rotTowardsUser = Quaternion.LookRotation(yAngleText.transform.position - _camera.transform.position);
+                yAngleText.transform.rotation = Quaternion.Slerp(yAngleText.transform.rotation, rotTowardsUser, 1.5f);
+
+                yAngleText.text = angleY.ToString("N2") + "°";
+                break;
+            case 2:
+                zAngleText.transform.position = point + new Vector3(0.01f, 0.01f, 0.01f);
+                rotTowardsUser = Quaternion.LookRotation(zAngleText.transform.position - _camera.transform.position);
+                zAngleText.transform.rotation = Quaternion.Slerp(zAngleText.transform.rotation, rotTowardsUser, 1.5f);
+
+                zAngleText.text = angleZ.ToString("N2") + "°";
+                break;
+            default:
+                break;
+        }
+    }
+
     private void TMPAssignComponents(int component, Vector3 endPt)
     {
         SetCorrectParentActive(0);
@@ -228,6 +261,7 @@ public class CanvasScript : MonoBehaviour
                 break;
         }
     }
+
     private void SetAngleVals()
     {
         angleX = Mathf.Rad2Deg * Mathf.Acos(relPos.x / mag);
