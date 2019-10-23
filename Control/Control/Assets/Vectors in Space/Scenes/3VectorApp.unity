@@ -4399,7 +4399,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14ada5ed63ff0164eaec67cbfdfb79c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  angleText: {fileID: 1383054363}
+  angleText: {fileID: 1228539404}
   _inputModule: {fileID: 1946852107}
   _beam: {fileID: 1813943459}
   _angle: {fileID: 1400094403}
@@ -6443,10 +6443,6 @@ MonoBehaviour:
   - {fileID: 474798593}
   - {fileID: 714428614}
   - {fileID: 2114922525}
-  dots:
-  - {fileID: 2244636499579855897, guid: 2f6f53b823af7dc43a98588fc2a8de27, type: 3}
-  - {fileID: 2244636499579855897, guid: 2f6f53b823af7dc43a98588fc2a8de27, type: 3}
-  - {fileID: 2244636499579855897, guid: 2f6f53b823af7dc43a98588fc2a8de27, type: 3}
   arrowHead: {fileID: -927199367670048503, guid: 771b380dc80a7d44bb4c9e4ac852e20d,
     type: 3}
 --- !u!114 &1813943458
