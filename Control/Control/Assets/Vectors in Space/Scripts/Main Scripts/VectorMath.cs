@@ -178,10 +178,20 @@ public class VectorMath : MonoBehaviour
                 arcs[index].SetPosition(1, new Vector3(origin.position.x, origin.position.y + (point.y - origin.position.y) / 4f, origin.position.z));
 
 
-                Destroy(yArrow);
-                yArrow = Instantiate(arrowHead);
-                yArrow.transform.position = new Vector3(origin.position.x, point.y, origin.position.z);
-                yArrow.transform.Rotate(new Vector3(90, 0, 0), Space.Self);
+                if (point.y - origin.position.y > 0) //pos
+                {
+                    Destroy(yArrow);
+                    yArrow = Instantiate(arrowHead);
+                    yArrow.transform.position = new Vector3(origin.position.x, point.y, origin.position.z);
+                    yArrow.transform.Rotate(new Vector3(90, 0, 0), Space.Self);
+                }
+                else //neg
+                {
+                    Destroy(yArrow);
+                    yArrow = Instantiate(arrowHead);
+                    yArrow.transform.position = new Vector3(origin.position.x, point.y, origin.position.z);
+                    yArrow.transform.Rotate(new Vector3(270, 0, 0), Space.Self);
+                }
                 break;
             case 2:
                 components[index].SetPosition(0, origin.position);
