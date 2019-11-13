@@ -1660,7 +1660,7 @@ PrefabInstance:
     - target: {fileID: 114301182059694268, guid: b6af97b52b3429641aa904690975fa80,
         type: 3}
       propertyPath: m_LevelOfDetail
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114301182059694268, guid: b6af97b52b3429641aa904690975fa80,
         type: 3}
@@ -6447,7 +6447,7 @@ MonoBehaviour:
   - {fileID: 2244636499579855897, guid: 2f6f53b823af7dc43a98588fc2a8de27, type: 3}
   - {fileID: 2244636499579855897, guid: 2f6f53b823af7dc43a98588fc2a8de27, type: 3}
   - {fileID: 2244636499579855897, guid: 2f6f53b823af7dc43a98588fc2a8de27, type: 3}
-  arrowHead: {fileID: -927199367670048503, guid: 771b380dc80a7d44bb4c9e4ac852e20d,
+  arrowHead: {fileID: 1850798190924521931, guid: 4712c8a6d1f21e64ba7c0fbf32490f74,
     type: 3}
 --- !u!114 &1813943458
 MonoBehaviour:

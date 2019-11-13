@@ -2,16 +2,16 @@
  "entries": [
   {
    "compression": 8,
-   "hash": "91147e148a7b7e5f6fb37dad893fb30ca0107566",
+   "hash": "e03aba796b451b5b9f83dd804c086ff5d3fd29a2",
    "pkgpath": "Data/Managed/Metadata/global-metadata.dat",
-   "size": 3292784,
+   "size": 3293096,
    "src": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/Temp/StagingArea/Data/Managed/Metadata/global-metadata.dat"
   },
   {
    "compression": 8,
-   "hash": "696edbb53779895185265170e1d65b1e2b0ca40d",
+   "hash": "bc33bdd560177b2891537c764365cc7e789b4c16",
    "pkgpath": "bin/libil2cpp.so",
-   "size": 51501184,
+   "size": 51506584,
    "src": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/Temp/StagingArea/Data/Native/libil2cpp.so",
    "xfrm_flags": {
     "signed": {
@@ -23,9 +23,9 @@
      "version": 3
     }
    },
-   "xfrm_hash": "78dac58e0c44d426d44ef7b6e7d25805b7bde4fb",
+   "xfrm_hash": "d15a1ff4331edc7cf450ab294aaf89626d7737de",
    "xfrm_path": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/.out/.cache/debug_lumin_clang-3.8_aarch64/com.rdp.vectorsinspaceunstable-f860921921163a0f\\libil2cpp.so-39ee3aaf7b998d6e",
-   "xfrm_size": 51501942
+   "xfrm_size": 51507342
   },
   {
    "compression": 8,
@@ -242,14 +242,14 @@
   },
   {
    "compression": 8,
-   "hash": "bc3fdb7481286ab237fb622a81dfb0f30c20b5bb",
+   "hash": "5a7d9fcde5da83d6e2babd7aa40db1580dafb9d9",
    "pkgpath": "Data/globalgamemanagers",
-   "size": 46520,
+   "size": 46504,
    "src": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/Temp/StagingArea/Data/globalgamemanagers"
   },
   {
    "compression": 8,
-   "hash": "ca517e8964f14fdc1bd3254ddc5615d61f989a8d",
+   "hash": "698fa0027f60894545d86c68df4c9114af729357",
    "pkgpath": "Data/globalgamemanagers.assets",
    "size": 50084,
    "src": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/Temp/StagingArea/Data/globalgamemanagers.assets"
@@ -263,9 +263,9 @@
   },
   {
    "compression": 8,
-   "hash": "d5dcd383a13e8a16384913e3e6592ed139d6a208",
+   "hash": "5cd9773229e2ae0e4addfa7b99263d6dfb547f2d",
    "pkgpath": "Data/level0",
-   "size": 45108,
+   "size": 49148,
    "src": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/Temp/StagingArea/Data/level0"
   },
   {
@@ -277,23 +277,23 @@
   },
   {
    "compression": 8,
-   "hash": "8452dc3b5a8278f0cb913f6770bc3e52c8afc4bf",
+   "hash": "e053b3c3e966b689491ee63717701365e86da025",
    "pkgpath": "Data/resources.assets",
-   "size": 1116896,
+   "size": 1116760,
    "src": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/Temp/StagingArea/Data/resources.assets"
   },
   {
    "compression": 8,
-   "hash": "67b3a11ed83160322ae09a8cd7f950feb8c4cfc9",
+   "hash": "81e63ba01f6d09f20a9844108bab4157279b47c0",
    "pkgpath": "Data/resources.assets.resS",
-   "size": 1758608,
+   "size": 1409064,
    "src": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/Temp/StagingArea/Data/resources.assets.resS"
   },
   {
    "compression": 8,
-   "hash": "d8c3e9547362d2562720544a8678e65c851ad3dd",
+   "hash": "3c69b97763c072300ecea082be701594aafb4d46",
    "pkgpath": "Data/sharedassets0.assets",
-   "size": 1137416,
+   "size": 1135848,
    "src": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/Temp/StagingArea/Data/sharedassets0.assets"
   },
   {
@@ -328,7 +328,7 @@
    "hash": "5925de9f4d7b83c65d1fd7b25ced5f0bf8c27e73",
    "pkgpath": "bin/libc++_shared.so",
    "size": 976832,
-   "src": "C:/Users/13052/MagicLeap/mlsdk/v0.21.0/lumin/stl/libc++/lib/libc++_shared.so",
+   "src": "C:/Users/13052/MagicLeap/mlsdk/v0.22.0/lumin/stl/libc++/lib/libc++_shared.so",
    "xfrm_flags": {
     "signed": {
      "cert": "C:\\Users\\13052\\MagicLeap\\certificates\\firstdev.cert"
@@ -340,7 +340,7 @@
     }
    },
    "xfrm_hash": "bacc3af59ce013b5613f26f52957e4079271a274",
-   "xfrm_path": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/.out/.cache/debug_lumin_clang-3.8_aarch64/com.rdp.vectorsinspaceunstable-f860921921163a0f\\libc++_shared.so-8539984cad93bf18",
+   "xfrm_path": "C:/Users/13052/Documents/Unity Projects/Vector_Analysis_XR_Desktop/Control/Control/.out/.cache/debug_lumin_clang-3.8_aarch64/com.rdp.vectorsinspaceunstable-f860921921163a0f\\libc++_shared.so-d68d1146760d2da1",
    "xfrm_size": 977590
   },
   {

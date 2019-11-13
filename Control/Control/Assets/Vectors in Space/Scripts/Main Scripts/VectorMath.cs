@@ -12,6 +12,8 @@ public class VectorMath : MonoBehaviour
     private float relMag, adjustedPos;
     private Vector3 relPos;
 
+    private GameObject xArrow, yArrow, zArrow;
+
     private CanvasScript canvasScript = null;
     #endregion
 
@@ -104,6 +106,7 @@ public class VectorMath : MonoBehaviour
         ZeroLR(components);
         ZeroLR(units);
         ZeroLR(arcs);
+        Destroy(xArrow); Destroy(yArrow); Destroy(zArrow);
         switch (index)
         {
             case 0:
@@ -159,6 +162,12 @@ public class VectorMath : MonoBehaviour
 
                 arcs[index].SetPosition(0, origin.position + (point - origin.position) / 4f);
                 arcs[index].SetPosition(1, new Vector3(origin.position.x + (point.x-origin.position.x)/4f, origin.position.y, origin.position.z));
+
+                Destroy(xArrow);
+                xArrow = Instantiate(arrowHead);
+                xArrow.transform.position = new Vector3(point.x, origin.position.y, origin.position.z);
+                xArrow.transform.Rotate(new Vector3(0, 270, 0), Space.Self);
+
                 break;
             case 1:
                 components[index].SetPosition(0, origin.position);
@@ -167,6 +176,12 @@ public class VectorMath : MonoBehaviour
 
                 arcs[index].SetPosition(0, origin.position + (point - origin.position) / 4f);
                 arcs[index].SetPosition(1, new Vector3(origin.position.x, origin.position.y + (point.y - origin.position.y) / 4f, origin.position.z));
+
+
+                Destroy(yArrow);
+                yArrow = Instantiate(arrowHead);
+                yArrow.transform.position = new Vector3(origin.position.x, point.y, origin.position.z);
+                yArrow.transform.Rotate(new Vector3(90, 0, 0), Space.Self);
                 break;
             case 2:
                 components[index].SetPosition(0, origin.position);
@@ -175,6 +190,12 @@ public class VectorMath : MonoBehaviour
 
                 arcs[index].SetPosition(0, origin.position + (point - origin.position) / 4f);
                 arcs[index].SetPosition(1, new Vector3(origin.position.x, origin.position.y, origin.position.z + (point.z - origin.position.z) / 4f));
+
+
+                Destroy(zArrow);
+                zArrow = Instantiate(arrowHead);
+                zArrow.transform.position = new Vector3(origin.position.x, origin.position.y, point.z);
+                zArrow.transform.Rotate(new Vector3(0, 180, 0), Space.Self);
                 break;
             case 3:
                 components[index].SetPosition(0, origin.position);
@@ -192,6 +213,7 @@ public class VectorMath : MonoBehaviour
         ZeroLR(axes);
         ZeroLR(components);
         ZeroLR(arcs);
+        Destroy(xArrow); Destroy(yArrow); Destroy(zArrow);
         switch (index)
         {
             case 0:

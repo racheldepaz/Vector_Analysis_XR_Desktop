@@ -49,6 +49,6 @@
  },
  {
   "dest": "bin/libc++_shared.so",
-  "src": "C:/Users/13052/MagicLeap/mlsdk/v0.21.0/lumin/stl/libc++/lib/libc++_shared.so"
+  "src": "C:/Users/13052/MagicLeap/mlsdk/v0.22.0/lumin/stl/libc++/lib/libc++_shared.so"
  }
 ]
