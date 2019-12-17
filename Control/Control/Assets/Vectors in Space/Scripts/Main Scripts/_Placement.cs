@@ -9,7 +9,6 @@ namespace MagicLeap
     /// <summary>                    
     /// This class allows the user to place their desired object at a valid location.
     /// </summary>
-    [RequireComponent(typeof(Placement))]
     [RequireComponent(typeof(VectorMath))]
     public class _Placement : MonoBehaviour
     {
@@ -17,7 +16,7 @@ namespace MagicLeap
         public GameObject menuPanel;
         public GameObject regularCanvas;
         public float measurementFactor = 1f;
-        public Text debug = null; 
+        //public Text debug = null; 
         #endregion
 
         #region Serialized Variables
@@ -54,8 +53,6 @@ namespace MagicLeap
 
         private float lastY, lastX, magTouchY, magTouchX; //values to compare touchpad swipe x,y pos
 
-        //References to Placement and PlacementObject scripts
-        private Placement _placement = null;
         private PlacementObject _placementObject = null;
         private VectorMath _vectorMath = null;
         private ChangeViewModes modes = null;
@@ -93,7 +90,6 @@ namespace MagicLeap
             regularCanvas.SetActive(true);
             menuPanel.SetActive(false);
 
-            _placement = GetComponent<Placement>();
             _vectorMath = GetComponent<VectorMath>();
             modes = GetComponent<ChangeViewModes>(); 
 
@@ -116,8 +112,6 @@ namespace MagicLeap
             MLInput.OnControllerButtonDown += HandleOnButtonDown;
 
             HandlePlacementFree(_controllerConnectionHandler.ConnectedController.Position + transform.forward);
-
-           
         }
 
         void Update()
@@ -267,7 +261,7 @@ namespace MagicLeap
 
 
                     content0.transform.position = targetPos;
-                    content0.transform.rotation = transform.rotation * Quaternion.Euler(Vector3.up);           
+                    content0.transform.rotation = Quaternion.Euler(Vector3.up);
                     break;
                 case 1:
                     Destroy(content1);
@@ -277,9 +271,10 @@ namespace MagicLeap
                     Vector3 sourcePos1 = _controllerConnectionHandler.ConnectedController.Position;
                     Vector3 targetPos1 = beamPos;
                     content1.transform.position = targetPos1;
+                    content1.transform.rotation = new Quaternion(beamPos.x, beamPos.y, beamPos.z, 0);
 
-                    debug.text = "pos: " + content1.transform.position.ToString() + "rot: " + content1.transform.rotation;
-
+                    // debug.text = "pos: " + content1.transform.position.ToString() + "rot: " + content1.transform.rotation;
+                  //  _vectorMath.ShowResultantArrowhead(content1.transform.position, content0.transform);
                     VectorVisualizer(content1.transform.position);  
                     break;
             }
