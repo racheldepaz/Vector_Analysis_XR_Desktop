@@ -101,6 +101,7 @@ public class VectorMath : MonoBehaviour
             }
         }
     }
+
     #endregion
 
     #region Private Methods
@@ -109,7 +110,6 @@ public class VectorMath : MonoBehaviour
         ZeroLR(components);
         ZeroLR(units);
         ZeroLR(arcs);
-      //  ShowResultantArrowhead(point, origin);
         // Destroy(xArrow); Destroy(yArrow); Destroy(zArrow);
         AddArrowHead(origin.position + Vector3.one, index, origin);
         switch (index)
@@ -189,7 +189,6 @@ public class VectorMath : MonoBehaviour
                 components[index].SetPosition(0, origin.position);
                 components[index].SetPosition(1, point);
                 canvasScript.VisualizeText(components[index].GetPosition(1), 0, index);
-               // ShowResultantArrowhead(point, origin);
               //  AddArrowHead(point, index, origin);
                 break;
             default:
@@ -223,7 +222,6 @@ public class VectorMath : MonoBehaviour
         ZeroLR(axes);
         ZeroLR(components);
         ZeroLR(arcs);
-      //  ShowResultantArrowhead(point, origin);
         switch (index)
         {
             case 0:
@@ -263,7 +261,6 @@ public class VectorMath : MonoBehaviour
                 break;
         }
     }
-
 
     private void AddArrowHead(Vector3 point, int index, Transform origin)
     {
@@ -308,6 +305,12 @@ public class VectorMath : MonoBehaviour
                     zArrow.transform.Rotate(new Vector3(0, 180, 0), Space.Self);
                 else
                     zArrow.transform.Rotate(new Vector3(0, 0, 0));
+                break;
+            case 3:
+                Destroy(rArrow);
+                rArrow = Instantiate(arrowHead);
+
+                rArrow.transform.LookAt(origin.position);
                 break;
             default:
                 Debug.Log("Error with VectorMath:AddArrowhead");  //bruh moment

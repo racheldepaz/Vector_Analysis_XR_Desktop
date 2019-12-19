@@ -142,14 +142,13 @@ namespace MagicLeap
                 }
 
                 if (index == 2)
-                    placementComplete = true;
+                { placementComplete = true; inPlacementState = false; }
+            }
 
-                if (placementComplete)
-                {
-                    _instructionLabel.text = "";
-                    VectorVisualizer(content1.transform.position);
-                 
-                }
+            if (placementComplete)
+            {
+                _instructionLabel.text = "";
+                VectorVisualizer(content1.transform.position);
             }
         }
 
@@ -270,14 +269,15 @@ namespace MagicLeap
 
                     Vector3 sourcePos1 = _controllerConnectionHandler.ConnectedController.Position;
                     Vector3 targetPos1 = beamPos;
-                    content1.transform.position = targetPos1;
-                    content1.transform.rotation = new Quaternion(beamPos.x, beamPos.y, beamPos.z, 0);
 
-                    // debug.text = "pos: " + content1.transform.position.ToString() + "rot: " + content1.transform.rotation;
-                  //  _vectorMath.ShowResultantArrowhead(content1.transform.position, content0.transform);
+                    content1.transform.position = targetPos1;
                     VectorVisualizer(content1.transform.position);  
                     break;
+                default:
+                    VectorVisualizer(content1.transform.position);
+                    break;
             }
+            
         }
 
         //thx Ryan!!!
