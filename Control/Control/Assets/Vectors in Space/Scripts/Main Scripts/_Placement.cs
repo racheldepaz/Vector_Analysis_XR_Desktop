@@ -15,7 +15,6 @@ namespace MagicLeap
         #region Public Variables
         public GameObject menuPanel;
         public GameObject regularCanvas;
-        public float measurementFactor = 1f;
         //public Text debug = null; 
         #endregion
 
@@ -29,7 +28,7 @@ namespace MagicLeap
         [SerializeField, Tooltip("The Text element that will display the displayed component")]
         private Text _viewLabel = null; 
 
-        [SerializeField, Tooltip("The placement object used in the scene.")]
+        [SerializeField, Tooltip("The placement object used in the scene. Object 0: Origin, Object 1: Point")]
         private GameObject[] placementPoint = null;
 
         [SerializeField, Tooltip("Where you want to drop all the instantiated elements of the visualization")]
@@ -38,20 +37,19 @@ namespace MagicLeap
         [Tooltip("speed to push/pull objects using trackpad - meters per second")]
         public float pushRate;
 
-        [Tooltip("rotate transform around Y axis if grabbed - angles per second")]
-        public float rotateRate;
-        #endregion
+        //Remove these commnents if you want to make it so that the objects are rotatable
+        //[Tooltip("rotate transform around Y axis if grabbed - angles per second")]
+        //public float rotateRate;
 
-        #region Private Variables
-        private float rotateChange;
         private MLInputControllerFeedbackColorLED _color;
 
         private LineRenderer beam;
 
-        private int index;
-        private int bumperindex; 
+        private int index; //denotes what placement mode you are on. index = 0, placing the origin; index = 1, placing the point; index = 2, point placed
+        private int bumperIndex; //denotes what visualization mode you are on. bumperIndex = 0, components, bumperIndex = 2, unit components
 
-        private float lastY, lastX, magTouchY, magTouchX; //values to compare touchpad swipe x,y pos
+        private float lastY, lastX; //last (x, y) pos on touchpad
+        private float magTouchX, magTouchY; //multipliers for the length of the raycast on the controller 
 
         private PlacementObject _placementObject = null;
         private VectorMath _vectorMath = null;
@@ -79,7 +77,7 @@ namespace MagicLeap
             }
 
             index = 0;
-            bumperindex = 0; 
+            bumperIndex = 0; 
 
 
             placementComplete = false;
@@ -97,10 +95,11 @@ namespace MagicLeap
             {
                 pushRate = 1;
             }
-            if (rotateRate == 0)
-            {
-                rotateRate = 180;
-            }
+
+            //if (rotateRate == 0)
+            //{
+            //    rotateRate = 180;
+            //}
 
             magTouchX = 1; magTouchY = 1;
 
@@ -212,18 +211,18 @@ namespace MagicLeap
                 if (bumperFirstPress == true)
                     bumperFirstPress = false;
 
-                switch (bumperindex)                 //omg. my mind. i love me. 
+                switch (bumperIndex)                 //omg. my mind. i love me. 
                 {
                     case 0:
-                        bumperindex++;
+                        bumperIndex++;
                         _viewLabel.text = "Now viewing: Axes";
                         break;
                     case 1:
-                        bumperindex++;
+                        bumperIndex++;
                         _viewLabel.text = "Now viewing: Unit Vectors ";
                         break;
                     case 2:
-                        bumperindex = 0;
+                        bumperIndex = 0;
                         _viewLabel.text = "Now viewing: Components";
                         break;
                     default:
@@ -242,7 +241,7 @@ namespace MagicLeap
         /// <param name="newPlacement">The vector position</param>
         private void VectorVisualizer(Vector3 newPlacement)
         {
-            _vectorMath.VectorComponents(newPlacement, content0.transform, bumperindex);
+            _vectorMath.VectorComponents(newPlacement, content0.transform, bumperIndex);
         }
 
         private void HandlePlacementFree(Vector3 beamPos)
